@@ -26,7 +26,7 @@ class AppDrawer extends StatelessWidget {
                   child: Text("Home", style: Theme.of(context).textTheme.labelLarge)
               ),
               TextButton(
-                  onPressed: () => onDrawerItemClick(context, 1),
+                  onPressed: () => onDrawerItemClick(context, 4),
                   child: Text("Movies", style: Theme.of(context).textTheme.labelLarge)
               )
             ],

@@ -20,7 +20,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return BottomNavigationBar(
         selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.white,
-        currentIndex: widget.selectedIndex,
+        // If the index is larger, we are changing the tabs with the drawer
+        currentIndex: widget.selectedIndex > 3 ? 0 : widget.selectedIndex,
         onTap: widget.onItemSelected,
         items: const [
           BottomNavigationBarItem(

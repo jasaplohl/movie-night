@@ -3,6 +3,7 @@ import 'package:movie_night/screens/home/favourites_screen.dart';
 import 'package:movie_night/screens/home/movies_screen.dart';
 import 'package:movie_night/screens/home/search_screen.dart';
 import 'package:movie_night/screens/home/watched_screen.dart';
+import 'package:movie_night/screens/movie/movies_genre_screen.dart';
 import 'package:movie_night/widgets/bottom_navigation.dart';
 
 import '../widgets/drawer.dart';
@@ -14,7 +15,8 @@ class HomeScreen extends StatefulWidget {
     const MoviesScreen(),
     const SearchScreen(),
     const FavouritesScreen(),
-    const WatchedScreen()
+    const WatchedScreen(),
+    const MoviesGenreScreen()
   ];
 
   HomeScreen({Key? key}) : super(key: key);
