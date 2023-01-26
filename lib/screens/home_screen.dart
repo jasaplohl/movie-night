@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/widgets/drawer.dart';
 import 'package:movie_night/widgets/movie_card.dart';
+import 'package:movie_night/widgets/movie_row.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,13 +14,33 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  List<Movie>? movies;
+  List<Movie>? popularMovies;
+  List<Movie>? topRatedMovies;
+  List<Movie>? upcomingMovies;
 
   @override
   void initState() {
-    getPopularMovies(page: 1).then((List<Movie> value) {
+    getPopularMovies().then((List<Movie> value) {
       setState(() {
-        movies = value;
+        popularMovies = value;
+      });
+    }).catchError((err) {
+      // TODO: display error messages
+      print(err);
+    });
+
+    getTopRatedMovies().then((List<Movie> value) {
+      setState(() {
+        topRatedMovies = value;
+      });
+    }).catchError((err) {
+      // TODO: display error messages
+      print(err);
+    });
+
+    getUpcomingMovies().then((List<Movie> value) {
+      setState(() {
+        upcomingMovies = value;
       });
     }).catchError((err) {
       // TODO: display error messages
@@ -31,20 +53,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: movies == null
-        ? const Center(
-          child: Text("Movie list"),
-        )
-        : SizedBox(
-            height: 250,
-            child: ListView.builder(
-              itemCount: movies!.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return MovieCard(movie: movies![index]);
-              },
-            ),
-        ),
+      drawer: const AppDrawer(),
+      body: ListView(
+        children: [
+          MovieRow(
+            title: "Popular",
+            movies: popularMovies
+          ),
+          MovieRow(
+            title: "Top Rated",
+            movies: topRatedMovies
+          ),
+          MovieRow(
+            title: "Upcoming",
+            movies: upcomingMovies
+          ),
+        ],
+      ),
     );
   }
 }

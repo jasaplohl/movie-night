@@ -4,10 +4,24 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_night/models/movie_model.dart';
 
-Future<List<Movie>> getPopularMovies({required int page}) async {
-  final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
+Future<List<Movie>> getPopularMovies({int page = 1}) async {
   final String apiRoot = dotenv.env["API_ROOT"]!;
-  final res = await http.get(Uri.parse("$apiRoot/movie/popular?page=$page"), headers: {
+  return await _getMovies("$apiRoot/movie/popular?page=$page");
+}
+
+Future<List<Movie>> getTopRatedMovies({int page = 1}) async {
+  final String apiRoot = dotenv.env["API_ROOT"]!;
+  return await _getMovies("$apiRoot/movie/top_rated?page=$page");
+}
+
+Future<List<Movie>> getUpcomingMovies({int page = 1}) async {
+  final String apiRoot = dotenv.env["API_ROOT"]!;
+  return await _getMovies("$apiRoot/movie/upcoming?page=$page");
+}
+
+Future<List<Movie>> _getMovies(String url) async {
+  final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
+  final res = await http.get(Uri.parse(url), headers: {
     "Authorization": "Bearer $accessToken"
   });
   final dynamic body = jsonDecode(res.body);

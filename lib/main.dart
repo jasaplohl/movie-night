@@ -16,7 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MovieWatch',
       theme: ThemeData.dark().copyWith(
-        primaryColorLight: Colors.amber
+        primaryColorLight: Colors.amber,
+        textTheme: const TextTheme(
+          labelLarge: TextStyle(
+              color: Colors.amber
+          ),
+          headlineMedium: TextStyle(
+            color: Colors.amber
+          )
+        )
       ),
       home: const HomeScreen(),
     );
