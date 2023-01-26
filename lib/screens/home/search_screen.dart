@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
-  static const routeName = "search";
-
   const SearchScreen({Key? key}) : super(key: key);
 
   @override

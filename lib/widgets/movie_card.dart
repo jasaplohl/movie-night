@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/screens/movie/movie_details.dart';
 import 'package:movie_night/services/movie_service.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
   const MovieCard({Key? key, required this.movie}) : super(key: key);
+
+  void onMoviePress(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetails(movie: movie),));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +21,14 @@ class MovieCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.network(
-                  getImageUrl(movie.posterPath!),
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 300
+              GestureDetector(
+                onTap: () => onMoviePress(context),
+                child: Image.network(
+                    getImageUrl(movie.posterPath!),
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 300
+                ),
               ),
               Row(
                 children: [

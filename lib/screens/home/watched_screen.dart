@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class WatchedScreen extends StatefulWidget {
-  static const routeName = "watched";
-
   const WatchedScreen({Key? key}) : super(key: key);
 
   @override

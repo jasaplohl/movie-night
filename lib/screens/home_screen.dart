@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/screens/home/favourites_screen.dart';
+import 'package:movie_night/screens/home/general_screen.dart';
 import 'package:movie_night/screens/home/movies_screen.dart';
 import 'package:movie_night/screens/home/search_screen.dart';
 import 'package:movie_night/screens/home/watched_screen.dart';
@@ -9,13 +10,12 @@ import 'package:movie_night/widgets/bottom_navigation.dart';
 import '../widgets/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const routeName = "home";
-
   final List<Widget> pages = [
-    const MoviesScreen(),
+    const GeneralScreen(),
     const SearchScreen(),
     const FavouritesScreen(),
     const WatchedScreen(),
+    const MoviesScreen(),
     const MoviesGenreScreen()
   ];
 

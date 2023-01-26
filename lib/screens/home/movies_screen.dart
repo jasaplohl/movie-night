@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/services/movie_service.dart';
-import 'package:movie_night/widgets/drawer.dart';
 import 'package:movie_night/widgets/movie_row.dart';
 
 class MoviesScreen extends StatefulWidget {
-  static const routeName = "movies";
   const MoviesScreen({Key? key}) : super(key: key);
 
   @override

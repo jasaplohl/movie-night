@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class FavouritesScreen extends StatefulWidget {
-  static const routeName = "favourites";
-
   const FavouritesScreen({Key? key}) : super(key: key);
 
   @override
