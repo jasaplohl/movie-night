@@ -19,6 +19,11 @@ Future<List<Movie>> getUpcomingMovies({int page = 1}) async {
   return await _getMovies("$apiRoot/movie/upcoming?page=$page");
 }
 
+String getImageUrl(String imageName) {
+  String url = "https://image.tmdb.org/t/p/w200/$imageName";
+  return url;
+}
+
 Future<List<Movie>> _getMovies(String url) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
   final res = await http.get(Uri.parse(url), headers: {

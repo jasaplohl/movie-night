@@ -14,16 +14,18 @@ class MovieRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: Theme.of(context).textTheme.headlineMedium),
+        movies == null ?
+        Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
+          ),
+        ) :
         SizedBox(
-          height: 250,
-          child: movies == null ? Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
-            ),
-          ) :
-          ListView.builder(
+          height: 400,
+          child: ListView.builder(
             itemCount: movies!.length,
             scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
             itemBuilder: (context, index) {
               return MovieCard(movie: movies![index]);
             },

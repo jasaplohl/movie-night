@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
         primaryColorLight: Colors.amber,
         textTheme: const TextTheme(
           labelLarge: TextStyle(
-              color: Colors.amber
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 17
           ),
           headlineMedium: TextStyle(
             color: Colors.amber
