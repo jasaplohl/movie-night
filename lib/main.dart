@@ -15,10 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MovieWatch',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData.dark().copyWith(
+        primaryColorLight: Colors.amber
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
