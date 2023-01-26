@@ -1,76 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/movie_model.dart';
-import 'package:movie_night/services/movie_service.dart';
-import 'package:movie_night/widgets/drawer.dart';
-import 'package:movie_night/widgets/movie_card.dart';
-import 'package:movie_night/widgets/movie_row.dart';
+import 'package:movie_night/screens/home/favourites_screen.dart';
+import 'package:movie_night/screens/home/movies_screen.dart';
+import 'package:movie_night/screens/home/search_screen.dart';
+import 'package:movie_night/screens/home/watched_screen.dart';
+import 'package:movie_night/widgets/bottom_navigation.dart';
+
+import '../widgets/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  static const routeName = "home";
+
+  final List<Widget> pages = [
+    const MoviesScreen(),
+    const SearchScreen(),
+    const FavouritesScreen(),
+    const WatchedScreen()
+  ];
+
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int currentPage = 0;
 
-  List<Movie>? popularMovies;
-  List<Movie>? topRatedMovies;
-  List<Movie>? upcomingMovies;
-
-  @override
-  void initState() {
-    getPopularMovies().then((List<Movie> value) {
-      setState(() {
-        popularMovies = value;
-      });
-    }).catchError((err) {
-      // TODO: display error messages
-      print(err);
+  void pageChange(int index) {
+    setState(() {
+      currentPage = index;
     });
-
-    getTopRatedMovies().then((List<Movie> value) {
-      setState(() {
-        topRatedMovies = value;
-      });
-    }).catchError((err) {
-      // TODO: display error messages
-      print(err);
-    });
-
-    getUpcomingMovies().then((List<Movie> value) {
-      setState(() {
-        upcomingMovies = value;
-      });
-    }).catchError((err) {
-      // TODO: display error messages
-      print(err);
-    });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const AppDrawer(),
-      body: ListView(
-        children: [
-          MovieRow(
-            title: "Popular",
-            movies: popularMovies
-          ),
-          MovieRow(
-            title: "Top Rated",
-            movies: topRatedMovies
-          ),
-          MovieRow(
-            title: "Upcoming",
-            movies: upcomingMovies
-          ),
-        ],
-      ),
+      drawer: AppDrawer(selectedIndex: currentPage, onItemSelected: pageChange),
+      bottomNavigationBar: BottomNavigation(selectedIndex: currentPage, onItemSelected: pageChange),
+      body: widget.pages[currentPage],
     );
   }
 }
-

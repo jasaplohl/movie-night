@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  final int selectedIndex;
+  final void Function(int) onItemSelected;
 
-  void redirect(String path) {
-    print("Go to path: $path");
+  const AppDrawer({
+    Key? key,
+    required this.selectedIndex,
+    required this.onItemSelected
+  }) : super(key: key);
+
+  void onDrawerItemClick(BuildContext context, int index) {
+    Navigator.pop(context);
+    onItemSelected(index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: ListView(
             children: [
-              OutlinedButton(
-                  onPressed: () => redirect("upcoming"),
-                  child: const Text("Upcomming")
+              TextButton(
+                  onPressed: () => onDrawerItemClick(context, 0),
+                  child: Text("Home", style: Theme.of(context).textTheme.labelLarge)
+              ),
+              TextButton(
+                  onPressed: () => onDrawerItemClick(context, 1),
+                  child: Text("Movies", style: Theme.of(context).textTheme.labelLarge)
               )
             ],
           )

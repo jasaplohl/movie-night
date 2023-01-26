@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/screens/home/favourites_screen.dart';
 import 'package:movie_night/screens/home_screen.dart';
+import 'package:movie_night/screens/home/movies_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:movie_night/screens/home/search_screen.dart';
+import 'package:movie_night/screens/home/watched_screen.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -28,7 +32,11 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
+      routes: {
+        HomeScreen.routeName: (context) => HomeScreen(),
+        MoviesScreen.routeName: (context) => const MoviesScreen(),
+      },
     );
   }
 }
