@@ -20,8 +20,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   Widget getBody() {
     if(movieDetails == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
+      return Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
+        ),
       );
     } else {
       return ListView(

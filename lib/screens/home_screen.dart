@@ -34,6 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+
+  // TODO: Remove app bar from root -> each subpage has its own app bar - only home page has the drawer or tabs
   @override
   Widget build(BuildContext context) {
     return Scaffold(
