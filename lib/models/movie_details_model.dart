@@ -12,6 +12,8 @@ class MovieDetails {
   final dynamic genres;
   final String? homePage;
   final String originalLanguage;
+  final String? tagline;
+  final List<dynamic>? videos;
 
   MovieDetails({
     required this.id,
@@ -27,24 +29,27 @@ class MovieDetails {
     this.genres,
     this.homePage,
     required this.originalLanguage,
+    this.tagline,
+    this.videos
   });
 
   factory MovieDetails.fromJson(dynamic json) {
-    // TODO:
     return MovieDetails(
       id: json["id"],
-      originalTitle: json["id"],
-      title: json["id"],
-      voteAverage: json["id"],
-      releaseDate: json["id"],
-      overview: json["id"],
-      adult: json["id"],
-      belongsToCollection: json["id"],
-      posterPath: json["id"],
-      backdropPath: json["id"],
-      genres: json["id"],
-      homePage: json["id"],
-      originalLanguage: json["id"],
+      originalTitle: json["original_title"],
+      title: json["title"],
+      voteAverage: json["vote_average"],
+      releaseDate: json["release_date"],
+      tagline: json["tagline"],
+      overview: json["overview"],
+      adult: json["adult"],
+      belongsToCollection: json["belongs_to_collection"],
+      posterPath: json["poster_path"],
+      backdropPath: json["backdrop_path"],
+      genres: json["genres"],
+      homePage: json["homepage"],
+      originalLanguage: json["original_language"],
+      videos: json["videos"]["results"]
     );
   }
 }

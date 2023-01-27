@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_details_model.dart';
+import 'package:movie_night/services/movie_service.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
@@ -15,6 +16,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   void initState() {
+    getMovieDetails(widget.movieId).then((MovieDetails value) {
+      setState(() {
+        movieDetails = value;
+      });
+    }).catchError((err) {
+      print(err);
+    });
     super.initState();
   }
 
@@ -26,9 +34,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
       );
     } else {
+      print(movieDetails!.videos);
       return ListView(
         children: [
-          Text(movieDetails!.title, style: Theme.of(context).textTheme.headlineMedium),
+          Text(movieDetails!.title, style: Theme.of(context).textTheme.headlineLarge),
+          Row(
+            children: [
+              Icon(Icons.star, color: Theme.of(context).primaryColorLight),
+              Text(movieDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,)
+            ],
+          ),
+          if(movieDetails!.videos != null && movieDetails!.videos!.isNotEmpty) Text(movieDetails!.videos![0].toString()),
+          if(movieDetails!.backdropPath != null) Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
           Text(movieDetails!.overview ?? "No description available")
         ],
       );
