@@ -8,7 +8,7 @@ class MovieCard extends StatelessWidget {
   const MovieCard({Key? key, required this.movie}) : super(key: key);
 
   void onMoviePress(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetails(movie: movie),));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: movie.id),));
   }
 
   @override

@@ -4,7 +4,7 @@ class Movie {
   final String title;
   final num voteAverage;
   final String releaseDate;
-  final String overview;
+  final String? overview;
   final bool adult;
   final String? posterPath;
   final List<dynamic> genreIds;
