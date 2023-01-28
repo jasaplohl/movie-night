@@ -11,8 +11,8 @@ class HomeScreen extends StatelessWidget {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
+            title: Text("MovieNight", style: Theme.of(context).textTheme.headlineSmall),
             bottom: TabBar(
-
                 indicatorColor: Theme.of(context).primaryColorLight,
                 tabs: const [
                   Tab(icon: Icon(Icons.home),),

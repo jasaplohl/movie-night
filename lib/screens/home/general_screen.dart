@@ -12,6 +12,7 @@ class GeneralScreen extends StatefulWidget {
 
 class _GeneralScreenState extends State<GeneralScreen> {
 
+  List<Movie>? popularTvShows;
   List<Movie>? popularMovies;
 
   @override
@@ -32,8 +33,16 @@ class _GeneralScreenState extends State<GeneralScreen> {
     return ListView(
         children: [
           MovieRow(
-              title: "Popular",
+              title: "Movies",
               movies: popularMovies
+          ),
+          MovieRow(
+              title: "TV Shows",
+              movies: popularTvShows
+          ),
+          MovieRow(
+              title: "People",
+              movies: popularTvShows
           ),
         ],
     );

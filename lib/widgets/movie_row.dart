@@ -13,7 +13,10 @@ class MovieRow extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.headlineMedium),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
+        ),
         movies == null ?
         Center(
           child: CircularProgressIndicator(

@@ -23,9 +23,13 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 17
           ),
+          headlineSmall: TextStyle(
+            color: Colors.amber,
+            fontWeight: FontWeight.bold,
+          ),
           headlineMedium: TextStyle(
-            color: Colors.amber
-          )
+            fontWeight: FontWeight.bold,
+          ),
         )
       ),
       home: RootScreen(),
