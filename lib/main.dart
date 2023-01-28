@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/screens/home_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:movie_night/screens/movie/movie_details.dart';
-
-import 'models/movie_model.dart';
+import 'package:movie_night/screens/root_screen.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -31,7 +28,7 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      home: HomeScreen(),
+      home: RootScreen(),
     );
   }
 }

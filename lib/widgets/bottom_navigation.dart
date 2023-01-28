@@ -21,7 +21,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.white,
         // If the index is larger, we are changing the tabs with the drawer
-        currentIndex: widget.selectedIndex > 3 ? 0 : widget.selectedIndex,
+        currentIndex: widget.selectedIndex,
         onTap: widget.onItemSelected,
         items: const [
           BottomNavigationBarItem(
@@ -33,12 +33,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
             label: "Search",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Favourite"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: "Watched"
+            icon: Icon(Icons.person),
+            label: "Profile"
           ),
         ]
     );
