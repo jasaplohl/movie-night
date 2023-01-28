@@ -1,30 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/movie_model.dart';
-import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/screens/home/general_screen.dart';
+import 'package:movie_night/screens/home/movies_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-
-  List<Movie>? popularMovies;
-
-  @override
-  void initState() {
-    getPopularMovies().then((List<Movie> value) {
-      setState(() {
-        popularMovies = value;
-      });
-    }).catchError((err) {
-      // TODO: display error messages
-      print(err);
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             bottom: TabBar(
 
-              indicatorColor: Theme.of(context).primaryColorLight,
+                indicatorColor: Theme.of(context).primaryColorLight,
                 tabs: const [
                   Tab(icon: Icon(Icons.home),),
                   Tab(icon: Icon(Icons.movie),),
@@ -45,21 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: const TabBarView(
               children: [
-                Icon(Icons.home),
-                Icon(Icons.movie),
+                GeneralScreen(),
+                MoviesScreen(),
                 Icon(Icons.tv),
                 Icon(Icons.category),
               ]
           ),
         )
     );
-    //   ListView(
-    //   children: [
-    //     MovieRow(
-    //         title: "Popular",
-    //         movies: popularMovies
-    //     ),
-    //   ],
-    // );
   }
 }
