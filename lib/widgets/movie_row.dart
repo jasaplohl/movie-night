@@ -3,19 +3,19 @@ import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 
 class MovieRow extends StatelessWidget {
-  String title;
+  String? title;
   List<Movie>? movies;
 
-  MovieRow({Key? key, required this.title, this.movies}) : super(key: key);
+  MovieRow({Key? key, this.title, this.movies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        if(title != null) Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Text(title, style: Theme.of(context).textTheme.headlineSmall),
+          child: Text(title!, style: Theme.of(context).textTheme.headlineSmall),
         ),
         movies == null ?
         Center(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/widgets/movie_row.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
@@ -14,17 +16,50 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   MovieDetails? movieDetails;
+  Collection? collection;
 
   @override
   void initState() {
     getMovieDetails(widget.movieId).then((MovieDetails value) {
       setState(() {
         movieDetails = value;
+        if(value.belongsToCollection != null) {
+          getCollectionDetails(value.belongsToCollection["id"]);
+        }
       });
     }).catchError((err) {
       print(err);
     });
     super.initState();
+  }
+
+  Future<void> getCollectionDetails(int collectionId) async {
+    getCollection(collectionId).then((Collection value) {
+      setState(() {
+        print(value.parts);
+        collection = value;
+      });
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  Widget getCollectionSection() {
+    return Column(
+      children: [
+        const Divider(
+          thickness: 3,
+        ),
+        Text(collection!.name, style: Theme.of(context).textTheme.headlineSmall),
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(collection!.overview),
+        ),
+        MovieRow(
+            movies: collection!.parts!,
+        )
+      ],
+    );
   }
 
   Widget getBody() {
@@ -92,7 +127,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: Text(movieDetails!.overview ?? "No description available"),
-            )
+            ),
+            if(movieDetails!.belongsToCollection != null) getCollectionSection(),
           ],
         ),
       );
