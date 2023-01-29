@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
-import 'package:movie_night/screens/movie/movie_details.dart';
+import 'package:movie_night/screens/movie_details/movie_details.dart';
 import 'package:movie_night/services/movie_service.dart';
 
 class MovieCard extends StatelessWidget {
@@ -31,9 +31,19 @@ class MovieCard extends StatelessWidget {
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(Icons.star, color: Colors.amber),
-                  Text(movie.voteAverage.toString()),
+                  Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.amber),
+                      Text(movie.voteAverage.toString()),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.favorite_border, color: Colors.red),
+                  )
                 ],
               ),
               Text(
@@ -42,15 +52,6 @@ class MovieCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite_border, color: Colors.red),
-                  )
-                ],
-              )
             ],
           ),
         ),

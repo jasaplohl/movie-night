@@ -57,26 +57,42 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 ),
               ],
             ),
-            if(movieDetails!.runtime != null)Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  child: const Icon(Icons.timer_outlined),
-                ),
-                Text("${movieDetails!.runtime!.toString()} min"),
-              ],
+            const SizedBox(
+              height: 10,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  child: const Icon(Icons.speaker_notes),
+                if(movieDetails!.runtime != null) Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 5),
+                      child: const Icon(Icons.timer_outlined),
+                    ),
+                    Text("${movieDetails!.runtime!.toString()} min"),
+                  ],
                 ),
-                Text(movieDetails!.originalLanguage.toUpperCase()),
+                Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 5),
+                      child: const Icon(Icons.speaker_notes),
+                    ),
+                    Text(movieDetails!.originalLanguage.toUpperCase()),
+                  ],
+                )
               ],
             ),
-            if(movieDetails!.backdropPath != null) Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
-            Text(movieDetails!.overview ?? "No description available")
+            if(movieDetails!.backdropPath != null)
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 15),
+                child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
+              ),
+            if(movieDetails!.tagline != null) Text(movieDetails!.tagline!, style: Theme.of(context).textTheme.headlineSmall),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(movieDetails!.overview ?? "No description available"),
+            )
           ],
         ),
       );
@@ -86,7 +102,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(movieDetails == null ? "" : movieDetails!.title)),
       body: getBody(),
     );
   }
