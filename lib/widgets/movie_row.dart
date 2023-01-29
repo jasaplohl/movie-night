@@ -15,7 +15,7 @@ class MovieRow extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
+          child: Text(title, style: Theme.of(context).textTheme.headlineSmall),
         ),
         movies == null ?
         Center(

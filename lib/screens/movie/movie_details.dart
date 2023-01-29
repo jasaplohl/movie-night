@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_details_model.dart';
+import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -34,20 +35,50 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
       );
     } else {
-      print(movieDetails!.videos);
-      return ListView(
-        children: [
-          Text(movieDetails!.title, style: Theme.of(context).textTheme.headlineLarge),
-          Row(
-            children: [
-              Icon(Icons.star, color: Theme.of(context).primaryColorLight),
-              Text(movieDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,)
-            ],
-          ),
-          if(movieDetails!.videos != null && movieDetails!.videos!.isNotEmpty) Text(movieDetails!.videos![0].toString()),
-          if(movieDetails!.backdropPath != null) Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
-          Text(movieDetails!.overview ?? "No description available")
-        ],
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        child: ListView(
+          children: [
+            Text(movieDetails!.title, style: Theme.of(context).textTheme.headlineLarge),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(formatDate(DateTime.parse(movieDetails!.releaseDate))),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 5),
+                      child: Icon(Icons.star_rate_rounded, color: Theme.of(context).primaryColorLight),
+                    ),
+                    Text(movieDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,)
+                  ],
+                ),
+              ],
+            ),
+            if(movieDetails!.runtime != null)Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 5),
+                  child: const Icon(Icons.timer_outlined),
+                ),
+                Text("${movieDetails!.runtime!.toString()} min"),
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 5),
+                  child: const Icon(Icons.speaker_notes),
+                ),
+                Text(movieDetails!.originalLanguage.toUpperCase()),
+              ],
+            ),
+            if(movieDetails!.backdropPath != null) Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
+            Text(movieDetails!.overview ?? "No description available")
+          ],
+        ),
       );
     }
   }

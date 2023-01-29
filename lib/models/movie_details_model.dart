@@ -14,6 +14,7 @@ class MovieDetails {
   final String originalLanguage;
   final String? tagline;
   final List<dynamic>? videos;
+  final num? runtime;
 
   MovieDetails({
     required this.id,
@@ -30,7 +31,8 @@ class MovieDetails {
     this.homePage,
     required this.originalLanguage,
     this.tagline,
-    this.videos
+    this.videos,
+    this.runtime
   });
 
   factory MovieDetails.fromJson(dynamic json) {
@@ -49,7 +51,8 @@ class MovieDetails {
       genres: json["genres"],
       homePage: json["homepage"],
       originalLanguage: json["original_language"],
-      videos: json["videos"]["results"]
+      videos: json["videos"]["results"],
+      runtime: json["runtime"]
     );
   }
 }
