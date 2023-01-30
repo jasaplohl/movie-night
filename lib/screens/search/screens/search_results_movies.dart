@@ -4,15 +4,15 @@ import 'package:movie_night/models/movies_res_model.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 
-class SearchResults extends StatefulWidget {
+class SearchResultsMovies extends StatefulWidget {
   final String query;
-  const SearchResults({Key? key, required this.query}) : super(key: key);
+  const SearchResultsMovies({Key? key, required this.query}) : super(key: key);
 
   @override
-  State<SearchResults> createState() => _SearchResultsState();
+  State<SearchResultsMovies> createState() => _SearchResultsMoviesState();
 }
 
-class _SearchResultsState extends State<SearchResults> {
+class _SearchResultsMoviesState extends State<SearchResultsMovies> {
 
   List<Movie>? searchResult;
 
@@ -34,20 +34,18 @@ class _SearchResultsState extends State<SearchResults> {
     return movieCards;
   }
 
-
-  // TODO: Split to movies/TV shows/actors
   @override
   Widget build(BuildContext context) {
-    return searchResult != null
-    ? ListView(
+    return searchResult != null ?
+    ListView(
       children: [
         Wrap(
           direction: Axis.horizontal,
           children: getMovieCards(),
         ),
       ],
-    )
-    : Center(
+    ) :
+    Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
       ),

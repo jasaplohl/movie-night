@@ -16,7 +16,7 @@ class MovieDetails {
   final String? posterPath;
   final List<dynamic> productionCompanies;
   final List<dynamic> productionCountries;
-  final String releaseDate;
+  final String? releaseDate;
   final int revenue;
   final int? runtime;
   final List<dynamic> spokenLanguages;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/widgets/search_results.dart';
+import 'package:movie_night/screens/search/search_results.dart';
 
 class CustomSearchDelegate extends SearchDelegate{
   @override

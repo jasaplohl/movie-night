@@ -25,14 +25,17 @@ class MovieCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () => onMoviePress(context),
-                child: movie.posterPath != null
-                  ? Image.network(
-                      getImageUrl(movie.posterPath!),
-                      fit: BoxFit.cover,
-                      width: 200,
-                      height: 300
-                  )
-                  : Image.asset("lib/assets/images/default_img.webp"),
+                child: movie.posterPath != null ? Image.network(
+                    getImageUrl(movie.posterPath!),
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 300
+                ) : Image.asset(
+                  "lib/assets/images/default_img.webp",
+                  fit: BoxFit.cover,
+                  width: 200,
+                  height: 300,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
