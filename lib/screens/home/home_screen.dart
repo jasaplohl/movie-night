@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/screens/home/general_screen.dart';
+import 'package:movie_night/screens/home/genres_screen.dart';
 import 'package:movie_night/screens/home/movies_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                 GeneralScreen(),
                 MoviesScreen(),
                 Icon(Icons.tv),
-                Icon(Icons.category),
+                GenresScreen(),
               ]
           ),
         )

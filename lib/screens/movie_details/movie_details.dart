@@ -141,7 +141,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(movieDetails == null ? "" : movieDetails!.title)),
+      appBar: AppBar(
+        title: Text(movieDetails == null ? "" : movieDetails!.title),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_outline, color: Colors.red,)
+          )
+        ],
+      ),
       body: getBody(),
     );
   }

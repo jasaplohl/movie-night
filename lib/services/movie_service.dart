@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_night/models/collection_model.dart';
+import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/models/movie_model.dart';
 
@@ -67,6 +68,20 @@ Future<Collection> getCollection(int collectionId) async {
   final dynamic body = jsonDecode(res.body);
   if(res.statusCode == 200) {
     return Collection.fromJson(body);
+  } else {
+    throw Exception(body["status_message"]);
+  }
+}
+
+Future<List<Genre>> getMovieGenres() async {
+  final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
+  const String url = "$apiRoot/genre/movie/list";
+  final res = await http.get(Uri.parse(url), headers: {
+    "Authorization": "Bearer $accessToken"
+  });
+  final dynamic body = jsonDecode(res.body);
+  if(res.statusCode == 200) {
+    return (body["genres"] as List<dynamic>).map((dynamic bodyJson) => Genre.fromJson(bodyJson)).toList();
   } else {
     throw Exception(body["status_message"]);
   }

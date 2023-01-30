@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           headlineSmall: TextStyle(
             fontWeight: FontWeight.bold,
           ),
-        )
+        ),
       ),
       home: RootScreen(),
     );
