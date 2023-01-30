@@ -30,7 +30,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.category),
-              label: "Categories"
+              label: "Genres"
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

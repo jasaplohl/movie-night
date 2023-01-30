@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/screens/home/general_screen.dart';
-import 'package:movie_night/screens/home/movies_screen.dart';
+import 'package:movie_night/screens/home/screens/general_screen.dart';
+import 'package:movie_night/screens/home/screens/movies_screen.dart';
 import 'package:movie_night/services/custom_search_delegate.dart';
 
 class HomeScreen extends StatelessWidget {

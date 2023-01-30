@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/screens/home/genres_screen.dart';
+import 'package:movie_night/screens/genre/genres_screen.dart';
 import 'package:movie_night/screens/home/home_screen.dart';
 import 'package:movie_night/screens/user/user_screen.dart';
 import 'package:movie_night/widgets/bottom_navigation.dart';
