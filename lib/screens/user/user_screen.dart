@@ -10,8 +10,8 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Text("Please log in.")
+    return Scaffold(
+      appBar: AppBar(title: Text("Your Profile", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight))),
     );
   }
 }

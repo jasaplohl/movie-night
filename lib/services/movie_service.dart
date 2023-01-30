@@ -6,6 +6,7 @@ import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/models/movies_res_model.dart';
 
 const apiRoot = "https://api.themoviedb.org/3";
 
@@ -22,12 +23,12 @@ Future<List<Movie>> getUpcomingMovies({int page = 1}) async {
 }
 
 String getImageUrl(String imageName) {
-  String url = "https://image.tmdb.org/t/p/w200/$imageName";
+  String url = "https://image.tmdb.org/t/p/w500/$imageName";
   return url;
 }
 
 String getBackdropUrl(String imageName) {
-  String url = "https://image.tmdb.org/t/p/w500/$imageName";
+  String url = "https://image.tmdb.org/t/p/w1280/$imageName";
   return url;
 }
 
@@ -87,7 +88,7 @@ Future<List<Genre>> getMovieGenres() async {
   }
 }
 
-Future<List<Movie>> getMoviesByGenre(int genreId, int page, String sortBy) async {
+Future<MovieRes> getMoviesByGenre(int genreId, int page, String sortBy) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
   final url = "$apiRoot/discover/movie?with_genres=$genreId&page=$page&sort_by=$sortBy";
   final res = await http.get(Uri.parse(url), headers: {
@@ -95,8 +96,7 @@ Future<List<Movie>> getMoviesByGenre(int genreId, int page, String sortBy) async
   });
   final dynamic body = jsonDecode(res.body);
   if(res.statusCode == 200) {
-    final List<dynamic> results = body["results"];
-    return results.map((dynamic movieJson) => Movie.fromJson(movieJson)).toList();
+    return MovieRes.fromJson(body);
   } else {
     throw Exception(body["status_message"]);
   }

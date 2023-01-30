@@ -16,7 +16,7 @@ class MovieCard extends StatelessWidget {
     return Card(
         elevation: 5,
         shadowColor: Theme.of(context).primaryColorLight,
-        margin: EdgeInsets.zero,
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
         child: SizedBox(
           width: MediaQuery.of(context).size.width/2,
           child: Column(
@@ -24,12 +24,14 @@ class MovieCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () => onMoviePress(context),
-                child: Image.network(
-                    getImageUrl(movie.posterPath!),
-                    fit: BoxFit.cover,
-                    width: 200,
-                    height: 300
-                ),
+                child: movie.posterPath != null
+                  ? Image.network(
+                      getImageUrl(movie.posterPath!),
+                      fit: BoxFit.cover,
+                      width: 200,
+                      height: 300
+                  )
+                  : Image.asset("lib/assets/images/default_img.webp"),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,6 +55,9 @@ class MovieCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
+              const SizedBox(
+                height: 10,
+              )
             ],
           ),
         ),

@@ -54,7 +54,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         Text(collection!.name, style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(collection!.overview),
+          child: Text(collection!.overview, textAlign: TextAlign.center),
         ),
         MovieRow(
             movies: collection!.parts!,
