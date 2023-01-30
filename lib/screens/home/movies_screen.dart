@@ -12,38 +12,45 @@ class MoviesScreen extends StatefulWidget {
 
 class _MoviesScreenState extends State<MoviesScreen> {
 
-  List<Movie>? popularMovies;
-  List<Movie>? topRatedMovies;
-  List<Movie>? upcomingMovies;
+  List<Movie>? trendingDaily;
+  List<Movie>? trendingWeekly;
+  List<Movie>? popular;
+  List<Movie>? topRated;
 
   @override
   void initState() {
-    getPopularMovies().then((List<Movie> value) {
+    getTrendingMoviesDaily().then((List<Movie> value) {
       setState(() {
-        popularMovies = value;
+        trendingDaily = value;
       });
     }).catchError((err) {
-      // TODO: display error messages
+      print(err);
+    });
+
+    getTrendingMoviesWeekly().then((List<Movie> value) {
+      setState(() {
+        trendingWeekly = value;
+      });
+    }).catchError((err) {
+      print(err);
+    });
+
+    getPopularMovies().then((List<Movie> value) {
+      setState(() {
+        popular = value;
+      });
+    }).catchError((err) {
       print(err);
     });
 
     getTopRatedMovies().then((List<Movie> value) {
       setState(() {
-        topRatedMovies = value;
+        topRated = value;
       });
     }).catchError((err) {
-      // TODO: display error messages
       print(err);
     });
 
-    getUpcomingMovies().then((List<Movie> value) {
-      setState(() {
-        upcomingMovies = value;
-      });
-    }).catchError((err) {
-      // TODO: display error messages
-      print(err);
-    });
     super.initState();
   }
 
@@ -52,16 +59,20 @@ class _MoviesScreenState extends State<MoviesScreen> {
     return ListView(
       children: [
         MovieRow(
+            title: "Trending today",
+            movies: trendingDaily
+        ),
+        MovieRow(
+            title: "Trending this week",
+            movies: trendingWeekly
+        ),
+        MovieRow(
             title: "Popular",
-            movies: popularMovies
+            movies: popular
         ),
         MovieRow(
             title: "Top Rated",
-            movies: topRatedMovies
-        ),
-        MovieRow(
-            title: "Upcoming",
-            movies: upcomingMovies
+            movies: topRated
         ),
       ],
     );

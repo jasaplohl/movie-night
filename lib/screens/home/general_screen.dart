@@ -12,8 +12,8 @@ class GeneralScreen extends StatefulWidget {
 
 class _GeneralScreenState extends State<GeneralScreen> {
 
-  List<Movie>? popularTvShows;
   List<Movie>? popularMovies;
+  List<Movie>? popularTvShows;
 
   @override
   void initState() {

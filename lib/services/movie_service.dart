@@ -18,8 +18,12 @@ Future<List<Movie>> getTopRatedMovies({int page = 1}) async {
   return await _getMovies("$apiRoot/movie/top_rated?page=$page");
 }
 
-Future<List<Movie>> getUpcomingMovies({int page = 1}) async {
-  return await _getMovies("$apiRoot/movie/upcoming?page=$page");
+Future<List<Movie>> getTrendingMoviesDaily() async {
+  return await _getMovies("$apiRoot/trending/movie/day");
+}
+
+Future<List<Movie>> getTrendingMoviesWeekly() async {
+  return await _getMovies("$apiRoot/trending/movie/week");
 }
 
 String getImageUrl(String imageName) {

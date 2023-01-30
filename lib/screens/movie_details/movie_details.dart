@@ -172,6 +172,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         actions: [
           IconButton(
               onPressed: () {},
+              icon: Icon(Icons.remove_red_eye, color: Theme.of(context).primaryColorLight,)
+          ),
+          IconButton(
+              onPressed: () {},
               icon: const Icon(Icons.favorite_outline, color: Colors.red,)
           )
         ],
