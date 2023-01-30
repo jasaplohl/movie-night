@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/screens/search/screens/search_results_actors.dart';
 import 'package:movie_night/screens/search/screens/search_results_movies.dart';
+import 'package:movie_night/screens/search/screens/search_results_tv_shows.dart';
 
 class SearchResults extends StatelessWidget {
   final String query;
@@ -24,8 +26,8 @@ class SearchResults extends StatelessWidget {
           body: TabBarView(
               children: [
                 SearchResultsMovies(query: query),
-                const Icon(Icons.tv),
-                const Icon(Icons.person),
+                SearchResultsTVShows(query: query),
+                SearchResultsActors(query: query,)
               ],
           ),
         )
