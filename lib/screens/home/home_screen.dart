@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 4,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             title: Text("MovieNight", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight)),
@@ -31,7 +31,6 @@ class HomeScreen extends StatelessWidget {
                   Tab(icon: Icon(Icons.home),),
                   Tab(icon: Icon(Icons.movie),),
                   Tab(icon: Icon(Icons.tv),),
-                  Tab(icon: Icon(Icons.category),),
                 ]
             ),
           ),
@@ -40,7 +39,6 @@ class HomeScreen extends StatelessWidget {
                 GeneralScreen(),
                 MoviesScreen(),
                 Icon(Icons.tv),
-                GenresScreen(),
               ]
           ),
         )

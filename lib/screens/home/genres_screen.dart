@@ -29,22 +29,25 @@ class _GenresScreenState extends State<GenresScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return movieGenres != null
-      ? ListView.builder(
-        itemCount: movieGenres!.length,
-        itemBuilder: (context, index) {
-          return TextButton(
-            key: ValueKey(movieGenres![index].id),
-            onPressed: () => onGenreClick(movieGenres![index]),
-            style: TextButton.styleFrom(foregroundColor: Theme.of(context).primaryColorLight),
-            child: Text(movieGenres![index].name),
-          );
-        },
-      )
-      : Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
-        ),
-      );
+    return Scaffold(
+      appBar: AppBar(title: const Text("Genres")),
+      body: movieGenres != null
+        ? ListView.builder(
+            itemCount: movieGenres!.length,
+            itemBuilder: (context, index) {
+              return TextButton(
+                key: ValueKey(movieGenres![index].id),
+                onPressed: () => onGenreClick(movieGenres![index]),
+                style: TextButton.styleFrom(foregroundColor: Theme.of(context).primaryColorLight),
+                child: Text(movieGenres![index].name),
+              );
+            },
+          )
+          : Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
+            ),
+          )
+    );
   }
 }

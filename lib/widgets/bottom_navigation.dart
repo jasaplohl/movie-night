@@ -29,6 +29,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
             label: "Home"
           ),
           BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: "Categories"
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Profile"
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/widgets/search_results.dart';
 
 class CustomSearchDelegate extends SearchDelegate{
   @override
@@ -25,10 +26,7 @@ class CustomSearchDelegate extends SearchDelegate{
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: Implement search
-    return Center(
-      child: Text(query),
-    );
+    return SearchResults(query: query);
   }
 
   @override

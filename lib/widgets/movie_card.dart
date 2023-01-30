@@ -5,6 +5,7 @@ import 'package:movie_night/services/movie_service.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
+  // TODO: Key no longer optional
   const MovieCard({Key? key, required this.movie}) : super(key: key);
 
   void onMoviePress(BuildContext context) {

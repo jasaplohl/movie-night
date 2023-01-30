@@ -101,3 +101,18 @@ Future<MovieRes> getMoviesByGenre(int genreId, int page, String sortBy) async {
     throw Exception(body["status_message"]);
   }
 }
+
+// TODO: Include adult?
+Future<MovieRes> searchMovies(String query, int page) async {
+  final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
+  final url = "$apiRoot/search/movie?query=$query&page=$page";
+  final res = await http.get(Uri.parse(url), headers: {
+    "Authorization": "Bearer $accessToken"
+  });
+  final dynamic body = jsonDecode(res.body);
+  if(res.statusCode == 200) {
+    return MovieRes.fromJson(body);
+  } else {
+    throw Exception(body["status_message"]);
+  }
+}
