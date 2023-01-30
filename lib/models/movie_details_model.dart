@@ -1,4 +1,5 @@
 import 'package:movie_night/models/genre_model.dart';
+import 'package:movie_night/models/production_company_model.dart';
 
 class MovieDetails {
   final bool adult;
@@ -14,7 +15,7 @@ class MovieDetails {
   final String? overview;
   final num popularity;
   final String? posterPath;
-  final List<dynamic> productionCompanies;
+  final List<ProductionCompany> productionCompanies;
   final List<dynamic> productionCountries;
   final String? releaseDate;
   final int revenue;
@@ -72,7 +73,7 @@ class MovieDetails {
       overview: json["overview"],
       popularity: json["popularity"],
       posterPath: json["poster_path"],
-      productionCompanies: json["production_companies"],
+      productionCompanies: (json["production_companies"] as List<dynamic>).map((dynamic company) => ProductionCompany.fromJson(company)).toList(),
       productionCountries: json["production_countries"],
       releaseDate: json["release_date"],
       revenue: json["revenue"],

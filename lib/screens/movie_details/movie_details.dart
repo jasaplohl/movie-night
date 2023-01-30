@@ -3,6 +3,7 @@ import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/movie_row.dart';
 
@@ -47,10 +48,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget getCollectionSection() {
     return Column(
       children: [
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          child: const Divider(thickness: 3,),
-        ),
+        const DividerMargin(),
         Text(collection!.name, style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
@@ -58,6 +56,32 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
         MovieRow(
             movies: collection!.parts!,
+        )
+      ],
+    );
+  }
+
+  Widget getProductionCompaniesSection() {
+    List<Widget> widgets = [];
+
+    for (var e in movieDetails!.productionCompanies) {
+      widgets.add(Chip(
+        avatar: e.logoPath != null ? Image.network(
+          getImageUrl(e.logoPath!),
+          fit: BoxFit.cover,
+        ) : null,
+        label: Text(e.name),
+      ));
+    }
+
+    return Column(
+      children: [
+        const DividerMargin(),
+        Text("Production companies", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: widgets,
         )
       ],
     );
@@ -133,6 +157,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               child: Text(movieDetails!.overview ?? "No description available"),
             ),
             if(movieDetails!.belongsToCollection != null && collection != null) getCollectionSection(),
+            if(movieDetails!.productionCompanies.isNotEmpty) getProductionCompaniesSection()
           ],
         ),
       );
