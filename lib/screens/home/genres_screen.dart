@@ -23,8 +23,8 @@ class _GenresScreenState extends State<GenresScreen> {
     super.initState();
   }
 
-  void onGenreClick(int genreId) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => GenreScreen(genreId: genreId),));
+  void onGenreClick(Genre genre) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => GenreScreen(genre: genre),));
   }
 
   @override
@@ -35,7 +35,7 @@ class _GenresScreenState extends State<GenresScreen> {
         itemBuilder: (context, index) {
           return TextButton(
             key: ValueKey(movieGenres![index].id),
-            onPressed: () => onGenreClick(movieGenres![index].id),
+            onPressed: () => onGenreClick(movieGenres![index]),
             style: TextButton.styleFrom(foregroundColor: Theme.of(context).primaryColorLight),
             child: Text(movieGenres![index].name),
           );

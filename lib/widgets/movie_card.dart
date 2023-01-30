@@ -16,8 +16,9 @@ class MovieCard extends StatelessWidget {
     return Card(
         elevation: 5,
         shadowColor: Theme.of(context).primaryColorLight,
+        margin: EdgeInsets.zero,
         child: SizedBox(
-          width: 200,
+          width: MediaQuery.of(context).size.width/2,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -86,3 +86,18 @@ Future<List<Genre>> getMovieGenres() async {
     throw Exception(body["status_message"]);
   }
 }
+
+Future<List<Movie>> getMoviesByGenre(int genreId, int page, String sortBy) async {
+  final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
+  final url = "$apiRoot/discover/movie?with_genres=$genreId&page=$page&sort_by=$sortBy";
+  final res = await http.get(Uri.parse(url), headers: {
+    "Authorization": "Bearer $accessToken"
+  });
+  final dynamic body = jsonDecode(res.body);
+  if(res.statusCode == 200) {
+    final List<dynamic> results = body["results"];
+    return results.map((dynamic movieJson) => Movie.fromJson(movieJson)).toList();
+  } else {
+    throw Exception(body["status_message"]);
+  }
+}
