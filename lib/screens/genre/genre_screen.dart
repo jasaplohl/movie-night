@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/models/movies_res_model.dart';
-import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/genre_service.dart';
+import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 import 'package:movie_night/widgets/pagination.dart';
 
@@ -76,11 +77,7 @@ class _GenreScreenState extends State<GenreScreen> {
             )
           ],
         )
-        : Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
-          ),
-        )
+        : const LoadingSpinner(),
     );
   }
 }

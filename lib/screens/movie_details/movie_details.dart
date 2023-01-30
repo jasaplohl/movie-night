@@ -5,6 +5,7 @@ import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
+import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_row.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -89,11 +90,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   Widget getBody() {
     if(movieDetails == null) {
-      return Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
-        ),
-      );
+      return const LoadingSpinner();
     } else {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),

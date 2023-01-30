@@ -6,6 +6,7 @@ class GenreChip extends StatelessWidget {
   final Genre genre;
   const GenreChip({Key? key, required this.genre}) : super(key: key);
 
+  //TODO: Handle TV show genres
   void onGenreClick(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => GenreScreen(genre: genre),));
   }

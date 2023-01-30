@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/screens/genre/genre_screen.dart';
-import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/genre_service.dart';
+import 'package:movie_night/widgets/genre_row.dart';
 
 class GenresScreen extends StatefulWidget {
   const GenresScreen({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class GenresScreen extends StatefulWidget {
 
 class _GenresScreenState extends State<GenresScreen> {
   List<Genre>? movieGenres;
+  List<Genre>? tvGenres;
 
   @override
   void initState() {
@@ -19,7 +21,18 @@ class _GenresScreenState extends State<GenresScreen> {
       setState(() {
         movieGenres = value;
       });
+    }).catchError((err) {
+      print(err);
     });
+
+    getTvShowGenres().then((List<Genre> value) {
+      setState(() {
+        tvGenres = value;
+      });
+    }).catchError((err) {
+      print(err);
+    });
+
     super.initState();
   }
 
@@ -27,27 +40,41 @@ class _GenresScreenState extends State<GenresScreen> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => GenreScreen(genre: genre),));
   }
 
+  List<Widget> getMovieGenreChips() {
+    List<Widget> chips = [];
+
+    for (Genre genre in movieGenres!) {
+      chips.add(Chip(
+        label: Text(genre.name),
+      ));
+    }
+
+    // return TextButton(
+    //   key: ValueKey(movieGenres![index].id),
+    //   onPressed: () => onGenreClick(movieGenres![index]),
+    //   style: TextButton.styleFrom(foregroundColor: Theme.of(context).primaryColorLight),
+    //   child: Text(movieGenres![index].name),
+    // );
+    return chips;
+  }
+
+  List<Widget> getTvGenreChips() {
+    List<Widget> chips = [];
+    return chips;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Genres")),
-      body: movieGenres != null
-        ? ListView.builder(
-            itemCount: movieGenres!.length,
-            itemBuilder: (context, index) {
-              return TextButton(
-                key: ValueKey(movieGenres![index].id),
-                onPressed: () => onGenreClick(movieGenres![index]),
-                style: TextButton.styleFrom(foregroundColor: Theme.of(context).primaryColorLight),
-                child: Text(movieGenres![index].name),
-              );
-            },
-          )
-          : Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
-            ),
-          )
+      body: ListView(
+        children: [
+          Text("Movie Genres", style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Theme.of(context).primaryColorLight)),
+          GenreRow(genres: movieGenres),
+          Text("TV Show Genres", style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Theme.of(context).primaryColorLight)),
+          GenreRow(genres: tvGenres),
+        ],
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 
 class MovieRow extends StatelessWidget {
@@ -17,13 +18,7 @@ class MovieRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Text(title!, style: Theme.of(context).textTheme.headlineSmall),
         ),
-        movies == null ?
-        Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
-          ),
-        ) :
-        SizedBox(
+        movies == null ? const LoadingSpinner() : SizedBox(
           height: 400,
           child: ListView.builder(
             itemCount: movies!.length,

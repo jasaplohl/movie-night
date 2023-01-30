@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/models/movies_res_model.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 
 class SearchResultsMovies extends StatefulWidget {
@@ -44,11 +45,6 @@ class _SearchResultsMoviesState extends State<SearchResultsMovies> {
           children: getMovieCards(),
         ),
       ],
-    ) :
-    Center(
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),
-      ),
-    );
+    ) : const LoadingSpinner();
   }
 }

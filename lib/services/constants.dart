@@ -1,0 +1,1 @@
+const apiRoot = "https://api.themoviedb.org/3";
