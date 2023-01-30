@@ -8,7 +8,7 @@ class Movie {
   final String originalTitle;
   final String originalLanguage;
   final String title;
-  final String backdropPath;
+  final String? backdropPath;
   final num popularity;
   final num voteCount;
   final bool video;

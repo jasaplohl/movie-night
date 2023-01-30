@@ -3,6 +3,7 @@ import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/movie_row.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -97,6 +98,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if(movieDetails!.runtime != null) Row(
                   children: [
@@ -118,6 +120,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 )
               ],
             ),
+            GenreRow(genres: movieDetails!.genres),
             if(movieDetails!.backdropPath != null)
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 15),
