@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/screens/home/home_screen.dart';
-import 'package:movie_night/screens/search/search_screen.dart';
 import 'package:movie_night/screens/user/user_screen.dart';
 import 'package:movie_night/widgets/bottom_navigation.dart';
 
 class RootScreen extends StatefulWidget {
   final List<Widget> pages = [
     const HomeScreen(),
-    const SearchScreen(),
     const UserScreen()
   ];
 
