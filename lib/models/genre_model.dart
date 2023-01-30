@@ -1,14 +1,14 @@
-class GenreModel {
+class Genre {
   final int id;
   final String name;
 
-  GenreModel({
+  Genre({
     required this.id,
     required this.name
   });
 
-  factory GenreModel.fromJson(dynamic json) {
-    return GenreModel(
+  factory Genre.fromJson(dynamic json) {
+    return Genre(
         id: json["id"],
         name: json["name"]
     );

@@ -36,7 +36,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Future<void> getCollectionDetails(int collectionId) async {
     getCollection(collectionId).then((Collection value) {
       setState(() {
-        print(value.parts);
         collection = value;
       });
     }).catchError((err) {
@@ -47,10 +46,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget getCollectionSection() {
     return Column(
       children: [
-        const Divider(
-          thickness: 3,
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          child: const Divider(thickness: 3,),
         ),
-        Text(collection!.name, style: Theme.of(context).textTheme.headlineSmall),
+        Text(collection!.name, style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Text(collection!.overview),
@@ -128,7 +128,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: Text(movieDetails!.overview ?? "No description available"),
             ),
-            if(movieDetails!.belongsToCollection != null) getCollectionSection(),
+            if(movieDetails!.belongsToCollection != null && collection != null) getCollectionSection(),
           ],
         ),
       );

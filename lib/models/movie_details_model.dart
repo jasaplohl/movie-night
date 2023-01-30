@@ -1,58 +1,90 @@
+import 'package:movie_night/models/genre_model.dart';
+
 class MovieDetails {
-  final int id;
-  final String originalTitle;
-  final String title;
-  final num voteAverage;
-  final String releaseDate;
-  final String? overview;
   final bool adult;
-  final dynamic belongsToCollection;
-  final String? posterPath;
   final String? backdropPath;
-  final dynamic genres;
+  final dynamic belongsToCollection; // TODO: Object
+  final int budget;
+  final List<Genre> genres;
   final String? homePage;
+  final int id;
+  final String? imdbId;
   final String originalLanguage;
+  final String originalTitle;
+  final String? overview;
+  final num popularity;
+  final String? posterPath;
+  final List<dynamic> productionCompanies;
+  final List<dynamic> productionCountries;
+  final String releaseDate;
+  final int revenue;
+  final int? runtime;
+  final List<dynamic> spokenLanguages;
+  final String status;
   final String? tagline;
+  final String title;
+  final bool video;
+  final num voteAverage;
+  final int voteCount;
   final List<dynamic>? videos;
-  final num? runtime;
 
   MovieDetails({
-    required this.id,
-    required this.originalTitle,
-    required this.title,
-    required this.voteAverage,
-    required this.releaseDate,
-    required this.overview,
     required this.adult,
-    this.belongsToCollection,
-    this.posterPath,
-    this.backdropPath,
-    this.genres,
-    this.homePage,
+    required this.backdropPath,
+    required this.belongsToCollection,
+    required this.budget,
+    required this.genres,
+    required this.homePage,
+    required this.id,
+    required this.imdbId,
     required this.originalLanguage,
-    this.tagline,
-    this.videos,
-    this.runtime
+    required this.originalTitle,
+    required this.overview,
+    required this.popularity,
+    required this.posterPath,
+    required this.productionCompanies,
+    required this.productionCountries,
+    required this.releaseDate,
+    required this.revenue,
+    required this.runtime,
+    required this.spokenLanguages,
+    required this.status,
+    required this.tagline,
+    required this.title,
+    required this.video,
+    required this.voteAverage,
+    required this.voteCount,
+    required this.videos,
   });
 
   factory MovieDetails.fromJson(dynamic json) {
     return MovieDetails(
-      id: json["id"],
-      originalTitle: json["original_title"],
-      title: json["title"],
-      voteAverage: json["vote_average"],
-      releaseDate: json["release_date"],
-      tagline: json["tagline"],
-      overview: json["overview"],
       adult: json["adult"],
-      belongsToCollection: json["belongs_to_collection"],
-      posterPath: json["poster_path"],
       backdropPath: json["backdrop_path"],
-      genres: json["genres"],
-      homePage: json["homepage"],
+      belongsToCollection: json["belongs_to_collection"],
+      budget: json["budget"],
+      genres: (json["genres"] as List<dynamic>).map((dynamic genre) => Genre.fromJson(genre)).toList(),
+      homePage: json["home_page"],
+      id: json["id"],
+      imdbId: json["imdb_id"],
       originalLanguage: json["original_language"],
+      originalTitle: json["original_title"],
+      overview: json["overview"],
+      popularity: json["popularity"],
+      posterPath: json["poster_path"],
+      productionCompanies: json["production_companies"],
+      productionCountries: json["production_countries"],
+      releaseDate: json["release_date"],
+      revenue: json["revenue"],
+      runtime: json["runtime"],
+      spokenLanguages: json["spoken_languages"],
+      status: json["status"],
+      tagline: json["tagline"],
+      title: json["title"],
+      video: json["video"],
+      voteAverage: json["vote_average"],
+      voteCount: json["vote_count"],
       videos: json["videos"]["results"],
-      runtime: json["runtime"]
     );
   }
 }
