@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/models/tv_show_model.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 
