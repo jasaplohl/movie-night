@@ -3,8 +3,6 @@ import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/screens/search/screens/search_results_actors.dart';
 import 'package:movie_night/screens/search/screens/search_results_media.dart';
 
-// TODO: add pagination for search results
-
 class SearchResults extends StatelessWidget {
   final String query;
   const SearchResults({Key? key, required this.query}) : super(key: key);

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/services/media_service.dart';
-import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
-import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/media_row.dart';
 
 class GeneralScreen extends StatefulWidget {

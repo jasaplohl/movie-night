@@ -27,7 +27,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     getMovieDetails(widget.movieId).then((MovieDetails value) {
       setState(() {
         movieDetails = value;
-        print(value);
         if(value.belongsToCollection != null) {
           getCollectionDetails(value.belongsToCollection["id"]);
         }
