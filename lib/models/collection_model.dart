@@ -1,4 +1,5 @@
-import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/models/media_model.dart';
 
 class Collection {
   final int id;
@@ -6,7 +7,7 @@ class Collection {
   final String overview;
   final String? posterPath;
   final String? backdropPath;
-  final List<Movie>? parts;
+  final List<Media>? parts;
 
   Collection({
     required this.id,
@@ -24,7 +25,7 @@ class Collection {
         posterPath: json["poster_path"],
         overview: json["overview"],
         backdropPath: json["backdrop_path"],
-        parts: (json["parts"] as List<dynamic>).map((dynamic movie) => Movie.fromJson(movie)).toList(),
+        parts: (json["parts"] as List<dynamic>).map((dynamic movie) => Media.fromJson(movie, MediaType.movie)).toList(),
     );
   }
 }

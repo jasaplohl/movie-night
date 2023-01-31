@@ -2,26 +2,27 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/collection_model.dart';
+import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
-import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/models/movies_res_model.dart';
 
 import 'constants.dart';
 
-Future<List<Movie>> getPopularMovies({int page = 1}) async {
+Future<List<Media>> getPopularMovies({int page = 1}) async {
   return await _getMovies("$apiRoot/movie/popular?page=$page");
 }
 
-Future<List<Movie>> getTopRatedMovies({int page = 1}) async {
+Future<List<Media>> getTopRatedMovies({int page = 1}) async {
   return await _getMovies("$apiRoot/movie/top_rated?page=$page");
 }
 
-Future<List<Movie>> getTrendingMoviesDaily() async {
+Future<List<Media>> getTrendingMoviesDaily() async {
   return await _getMovies("$apiRoot/trending/movie/day");
 }
 
-Future<List<Movie>> getTrendingMoviesWeekly() async {
+Future<List<Media>> getTrendingMoviesWeekly() async {
   return await _getMovies("$apiRoot/trending/movie/week");
 }
 
@@ -35,7 +36,7 @@ String getBackdropUrl(String imageName) {
   return url;
 }
 
-Future<List<Movie>> _getMovies(String url) async {
+Future<List<Media>> _getMovies(String url) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
   final res = await http.get(Uri.parse(url), headers: {
     "Authorization": "Bearer $accessToken"
@@ -43,7 +44,7 @@ Future<List<Movie>> _getMovies(String url) async {
   final dynamic body = jsonDecode(res.body);
   if(res.statusCode == 200) {
     final List<dynamic> results = body["results"];
-    return results.map((movieJson) => Movie.fromJson(movieJson)).toList();
+    return results.map((movieJson) => Media.fromJson(movieJson, MediaType.movie)).toList();
   } else {
     throw Exception(body["status_message"]);
   }

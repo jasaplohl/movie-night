@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/movies_res_model.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
-import 'package:movie_night/widgets/movie_card.dart';
+import 'package:movie_night/widgets/media_card.dart';
 
 class SearchResultsMovies extends StatefulWidget {
   final String query;
@@ -16,7 +16,7 @@ class SearchResultsMovies extends StatefulWidget {
 
 class _SearchResultsMoviesState extends State<SearchResultsMovies> {
 
-  List<Movie>? searchResult;
+  List<Media>? searchResult;
 
   @override
   void initState() {
@@ -32,8 +32,8 @@ class _SearchResultsMoviesState extends State<SearchResultsMovies> {
 
   List<Widget> getMovieCards() {
     List<Widget> movieCards = [];
-    for (Movie element in searchResult!) {
-      movieCards.add(MovieCard(key: ValueKey(element.id), movie: element));
+    for (Media element in searchResult!) {
+      movieCards.add(MediaCard(key: ValueKey(element.id), media: element));
     }
     return movieCards;
   }

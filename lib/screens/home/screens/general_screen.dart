@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
-import 'package:movie_night/widgets/movie_row.dart';
+import 'package:movie_night/services/tv_show_service.dart';
+import 'package:movie_night/widgets/media_row.dart';
 
 class GeneralScreen extends StatefulWidget {
   const GeneralScreen({Key? key}) : super(key: key);
@@ -13,14 +14,23 @@ class GeneralScreen extends StatefulWidget {
 
 class _GeneralScreenState extends State<GeneralScreen> {
 
-  List<Movie>? popularMovies;
-  List<Movie>? popularTvShows;
+  List<Media>? popularMovies;
+  List<Media>? popularTvShows;
+  List<Media>? popularActors;
 
   @override
   void initState() {
-    getPopularMovies().then((List<Movie> value) {
+    getPopularMovies().then((List<Media> value) {
       setState(() {
         popularMovies = value;
+      });
+    }).catchError((err) {
+      showErrorDialog(context, err);
+    });
+
+    getPopularTvShows().then((List<Media> value) {
+      setState(() {
+        popularTvShows = value;
       });
     }).catchError((err) {
       showErrorDialog(context, err);
@@ -32,17 +42,17 @@ class _GeneralScreenState extends State<GeneralScreen> {
   Widget build(BuildContext context) {
     return ListView(
         children: [
-          MovieRow(
+          MediaRow(
               title: "Movies",
-              movies: popularMovies
+              media: popularMovies
           ),
-          MovieRow(
+          MediaRow(
               title: "TV Shows",
-              movies: popularTvShows
+              media: popularTvShows
           ),
-          MovieRow(
+          MediaRow(
               title: "People",
-              movies: popularTvShows
+              media: popularActors
           ),
         ],
     );

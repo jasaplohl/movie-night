@@ -7,7 +7,7 @@ import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
-import 'package:movie_night/widgets/movie_row.dart';
+import 'package:movie_night/widgets/media_row.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
@@ -27,6 +27,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     getMovieDetails(widget.movieId).then((MovieDetails value) {
       setState(() {
         movieDetails = value;
+        print(value);
         if(value.belongsToCollection != null) {
           getCollectionDetails(value.belongsToCollection["id"]);
         }
@@ -56,8 +57,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Text(collection!.overview, textAlign: TextAlign.center),
         ),
-        MovieRow(
-            movies: collection!.parts,
+        MediaRow(
+            media: collection!.parts,
         )
       ],
     );

@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/tv_show_model.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/models/media_model.dart';
+import 'package:movie_night/screens/movie_details/movie_details.dart';
 import 'package:movie_night/services/movie_service.dart';
 
-class TvShowCard extends StatelessWidget {
-  final TvShow tvShow;
-  const TvShowCard({required Key key, required this.tvShow}) : super(key: key);
+class MediaCard extends StatelessWidget {
+  final Media media;
+  const MediaCard({required Key key, required this.media}) : super(key: key);
+
+  void onMediaPress(BuildContext context) {
+    if(media.type == MediaType.movie) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: media.id),));
+    } else {
+      print("Navigating to a TV show details page!");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +28,9 @@ class TvShowCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             GestureDetector(
-              onTap: () => {},
-              child: tvShow.posterPath != null ? Image.network(
-                  getImageUrl(tvShow.posterPath!),
+              onTap: () => onMediaPress(context),
+              child: media.posterPath != null ? Image.network(
+                  getImageUrl(media.posterPath!),
                   fit: BoxFit.cover,
                   width: 200,
                   height: 300
@@ -38,7 +48,7 @@ class TvShowCard extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(Icons.star, color: Colors.amber),
-                    Text(tvShow.voteAverage.toString()),
+                    Text(media.voteAverage.toString()),
                   ],
                 ),
                 IconButton(
@@ -48,7 +58,7 @@ class TvShowCard extends StatelessWidget {
               ],
             ),
             Text(
-              tvShow.name,
+              media.title,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelLarge,

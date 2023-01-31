@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/movie_model.dart';
-import 'package:movie_night/models/tv_show_model.dart';
+import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
-import 'package:movie_night/widgets/movie_card.dart';
+import 'package:movie_night/widgets/media_card.dart';
 
-class MovieRow extends StatelessWidget {
+class MediaRow extends StatelessWidget {
   final String? title;
-  final List<Movie>? movies;
+  final List<Media>? media;
 
-  const MovieRow({Key? key, this.title, this.movies}) : super(key: key);
+  const MediaRow({Key? key, this.title, this.media}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +18,14 @@ class MovieRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Text(title!, style: Theme.of(context).textTheme.headlineSmall),
         ),
-        movies == null ? const LoadingSpinner() : SizedBox(
+        media == null ? const LoadingSpinner() : SizedBox(
           height: 400,
           child: ListView.builder(
-            itemCount: movies!.length,
+            itemCount: media!.length,
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return MovieCard(key: ValueKey(movies![index].id), movie: movies![index]);
+              return MediaCard(key: ValueKey(media![index].id), media: media![index]);
             },
           ),
         )

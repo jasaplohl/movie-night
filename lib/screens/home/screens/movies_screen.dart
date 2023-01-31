@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
-import 'package:movie_night/widgets/movie_row.dart';
+import 'package:movie_night/widgets/media_row.dart';
 
 class MoviesScreen extends StatefulWidget {
   const MoviesScreen({Key? key}) : super(key: key);
@@ -13,14 +13,14 @@ class MoviesScreen extends StatefulWidget {
 
 class _MoviesScreenState extends State<MoviesScreen> {
 
-  List<Movie>? trendingDaily;
-  List<Movie>? trendingWeekly;
-  List<Movie>? popular;
-  List<Movie>? topRated;
+  List<Media>? trendingDaily;
+  List<Media>? trendingWeekly;
+  List<Media>? popular;
+  List<Media>? topRated;
 
   @override
   void initState() {
-    getTrendingMoviesDaily().then((List<Movie> value) {
+    getTrendingMoviesDaily().then((List<Media> value) {
       setState(() {
         trendingDaily = value;
       });
@@ -28,7 +28,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
       showErrorDialog(context, err);
     });
 
-    getTrendingMoviesWeekly().then((List<Movie> value) {
+    getTrendingMoviesWeekly().then((List<Media> value) {
       setState(() {
         trendingWeekly = value;
       });
@@ -36,7 +36,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
       showErrorDialog(context, err);
     });
 
-    getPopularMovies().then((List<Movie> value) {
+    getPopularMovies().then((List<Media> value) {
       setState(() {
         popular = value;
       });
@@ -44,7 +44,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
       showErrorDialog(context, err);
     });
 
-    getTopRatedMovies().then((List<Movie> value) {
+    getTopRatedMovies().then((List<Media> value) {
       setState(() {
         topRated = value;
       });
@@ -59,21 +59,21 @@ class _MoviesScreenState extends State<MoviesScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        MovieRow(
+        MediaRow(
             title: "Trending today",
-            movies: trendingDaily
+            media: trendingDaily
         ),
-        MovieRow(
+        MediaRow(
             title: "Trending this week",
-            movies: trendingWeekly
+            media: trendingWeekly
         ),
-        MovieRow(
+        MediaRow(
             title: "Popular",
-            movies: popular
+            media: popular
         ),
-        MovieRow(
+        MediaRow(
             title: "Top Rated",
-            movies: topRated
+            media: topRated
         ),
       ],
     );

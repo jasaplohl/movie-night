@@ -1,3 +1,4 @@
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/production_company_model.dart';
 
@@ -64,7 +65,7 @@ class MovieDetails {
       backdropPath: json["backdrop_path"],
       belongsToCollection: json["belongs_to_collection"],
       budget: json["budget"],
-      genres: (json["genres"] as List<dynamic>).map((dynamic genre) => Genre.fromJson(genre, GenreType.movie)).toList(),
+      genres: (json["genres"] as List<dynamic>).map((dynamic genre) => Genre.fromJson(genre, MediaType.movie)).toList(),
       homePage: json["home_page"],
       id: json["id"],
       imdbId: json["imdb_id"],

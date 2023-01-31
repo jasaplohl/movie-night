@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/genre_model.dart';
-import 'package:movie_night/models/movie_model.dart';
+import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/movies_res_model.dart';
 import 'package:movie_night/services/genre_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
-import 'package:movie_night/widgets/movie_card.dart';
+import 'package:movie_night/widgets/media_card.dart';
 import 'package:movie_night/widgets/pagination.dart';
 
 class GenreScreen extends StatefulWidget {
@@ -20,14 +21,14 @@ class _GenreScreenState extends State<GenreScreen> {
   int currentPage = 1;
   int totalPages = 1;
   int totalResults = 0;
-  List<Movie>? movies;
+  List<Media>? movies;
   String sortBy = "popularity.desc";
 
   ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
-    if(widget.genre.type == GenreType.movie) {
+    if(widget.genre.type == MediaType.movie) {
       getMovies();
     } else {
       getTVShows();
@@ -54,8 +55,8 @@ class _GenreScreenState extends State<GenreScreen> {
 
   List<Widget> getMovieCards() {
     List<Widget> movieCards = [];
-    for (Movie element in movies!) {
-      movieCards.add(MovieCard(key: ValueKey(element.id), movie: element));
+    for (Media element in movies!) {
+      movieCards.add(MediaCard(key: ValueKey(element.id), media: element));
     }
     return movieCards;
   }
