@@ -27,6 +27,16 @@ class _GenreScreenState extends State<GenreScreen> {
 
   @override
   void initState() {
+    if(widget.genre.type == GenreType.movie) {
+      getMovies();
+    } else {
+      getTVShows();
+    }
+    super.initState();
+  }
+
+  void getMovies() {
+    print("Getting movies by genre");
     getMoviesByGenre(widget.genre.id, currentPage, sortBy).then((MovieRes value) {
       setState(() {
         totalPages = value.totalPages;
@@ -36,7 +46,10 @@ class _GenreScreenState extends State<GenreScreen> {
     }).catchError((err) {
       showErrorDialog(context, err);
     });
-    super.initState();
+  }
+
+  void getTVShows() {
+    print("Getting TV Shows by genre");
   }
 
   List<Widget> getMovieCards() {

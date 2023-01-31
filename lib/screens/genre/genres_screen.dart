@@ -12,9 +12,6 @@ class GenresScreen extends StatefulWidget {
   State<GenresScreen> createState() => _GenresScreenState();
 }
 
-// TODO: Show license page
-// showLicensePage(context: context);
-
 class _GenresScreenState extends State<GenresScreen> {
   List<Genre>? movieGenres;
   List<Genre>? tvGenres;
@@ -30,7 +27,6 @@ class _GenresScreenState extends State<GenresScreen> {
     });
 
     getTvShowGenres().then((List<Genre> value) {
-      showErrorDialog(context, "err");
       setState(() {
         tvGenres = value;
       });
