@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/movie_row.dart';
 
 class MoviesScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
         trendingDaily = value;
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
 
     getTrendingMoviesWeekly().then((List<Movie> value) {
@@ -32,7 +33,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
         trendingWeekly = value;
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
 
     getPopularMovies().then((List<Movie> value) {
@@ -40,7 +41,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
         popular = value;
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
 
     getTopRatedMovies().then((List<Movie> value) {
@@ -48,7 +49,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
         topRated = value;
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
 
     super.initState();

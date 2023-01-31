@@ -4,10 +4,10 @@ import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 
 class MovieRow extends StatelessWidget {
-  String? title;
-  List<Movie>? movies;
+  final String? title;
+  final List<Movie>? movies;
 
-  MovieRow({Key? key, this.title, this.movies}) : super(key: key);
+  const MovieRow({Key? key, this.title, this.movies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

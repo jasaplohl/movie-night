@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/models/movies_res_model.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 
@@ -23,6 +24,8 @@ class _SearchResultsMoviesState extends State<SearchResultsMovies> {
       setState(() {
         searchResult = value.results;
       });
+    }).catchError((err) {
+      showErrorDialog(context, err);
     });
     super.initState();
   }

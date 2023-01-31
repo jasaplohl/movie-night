@@ -3,6 +3,7 @@ import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
@@ -31,7 +32,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         }
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
     super.initState();
   }
@@ -42,7 +43,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         collection = value;
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
   }
 
@@ -56,7 +57,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           child: Text(collection!.overview, textAlign: TextAlign.center),
         ),
         MovieRow(
-            movies: collection!.parts!,
+            movies: collection!.parts,
         )
       ],
     );

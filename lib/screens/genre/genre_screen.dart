@@ -3,6 +3,7 @@ import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/models/movies_res_model.dart';
 import 'package:movie_night/services/genre_service.dart';
+import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/movie_card.dart';
 import 'package:movie_night/widgets/pagination.dart';
@@ -32,6 +33,8 @@ class _GenreScreenState extends State<GenreScreen> {
         totalResults = value.totalResults;
         movies = value.results;
       });
+    }).catchError((err) {
+      showErrorDialog(context, err);
     });
     super.initState();
   }
@@ -51,6 +54,8 @@ class _GenreScreenState extends State<GenreScreen> {
         currentPage = pageNumber;
         movies = value.results;
       });
+    }).catchError((err) {
+      showErrorDialog(context, err);
     });
   }
 

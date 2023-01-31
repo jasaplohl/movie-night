@@ -6,7 +6,7 @@ class Collection {
   final String overview;
   final String? posterPath;
   final String? backdropPath;
-  final List<Movie> parts;
+  final List<Movie>? parts;
 
   Collection({
     required this.id,

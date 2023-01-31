@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/screens/genre/genre_screen.dart';
 import 'package:movie_night/services/genre_service.dart';
+import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 
 class GenresScreen extends StatefulWidget {
@@ -10,6 +11,9 @@ class GenresScreen extends StatefulWidget {
   @override
   State<GenresScreen> createState() => _GenresScreenState();
 }
+
+// TODO: Show license page
+// showLicensePage(context: context);
 
 class _GenresScreenState extends State<GenresScreen> {
   List<Genre>? movieGenres;
@@ -22,15 +26,16 @@ class _GenresScreenState extends State<GenresScreen> {
         movieGenres = value;
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
 
     getTvShowGenres().then((List<Genre> value) {
+      showErrorDialog(context, "err");
       setState(() {
         tvGenres = value;
       });
     }).catchError((err) {
-      print(err);
+      showErrorDialog(context, err);
     });
 
     super.initState();

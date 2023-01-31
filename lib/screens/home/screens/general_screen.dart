@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/movie_model.dart';
 import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/movie_row.dart';
 
 class GeneralScreen extends StatefulWidget {
@@ -22,8 +23,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
         popularMovies = value;
       });
     }).catchError((err) {
-      // TODO: display error messages
-      print(err);
+      showErrorDialog(context, err);
     });
     super.initState();
   }
