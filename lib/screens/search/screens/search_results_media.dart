@@ -42,7 +42,7 @@ class _SearchResultsMediaState extends State<SearchResultsMedia> {
         searchResult = value.results;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
   }
 
@@ -52,7 +52,7 @@ class _SearchResultsMediaState extends State<SearchResultsMedia> {
         searchResult = value.results;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
   }
 

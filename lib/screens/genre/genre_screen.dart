@@ -21,63 +21,71 @@ class _GenreScreenState extends State<GenreScreen> {
   int currentPage = 1;
   int totalPages = 1;
   int totalResults = 0;
-  List<Media>? movies;
+  List<Media>? media;
   String sortBy = "popularity.desc";
 
   ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
-    if(widget.genre.type == MediaType.movie) {
-      getMovies();
-    } else {
-      getTVShows();
-    }
+    _setMedia(currentPage);
+
     super.initState();
   }
 
-  void getMovies() {
-    print("Getting movies by genre");
-    getMoviesByGenre(widget.genre.id, currentPage, sortBy).then((MediaRes value) {
+  void _setMedia(int page) {
+    if(widget.genre.type == MediaType.movie) {
+      _getMovies(page);
+    } else {
+      _getTVShows(page);
+    }
+  }
+
+  void _getMovies(int page) {
+    getMoviesByGenre(widget.genre.id, page, sortBy).then((MediaRes value) {
       setState(() {
+        currentPage = page;
         totalPages = value.totalPages;
         totalResults = value.totalResults;
-        movies = value.results;
+        media = value.results;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
   }
 
-  void getTVShows() {
-    print("Getting TV Shows by genre");
+  void _getTVShows(int page) {
+    getTvShowsByGenre(widget.genre.id, page, sortBy).then((MediaRes value) {
+      setState(() {
+        currentPage = page;
+        totalPages = value.totalPages;
+        totalResults = value.totalResults;
+        media = value.results;
+      });
+    }).catchError((err) {
+      showErrorDialog(context, err.toString());
+    });
+  }
+
+  void onPageChange(int pageNumber) {
+    scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+
+    _setMedia(pageNumber);
   }
 
   List<Widget> getMovieCards() {
     List<Widget> movieCards = [];
-    for (Media element in movies!) {
+    for (Media element in media!) {
       movieCards.add(MediaCard(key: ValueKey(element.id), media: element));
     }
     return movieCards;
   }
 
-  void onPageChange(int pageNumber) {
-    scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-    getMoviesByGenre(widget.genre.id, pageNumber, sortBy).then((MediaRes value) {
-      setState(() {
-        currentPage = pageNumber;
-        movies = value.results;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.genre.name)),
-      body: movies != null
+      appBar: AppBar(title: Text("${widget.genre.name} ${widget.genre.type == MediaType.movie ? "Movies" : "TV Shows"}")),
+      body: media != null
         ? ListView(
           controller: scrollController,
           children: [

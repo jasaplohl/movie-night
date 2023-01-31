@@ -33,7 +33,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         }
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
     super.initState();
   }
@@ -44,7 +44,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         collection = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
   }
 

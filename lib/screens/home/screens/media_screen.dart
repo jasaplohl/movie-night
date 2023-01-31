@@ -37,7 +37,7 @@ class _MediaScreenState extends State<MediaScreen> {
         trendingDaily = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     getTrendingMoviesWeekly().then((List<Media> value) {
@@ -45,7 +45,7 @@ class _MediaScreenState extends State<MediaScreen> {
         trendingWeekly = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     getPopularMovies().then((List<Media> value) {
@@ -53,7 +53,7 @@ class _MediaScreenState extends State<MediaScreen> {
         popular = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     getTopRatedMovies().then((List<Media> value) {
@@ -61,7 +61,7 @@ class _MediaScreenState extends State<MediaScreen> {
         topRated = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
   }
 
@@ -79,7 +79,7 @@ class _MediaScreenState extends State<MediaScreen> {
         trendingWeekly = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     getPopularTvShows().then((List<Media> value) {
@@ -87,7 +87,7 @@ class _MediaScreenState extends State<MediaScreen> {
         popular = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     getTopRatedTvShows().then((List<Media> value) {
@@ -95,7 +95,7 @@ class _MediaScreenState extends State<MediaScreen> {
         topRated = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
   }
 

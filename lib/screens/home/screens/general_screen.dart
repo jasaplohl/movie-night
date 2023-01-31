@@ -25,7 +25,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
         popularMovies = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     getPopularTvShows().then((List<Media> value) {
@@ -33,7 +33,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
         popularTvShows = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
     super.initState();
   }

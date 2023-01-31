@@ -23,7 +23,7 @@ class _GenresScreenState extends State<GenresScreen> {
         movieGenres = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     getTvShowGenres().then((List<Genre> value) {
@@ -31,7 +31,7 @@ class _GenresScreenState extends State<GenresScreen> {
         tvGenres = value;
       });
     }).catchError((err) {
-      showErrorDialog(context, err);
+      showErrorDialog(context, err.toString());
     });
 
     super.initState();
