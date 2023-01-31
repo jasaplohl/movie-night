@@ -29,11 +29,12 @@ class MediaCard extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => onMediaPress(context),
-              child: media.posterPath != null ? Image.network(
-                  getImageUrl(media.posterPath!),
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 300
+              child: media.posterPath != null ? FadeInImage.assetNetwork(
+                image: getImageUrl(media.posterPath!),
+                placeholder: "lib/assets/images/default_img.webp",
+                fit: BoxFit.cover,
+                width: 200,
+                height: 300,
               ) : Image.asset(
                 "lib/assets/images/default_img.webp",
                 fit: BoxFit.cover,
