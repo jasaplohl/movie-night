@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
-import 'package:movie_night/screens/movie_details/movie_details.dart';
+import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
+import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 
 class MediaCard extends StatelessWidget {
@@ -12,7 +13,7 @@ class MediaCard extends StatelessWidget {
     if(media.type == MediaType.movie) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: media.id),));
     } else {
-      print("Navigating to a TV show details page!");
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TvShowDetailsScreen(tvShowId: media.id),));
     }
   }
 
