@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/media_model.dart';
-import 'package:movie_night/models/movies_res_model.dart';
+import 'package:movie_night/models/media_res_model.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
@@ -20,7 +20,7 @@ class _SearchResultsMoviesState extends State<SearchResultsMovies> {
 
   @override
   void initState() {
-    searchMovies(widget.query, 1).then((MovieRes value) {
+    searchMovies(widget.query, 1).then((MediaRes value) {
       setState(() {
         searchResult = value.results;
       });

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/screens/movie_details/movie_details.dart';
-import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/common_services.dart';
 
 class MediaCard extends StatelessWidget {
   final Media media;

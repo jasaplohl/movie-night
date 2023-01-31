@@ -7,3 +7,13 @@ String formatDate(DateTime date) {
     return date.toString();
   }
 }
+
+String getImageUrl(String imageName) {
+  String url = "https://image.tmdb.org/t/p/w500/$imageName";
+  return url;
+}
+
+String getBackdropUrl(String imageName) {
+  String url = "https://image.tmdb.org/t/p/w1280/$imageName";
+  return url;
+}

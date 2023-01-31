@@ -6,7 +6,7 @@ import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
-import 'package:movie_night/models/movies_res_model.dart';
+import 'package:movie_night/models/media_res_model.dart';
 
 import 'constants.dart';
 
@@ -24,16 +24,6 @@ Future<List<Media>> getTrendingMoviesDaily() async {
 
 Future<List<Media>> getTrendingMoviesWeekly() async {
   return await _getMovies("$apiRoot/trending/movie/week");
-}
-
-String getImageUrl(String imageName) {
-  String url = "https://image.tmdb.org/t/p/w500/$imageName";
-  return url;
-}
-
-String getBackdropUrl(String imageName) {
-  String url = "https://image.tmdb.org/t/p/w1280/$imageName";
-  return url;
 }
 
 Future<List<Media>> _getMovies(String url) async {
@@ -79,7 +69,7 @@ Future<Collection> getCollection(int collectionId) async {
 }
 
 // TODO: Include adult?
-Future<MovieRes> searchMovies(String query, int page) async {
+Future<MediaRes> searchMovies(String query, int page) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
   final url = "$apiRoot/search/movie?query=$query&page=$page";
   final res = await http.get(Uri.parse(url), headers: {
@@ -87,7 +77,7 @@ Future<MovieRes> searchMovies(String query, int page) async {
   });
   final dynamic body = jsonDecode(res.body);
   if(res.statusCode == 200) {
-    return MovieRes.fromJson(body);
+    return MediaRes.fromJson(body, MediaType.movie);
   } else {
     throw Exception(body["status_message"]);
   }

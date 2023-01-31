@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/screens/home/screens/general_screen.dart';
-import 'package:movie_night/screens/home/screens/movies_screen.dart';
+import 'package:movie_night/screens/home/screens/media_screen.dart';
 import 'package:movie_night/services/custom_search_delegate.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -36,8 +37,8 @@ class HomeScreen extends StatelessWidget {
           body: const TabBarView(
               children: [
                 GeneralScreen(),
-                MoviesScreen(),
-                Icon(Icons.tv),
+                MediaScreen(mediaType: MediaType.movie),
+                MediaScreen(mediaType: MediaType.tv),
               ]
           ),
         )

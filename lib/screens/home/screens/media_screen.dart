@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
+import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/media_row.dart';
 
-class MoviesScreen extends StatefulWidget {
-  const MoviesScreen({Key? key}) : super(key: key);
+class MediaScreen extends StatefulWidget {
+  final MediaType mediaType;
+  const MediaScreen({Key? key, required this.mediaType}) : super(key: key);
 
   @override
-  State<MoviesScreen> createState() => _MoviesScreenState();
+  State<MediaScreen> createState() => _MediaScreenState();
 }
 
-class _MoviesScreenState extends State<MoviesScreen> {
+class _MediaScreenState extends State<MediaScreen> {
 
   List<Media>? trendingDaily;
   List<Media>? trendingWeekly;
@@ -20,6 +23,15 @@ class _MoviesScreenState extends State<MoviesScreen> {
 
   @override
   void initState() {
+    if(widget.mediaType == MediaType.movie) {
+      initMovies();
+    } else {
+      initTvShows();
+    }
+    super.initState();
+  }
+
+  void initMovies() {
     getTrendingMoviesDaily().then((List<Media> value) {
       setState(() {
         trendingDaily = value;
@@ -51,8 +63,40 @@ class _MoviesScreenState extends State<MoviesScreen> {
     }).catchError((err) {
       showErrorDialog(context, err);
     });
+  }
 
-    super.initState();
+  void initTvShows() {
+    getTrendingTvShowsDaily().then((List<Media> value) {
+      setState(() {
+        trendingDaily = value;
+      });
+    }).catchError((err) {
+      showErrorDialog(context, err.toString());
+    });
+
+    getTrendingTvShowsWeekly().then((List<Media> value) {
+      setState(() {
+        trendingWeekly = value;
+      });
+    }).catchError((err) {
+      showErrorDialog(context, err);
+    });
+
+    getPopularTvShows().then((List<Media> value) {
+      setState(() {
+        popular = value;
+      });
+    }).catchError((err) {
+      showErrorDialog(context, err);
+    });
+
+    getTopRatedTvShows().then((List<Media> value) {
+      setState(() {
+        topRated = value;
+      });
+    }).catchError((err) {
+      showErrorDialog(context, err);
+    });
   }
 
   @override
@@ -79,4 +123,3 @@ class _MoviesScreenState extends State<MoviesScreen> {
     );
   }
 }
-

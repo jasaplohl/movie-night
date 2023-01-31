@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/media_model.dart';
-import 'package:movie_night/models/movies_res_model.dart';
+import 'package:movie_night/models/media_res_model.dart';
 import 'package:movie_night/services/genre_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
@@ -38,7 +38,7 @@ class _GenreScreenState extends State<GenreScreen> {
 
   void getMovies() {
     print("Getting movies by genre");
-    getMoviesByGenre(widget.genre.id, currentPage, sortBy).then((MovieRes value) {
+    getMoviesByGenre(widget.genre.id, currentPage, sortBy).then((MediaRes value) {
       setState(() {
         totalPages = value.totalPages;
         totalResults = value.totalResults;
@@ -63,7 +63,7 @@ class _GenreScreenState extends State<GenreScreen> {
 
   void onPageChange(int pageNumber) {
     scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-    getMoviesByGenre(widget.genre.id, pageNumber, sortBy).then((MovieRes value) {
+    getMoviesByGenre(widget.genre.id, pageNumber, sortBy).then((MediaRes value) {
       setState(() {
         currentPage = pageNumber;
         movies = value.results;

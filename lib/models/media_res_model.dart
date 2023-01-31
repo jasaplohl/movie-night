@@ -1,23 +1,23 @@
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 
-class MovieRes {
+class MediaRes {
   final int page;
   final List<Media> results;
   final int totalPages;
   final int totalResults;
 
-  MovieRes({
+  MediaRes({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory MovieRes.fromJson(dynamic json) {
-    return MovieRes(
+  factory MediaRes.fromJson(dynamic json, MediaType mediaType) {
+    return MediaRes(
       page: json["page"],
-      results: (json["results"] as List<dynamic>).map((dynamic movie) => Media.fromJson(movie, MediaType.movie)).toList(),
+      results: (json["results"] as List<dynamic>).map((dynamic movie) => Media.fromJson(movie, mediaType)).toList(),
       totalPages: json["total_pages"],
       totalResults: json["total_results"],
     );
