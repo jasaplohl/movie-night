@@ -5,8 +5,7 @@ import 'package:movie_night/services/movie_service.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
-  // TODO: Key no longer optional
-  const MovieCard({Key? key, required this.movie}) : super(key: key);
+  const MovieCard({required Key key, required this.movie}) : super(key: key);
 
   void onMoviePress(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: movie.id),));

@@ -42,7 +42,7 @@ class _GenreScreenState extends State<GenreScreen> {
   List<Widget> getMovieCards() {
     List<Widget> movieCards = [];
     for (Movie element in movies!) {
-      movieCards.add(MovieCard(movie: element));
+      movieCards.add(MovieCard(key: ValueKey(element.id), movie: element));
     }
     return movieCards;
   }

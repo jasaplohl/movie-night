@@ -4,7 +4,7 @@ import 'package:movie_night/models/production_company_model.dart';
 class MovieDetails {
   final bool adult;
   final String? backdropPath;
-  final dynamic belongsToCollection; // TODO: Object
+  final dynamic belongsToCollection;
   final int budget;
   final List<Genre> genres;
   final String? homePage;

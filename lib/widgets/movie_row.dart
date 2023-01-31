@@ -25,7 +25,7 @@ class MovieRow extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return MovieCard(movie: movies![index]);
+              return MovieCard(key: ValueKey(movies![index].id), movie: movies![index]);
             },
           ),
         )

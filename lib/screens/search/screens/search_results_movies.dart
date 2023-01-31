@@ -33,7 +33,7 @@ class _SearchResultsMoviesState extends State<SearchResultsMovies> {
   List<Widget> getMovieCards() {
     List<Widget> movieCards = [];
     for (Movie element in searchResult!) {
-      movieCards.add(MovieCard(movie: element));
+      movieCards.add(MovieCard(key: ValueKey(element.id), movie: element));
     }
     return movieCards;
   }
