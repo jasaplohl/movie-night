@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
+import 'package:movie_night/services/media_service.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
@@ -23,16 +24,12 @@ class _MediaScreenState extends State<MediaScreen> {
 
   @override
   void initState() {
-    if(widget.mediaType == MediaType.movie) {
-      initMovies();
-    } else {
-      initTvShows();
-    }
+    initMedia();
     super.initState();
   }
 
-  void initMovies() {
-    getTrendingMoviesDaily().then((List<Media> value) {
+  void initMedia() {
+    getTrendingDaily(widget.mediaType).then((List<Media> value) {
       setState(() {
         trendingDaily = value;
       });
@@ -40,7 +37,7 @@ class _MediaScreenState extends State<MediaScreen> {
       showErrorDialog(context, err.toString());
     });
 
-    getTrendingMoviesWeekly().then((List<Media> value) {
+    getTrendingWeekly(widget.mediaType).then((List<Media> value) {
       setState(() {
         trendingWeekly = value;
       });
@@ -48,7 +45,7 @@ class _MediaScreenState extends State<MediaScreen> {
       showErrorDialog(context, err.toString());
     });
 
-    getPopularMovies().then((List<Media> value) {
+    getPopular(mediaType: widget.mediaType).then((List<Media> value) {
       setState(() {
         popular = value;
       });
@@ -56,41 +53,7 @@ class _MediaScreenState extends State<MediaScreen> {
       showErrorDialog(context, err.toString());
     });
 
-    getTopRatedMovies().then((List<Media> value) {
-      setState(() {
-        topRated = value;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err.toString());
-    });
-  }
-
-  void initTvShows() {
-    getTrendingTvShowsDaily().then((List<Media> value) {
-      setState(() {
-        trendingDaily = value;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err.toString());
-    });
-
-    getTrendingTvShowsWeekly().then((List<Media> value) {
-      setState(() {
-        trendingWeekly = value;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err.toString());
-    });
-
-    getPopularTvShows().then((List<Media> value) {
-      setState(() {
-        popular = value;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err.toString());
-    });
-
-    getTopRatedTvShows().then((List<Media> value) {
+    getTopRated(mediaType: widget.mediaType).then((List<Media> value) {
       setState(() {
         topRated = value;
       });

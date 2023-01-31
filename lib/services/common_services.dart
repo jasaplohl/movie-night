@@ -9,11 +9,11 @@ String formatDate(DateTime date) {
 }
 
 String getImageUrl(String imageName) {
-  String url = "https://image.tmdb.org/t/p/w500/$imageName";
+  String url = "https://image.tmdb.org/t/p/w500$imageName";
   return url;
 }
 
 String getBackdropUrl(String imageName) {
-  String url = "https://image.tmdb.org/t/p/w1280/$imageName";
+  String url = "https://image.tmdb.org/t/p/w1280$imageName";
   return url;
 }

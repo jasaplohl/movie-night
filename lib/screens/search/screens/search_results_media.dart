@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/media_res_model.dart';
-import 'package:movie_night/services/movie_service.dart';
+import 'package:movie_night/services/media_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
-import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_card.dart';
 
@@ -28,32 +27,15 @@ class _SearchResultsMediaState extends State<SearchResultsMedia> {
 
   @override
   void initState() {
-    if(widget.mediaType == MediaType.movie) {
-      getMovieSearchResults();
-    } else {
-      getTvShowsSearchResults();
-    }
+    search(widget.query, 1, widget.mediaType).then((MediaRes value) {
+      setState(() {
+        searchResult = value.results;
+      });
+    }).catchError((err) {
+      showErrorDialog(context, err.toString());
+    });
+
     super.initState();
-  }
-
-  void getMovieSearchResults() {
-    searchMovies(widget.query, 1).then((MediaRes value) {
-      setState(() {
-        searchResult = value.results;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err.toString());
-    });
-  }
-
-  void getTvShowsSearchResults() {
-    searchTvShows(widget.query, 1).then((MediaRes value) {
-      setState(() {
-        searchResult = value.results;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err.toString());
-    });
   }
 
   List<Widget> getMediaCards() {

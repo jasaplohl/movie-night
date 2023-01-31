@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
+import 'package:movie_night/services/media_service.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
@@ -20,7 +22,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
 
   @override
   void initState() {
-    getPopularMovies().then((List<Media> value) {
+    getPopular(mediaType: MediaType.movie).then((List<Media> value) {
       setState(() {
         popularMovies = value;
       });
@@ -28,7 +30,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
       showErrorDialog(context, err.toString());
     });
 
-    getPopularTvShows().then((List<Media> value) {
+    getPopular(mediaType: MediaType.tv).then((List<Media> value) {
       setState(() {
         popularTvShows = value;
       });
