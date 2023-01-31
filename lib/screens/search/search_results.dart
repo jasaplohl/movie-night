@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/screens/search/screens/search_results_actors.dart';
-import 'package:movie_night/screens/search/screens/search_results_movies.dart';
-import 'package:movie_night/screens/search/screens/search_results_tv_shows.dart';
+import 'package:movie_night/screens/search/screens/search_results_media.dart';
 
 // TODO: add pagination for search results
 
@@ -27,8 +27,8 @@ class SearchResults extends StatelessWidget {
           ),
           body: TabBarView(
               children: [
-                SearchResultsMovies(query: query),
-                SearchResultsTVShows(query: query),
+                SearchResultsMedia(mediaType: MediaType.movie, query: query),
+                SearchResultsMedia(mediaType: MediaType.tv, query: query),
                 SearchResultsActors(query: query,)
               ],
           ),
