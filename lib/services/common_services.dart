@@ -8,6 +8,11 @@ String formatDate(DateTime date) {
   }
 }
 
+String formatNumber(num number) {
+  NumberFormat formatter = NumberFormat.compact();
+  return formatter.format(number);
+}
+
 String getImageUrl(String imageName) {
   String url = "https://image.tmdb.org/t/p/w500$imageName";
   return url;
