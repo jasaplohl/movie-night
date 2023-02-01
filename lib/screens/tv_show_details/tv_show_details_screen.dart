@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/episode_model.dart';
+import 'package:movie_night/models/network.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/models/tv_show_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
+import 'package:movie_night/widgets/custom_chip.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
@@ -49,6 +51,20 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
         if(nextEpisode.airDate != null) Text("Air date: ${formatDate(DateTime.parse(nextEpisode.airDate!))}"),
         const SizedBox(height: 10,),
         Text(nextEpisode.overview.isNotEmpty ? nextEpisode.overview : "No description available."),
+      ],
+    );
+  }
+
+  Widget getNetworksSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const DividerMargin(),
+        Text("Networks", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        for(final Network network in tvShowDetails!.networks) CustomChip(
+          label: network.name,
+          imagePath: network.logoPath != null ? getImageUrl(network.logoPath!) : null,
+        ),
       ],
     );
   }
@@ -128,6 +144,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
               child: const Text("Home page"),
             ),
             GenreRow(genres: tvShowDetails!.genres),
+            // TODO: Trailer video embed
             if(tvShowDetails!.backdropPath != null) Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
               child: Image.network(getBackdropUrl(tvShowDetails!.backdropPath!)),
@@ -141,9 +158,8 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
               child: Text(tvShowDetails!.overview),
             ),
             if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
+            getNetworksSection(),
             getSeasonsSection(),
-            // TODO: Seasons section
-            // TODO: Networks section
             // TODO: Production companies section
           ],
         ),

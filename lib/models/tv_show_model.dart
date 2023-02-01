@@ -1,6 +1,7 @@
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/genre_model.dart';
+import 'package:movie_night/models/network.dart';
 import 'package:movie_night/models/production_company_model.dart';
 import 'package:movie_night/models/season_model.dart';
 
@@ -14,7 +15,7 @@ class TvShowDetails {
   final String lastAirDate;
   final String name;
   final Episode? nextEpisodeToAir;
-  final dynamic networks;
+  final List<Network> networks;
   final int numberOfEpisodes;
   final int numberOfSeasons;
   final List<dynamic> originCountry;
@@ -67,7 +68,7 @@ class TvShowDetails {
       lastAirDate: json["last_air_date"],
       name: json["name"],
       nextEpisodeToAir: json["next_episode_to_air"] != null ? Episode.fromJson(json["next_episode_to_air"]) : null,
-      networks: json["networks"],
+      networks: (json["networks"] as List<dynamic>).map((dynamic e) => Network.fromJson(e)).toList(),
       numberOfEpisodes: json["number_of_episodes"],
       numberOfSeasons: json["number_of_seasons"],
       originCountry: json["origin_country"],
