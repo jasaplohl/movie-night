@@ -27,6 +27,12 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          )
+        )
       ),
       home: RootScreen(),
     );

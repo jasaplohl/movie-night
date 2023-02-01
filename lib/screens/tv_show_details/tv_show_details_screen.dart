@@ -7,6 +7,7 @@ import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TvShowDetailsScreen extends StatefulWidget {
   final int tvShowId;
@@ -97,7 +98,10 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
               ],
             ),
             const SizedBox(height: 10),
-            if(tvShowDetails!.homepage != null) Text(tvShowDetails!.homepage!),
+            if(tvShowDetails!.homepage != null) ElevatedButton(
+              onPressed: () => goToUrl(tvShowDetails!.homepage!, context),
+              child: const Text("Home page"),
+            ),
             GenreRow(genres: tvShowDetails!.genres),
             if(tvShowDetails!.backdropPath != null) Container(
               margin: const EdgeInsets.symmetric(vertical: 15),

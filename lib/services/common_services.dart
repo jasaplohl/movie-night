@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_night/services/show_error_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String formatDate(DateTime date) {
   try {
@@ -21,4 +24,15 @@ String getImageUrl(String imageName) {
 String getBackdropUrl(String imageName) {
   String url = "https://image.tmdb.org/t/p/w1280$imageName";
   return url;
+}
+
+void goToUrl(String url, BuildContext context) async {
+  launchUrl(
+    Uri.parse(url),
+    mode: LaunchMode.externalApplication
+  ).then((bool status) {
+    if(!status) {
+      showErrorDialog(context, "Could not open the requested url.");
+    }
+  });
 }

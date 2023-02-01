@@ -143,6 +143,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 )
               ],
             ),
+            if(movieDetails!.homePage != null) ElevatedButton(
+              onPressed: () => goToUrl(movieDetails!.homePage!, context),
+              child: const Text("Home page"),
+            ),
             GenreRow(genres: movieDetails!.genres),
             if(movieDetails!.backdropPath != null) Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
