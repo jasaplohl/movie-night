@@ -144,11 +144,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               ],
             ),
             GenreRow(genres: movieDetails!.genres),
-            if(movieDetails!.backdropPath != null)
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
-              ),
+            if(movieDetails!.backdropPath != null) Container(
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
+            ),
             if(movieDetails!.tagline != null) Text(movieDetails!.tagline!, style: Theme.of(context).textTheme.headlineSmall),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 10),

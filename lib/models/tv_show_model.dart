@@ -1,4 +1,5 @@
 import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/production_company_model.dart';
 import 'package:movie_night/models/season_model.dart';
@@ -8,11 +9,11 @@ class TvShowDetails {
   final int episodeRunTime;
   final String firstAirDate;
   final List<Genre> genres;
-  final String homepage;
+  final String? homepage;
   final int id;
   final String lastAirDate;
   final String name;
-  final dynamic nextEpisodeToAir;
+  final Episode? nextEpisodeToAir;
   final dynamic networks;
   final int numberOfEpisodes;
   final int numberOfSeasons;
@@ -23,7 +24,7 @@ class TvShowDetails {
   final List<ProductionCompany> productionCompanies;
   final List<Season> seasons;
   final String status;
-  final String tagline;
+  final String? tagline;
   final String type;
   final num voteAverage;
   final int voteCount;
@@ -64,7 +65,7 @@ class TvShowDetails {
       id: json["id"],
       lastAirDate: json["last_air_date"],
       name: json["name"],
-      nextEpisodeToAir: json["next_episode_to_air"],
+      nextEpisodeToAir: json["next_episode_to_air"] != null ? Episode.fromJson(json["next_episode_to_air"]) : null,
       networks: json["networks"],
       numberOfEpisodes: json["number_of_episodes"],
       numberOfSeasons: json["number_of_seasons"],

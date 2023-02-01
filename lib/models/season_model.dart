@@ -5,7 +5,7 @@ class Season {
   final String? posterPath;
   final int seasonNumber;
   final int episodeCount;
-  final String airDate;
+  final String? airDate;
   
   Season({
     required this.id,
