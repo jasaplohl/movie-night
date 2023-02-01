@@ -3,6 +3,7 @@ import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/network.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/models/tv_show_model.dart';
+import 'package:movie_night/screens/tv_show_details/screens/season_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
@@ -35,8 +36,8 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
     super.initState();
   }
 
-  void onSeasonClick(int seasonId) {
-    print("Go to details page for season $seasonId");
+  void onSeasonClick(Season season) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SeasonDetailsScreen(tvShowId: widget.tvShowId, season: season),));
   }
 
   Widget getNextEpisodeSection() {
@@ -97,7 +98,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
           Text("${season.name} (${getYear(DateTime.parse(season.airDate!))})") :
           Text(season.name),
           subtitle: Text("Episodes: ${season.episodeCount}"),
-          onTap: () => onSeasonClick(season.id),
+          onTap: () => onSeasonClick(season),
         ),
       ],
     );
