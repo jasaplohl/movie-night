@@ -57,14 +57,6 @@ class _SearchResultsMediaState extends State<SearchResultsMedia> {
     _getSearchResults(pageNumber);
   }
 
-  List<Widget> getMediaCards() {
-    List<Widget> movieCards = [];
-    for (Media element in searchResult!) {
-      movieCards.add(MediaCard(key: ValueKey(element.id), media: element));
-    }
-    return movieCards;
-  }
-
   @override
   Widget build(BuildContext context) {
     return searchResult != null ?
@@ -77,7 +69,9 @@ class _SearchResultsMediaState extends State<SearchResultsMedia> {
         ),
         Wrap(
           direction: Axis.horizontal,
-          children: getMediaCards(),
+          children: [
+            for (final Media element in searchResult!) MediaCard(key: ValueKey(element.id), media: element),
+          ],
         ),
         Pagination(
             currentPage: currentPage,

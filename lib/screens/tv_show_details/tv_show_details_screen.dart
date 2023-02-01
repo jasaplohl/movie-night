@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/episode_model.dart';
+import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/models/tv_show_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
@@ -32,25 +33,50 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
     super.initState();
   }
 
+  void onSeasonClick(int seasonId) {
+    print("Go to details page for season $seasonId");
+  }
+
   Widget getNextEpisodeSection() {
     Episode nextEpisode = tvShowDetails!.nextEpisodeToAir!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const DividerMargin(),
-        Text(
-          "Comming soon",
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)
-        ),
-        Text(
-          "${nextEpisode.name} (episode ${nextEpisode.episodeNumber})",
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
+        Text("Coming soon", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        Text("${nextEpisode.name} (episode ${nextEpisode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
         const SizedBox(height: 10,),
         if(nextEpisode.airDate != null) Text("Air date: ${formatDate(DateTime.parse(nextEpisode.airDate!))}"),
         const SizedBox(height: 10,),
         Text(nextEpisode.overview.isNotEmpty ? nextEpisode.overview : "No description available."),
+      ],
+    );
+  }
+
+  Widget getSeasonsSection() {
+    final List<Season> seasons = tvShowDetails!.seasons;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const DividerMargin(),
+        Text("Seasons", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        for(Season season in seasons) ListTile(
+          leading: season.posterPath != null ? FadeInImage.assetNetwork(
+            image: getBackdropUrl(season.posterPath!),
+            placeholder: "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+            width: 40,
+            height: 60,
+          ) : Image.asset(
+            "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+          ),
+          title: season.airDate != null ?
+          Text("${season.name} (${getYear(DateTime.parse(season.airDate!))})") :
+          Text(season.name),
+          subtitle: Text("Episodes: ${season.episodeCount}"),
+          onTap: () => onSeasonClick(season.id),
+        ),
       ],
     );
   }
@@ -115,6 +141,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
               child: Text(tvShowDetails!.overview),
             ),
             if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
+            getSeasonsSection(),
             // TODO: Seasons section
             // TODO: Networks section
             // TODO: Production companies section

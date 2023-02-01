@@ -11,6 +11,14 @@ String formatDate(DateTime date) {
   }
 }
 
+String getYear(DateTime date) {
+  try {
+    return DateFormat.y().format(date);
+  } catch(err) {
+    return date.toString();
+  }
+}
+
 String formatNumber(num number) {
   NumberFormat formatter = NumberFormat.compact();
   return formatter.format(number);

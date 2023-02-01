@@ -73,14 +73,6 @@ class _GenreScreenState extends State<GenreScreen> {
     _setMedia(pageNumber);
   }
 
-  List<Widget> getMovieCards() {
-    List<Widget> movieCards = [];
-    for (Media element in media!) {
-      movieCards.add(MediaCard(key: ValueKey(element.id), media: element));
-    }
-    return movieCards;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +87,9 @@ class _GenreScreenState extends State<GenreScreen> {
             ),
             Wrap(
               direction: Axis.horizontal,
-              children: getMovieCards(),
+              children: [
+                for (final Media element in media!) MediaCard(key: ValueKey(element.id), media: element),
+              ],
             ),
             Pagination(
               currentPage: currentPage,

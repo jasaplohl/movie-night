@@ -41,29 +41,6 @@ class _GenresScreenState extends State<GenresScreen> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => GenreScreen(genre: genre),));
   }
 
-  List<Widget> getMovieGenreChips() {
-    List<Widget> chips = [];
-
-    for (Genre genre in movieGenres!) {
-      chips.add(Chip(
-        label: Text(genre.name),
-      ));
-    }
-
-    // return TextButton(
-    //   key: ValueKey(movieGenres![index].id),
-    //   onPressed: () => onGenreClick(movieGenres![index]),
-    //   style: TextButton.styleFrom(foregroundColor: Theme.of(context).primaryColorLight),
-    //   child: Text(movieGenres![index].name),
-    // );
-    return chips;
-  }
-
-  List<Widget> getTvGenreChips() {
-    List<Widget> chips = [];
-    return chips;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

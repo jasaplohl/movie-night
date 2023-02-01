@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
+import 'package:movie_night/models/production_company_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
@@ -66,7 +67,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget getProductionCompaniesSection() {
     List<Widget> widgets = [];
 
-    for (var e in movieDetails!.productionCompanies) {
+    for (final ProductionCompany e in movieDetails!.productionCompanies) {
       widgets.add(Chip(
         avatar: e.logoPath != null ? Image.network(
           getImageUrl(e.logoPath!),

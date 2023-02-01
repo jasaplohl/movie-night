@@ -7,20 +7,14 @@ class GenreRow extends StatelessWidget {
   final List<Genre>? genres;
   const GenreRow({Key? key, this.genres}) : super(key: key);
 
-  List<Widget> getGenreItems() {
-    List<Widget> genreWidgetList = [];
-    for (Genre element in genres!) {
-      genreWidgetList.add(GenreChip(genre: element));
-    }
-    return genreWidgetList;
-  }
-
   @override
   Widget build(BuildContext context) {
     return genres != null ? Wrap(
       alignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
-      children: getGenreItems(),
+      children: [
+        for (final Genre element in genres!) GenreChip(genre: element),
+      ],
     ) : const LoadingSpinner();
   }
 }
