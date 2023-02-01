@@ -6,7 +6,7 @@ import 'package:movie_night/models/season_model.dart';
 
 class TvShowDetails {
   final String? backdropPath;
-  final int episodeRunTime;
+  final int? episodeRunTime;
   final String firstAirDate;
   final List<Genre> genres;
   final String? homepage;
@@ -56,9 +56,10 @@ class TvShowDetails {
   });
 
   factory TvShowDetails.fromJson(dynamic json) {
+    final List<dynamic> runTime = json["episode_run_time"] ?? [];
     return TvShowDetails(
       backdropPath: json["backdrop_path"],
-      episodeRunTime: (json["episode_run_time"] as List<dynamic>)[0] as int,
+      episodeRunTime: runTime.isNotEmpty ? runTime[0] as int : null,
       firstAirDate: json["first_air_date"],
       genres: (json["genres"] as List<dynamic>).map((dynamic e) => Genre.fromJson(e, MediaType.tv)).toList(),
       homepage: json["homepage"],

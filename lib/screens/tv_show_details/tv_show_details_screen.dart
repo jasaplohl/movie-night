@@ -7,7 +7,6 @@ import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TvShowDetailsScreen extends StatefulWidget {
   final int tvShowId;
@@ -85,7 +84,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Episode runtime: ${tvShowDetails!.episodeRunTime} min"),
+                if(tvShowDetails!.episodeRunTime != null) Text("Episode runtime: ${tvShowDetails!.episodeRunTime} min"),
                 Row(
                   children: [
                     Container(
