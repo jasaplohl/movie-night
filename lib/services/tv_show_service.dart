@@ -23,7 +23,7 @@ Future<TvShowDetails> getTvShowDetails(int tvShowId) async {
 
 Future<List<Episode>> getEpisodes(int tvShowId, int seasonNumber) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
-  final String url = "$apiRoot/tv/$tvShowId/$seasonNumber";
+  final String url = "$apiRoot/tv/$tvShowId/season/$seasonNumber";
   final res = await http.get(Uri.parse(url), headers: {
     "Authorization": "Bearer $accessToken"
   });
