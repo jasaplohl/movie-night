@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
-import 'package:movie_night/models/production_company_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
-import 'package:movie_night/widgets/custom_chip.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
@@ -60,29 +58,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
         MediaRow(
             media: collection!.parts,
-        )
-      ],
-    );
-  }
-
-  Widget getProductionCompaniesSection() {
-    List<Widget> widgets = [];
-
-    for (final ProductionCompany e in movieDetails!.productionCompanies) {
-      widgets.add(CustomChip(
-        label: e.name,
-        imagePath: e.logoPath != null ? getImageUrl(e.logoPath!) : null,
-      ));
-    }
-
-    return Column(
-      children: [
-        const DividerMargin(),
-        Text("Production companies", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
-        Wrap(
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: widgets,
         )
       ],
     );
@@ -158,7 +133,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               child: Text(movieDetails!.overview ?? "No description available"),
             ),
             if(movieDetails!.belongsToCollection != null && collection != null) getCollectionSection(),
-            if(movieDetails!.productionCompanies.isNotEmpty) getProductionCompaniesSection()
           ],
         ),
       );

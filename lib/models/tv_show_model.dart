@@ -2,7 +2,6 @@ import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/network.dart';
-import 'package:movie_night/models/production_company_model.dart';
 import 'package:movie_night/models/season_model.dart';
 
 class TvShowDetails {
@@ -22,7 +21,6 @@ class TvShowDetails {
   final String originalLanguage;
   final String overview;
   final String? posterPath;
-  final List<ProductionCompany> productionCompanies;
   final List<Season> seasons;
   final String status;
   final String? tagline;
@@ -47,7 +45,6 @@ class TvShowDetails {
     required this.originalLanguage,
     required this.overview,
     required this.posterPath,
-    required this.productionCompanies,
     required this.seasons,
     required this.status,
     required this.tagline,
@@ -75,7 +72,6 @@ class TvShowDetails {
       originalLanguage: json["original_language"],
       overview: json["overview"],
       posterPath: json["poster_path"],
-      productionCompanies: (json["production_companies"] as List<dynamic>).map((dynamic e) => ProductionCompany.fromJson(e)).toList(),
       seasons: (json["seasons"] as List<dynamic>).map((dynamic e) => Season.fromJson(e)).toList(),
       status: json["status"],
       tagline: json["tagline"],

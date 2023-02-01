@@ -61,9 +61,15 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
       children: [
         const DividerMargin(),
         Text("Networks", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
-        for(final Network network in tvShowDetails!.networks) CustomChip(
-          label: network.name,
-          imagePath: network.logoPath != null ? getImageUrl(network.logoPath!) : null,
+        Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            for(final Network network in tvShowDetails!.networks) CustomChip(
+              label: network.name,
+              imagePath: network.logoPath != null ? getImageUrl(network.logoPath!) : null,
+            ),
+          ],
         ),
       ],
     );
@@ -160,7 +166,6 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
             if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
             getNetworksSection(),
             getSeasonsSection(),
-            // TODO: Production companies section
           ],
         ),
       );
