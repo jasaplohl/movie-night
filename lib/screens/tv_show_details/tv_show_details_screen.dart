@@ -47,11 +47,19 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
       children: [
         const DividerMargin(),
         Text("Coming soon", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
-        Text("${nextEpisode.name} (episode ${nextEpisode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
         const SizedBox(height: 10,),
         if(nextEpisode.airDate != null) Text("Air date: ${formatDate(DateTime.parse(nextEpisode.airDate!))}"),
-        const SizedBox(height: 10,),
-        Text(nextEpisode.overview.isNotEmpty ? nextEpisode.overview : "No description available."),
+        ListTile(
+          leading: nextEpisode.stillPath != null ? FadeInImage.assetNetwork(
+            image: getBackdropUrl(nextEpisode.stillPath!),
+            placeholder: "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+            width: 40,
+            height: 60,
+          ) : null,
+          title: Text("${nextEpisode.name} (episode ${nextEpisode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
+          subtitle: Text(nextEpisode.overview.isNotEmpty ? nextEpisode.overview : "No description available."),
+        ),
       ],
     );
   }
@@ -82,7 +90,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const DividerMargin(),
-        Text("Seasons", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        Text("Seasons (${tvShowDetails!.numberOfSeasons})", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         for(Season season in seasons) ListTile(
           leading: season.posterPath != null ? FadeInImage.assetNetwork(
             image: getBackdropUrl(season.posterPath!),

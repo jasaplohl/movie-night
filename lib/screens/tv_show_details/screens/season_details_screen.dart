@@ -33,8 +33,9 @@ class _SeasonDetailsScreenState extends State<SeasonDetailsScreen> {
   @override
   void initState() {
     getEpisodes(widget.tvShowId, widget.season.seasonNumber).then((List<Episode> value) {
+      final maxPages = (value.length / maxItemsPerPage).ceil();
       setState(() {
-        totalPages = (value.length / maxItemsPerPage).ceil();
+        totalPages = maxPages > 0 ? maxPages : 1;
         episodes = value;
       });
       setEpisodesForCurrentPage();
@@ -86,9 +87,10 @@ class _SeasonDetailsScreenState extends State<SeasonDetailsScreen> {
             ),
             const DividerMargin(),
             Text("Episodes", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+            const SizedBox(height: 10,),
             displayedEpisodes == null ? const LoadingSpinner() : Column(
               children: [
-                Text("Current page: $currentPage of $totalPages."),
+                if(totalPages > 1) Text("Current page: $currentPage of $totalPages."),
                 for(final Episode episode in displayedEpisodes!) ListTile(
                   leading: episode.stillPath != null ? FadeInImage.assetNetwork(
                     image: getBackdropUrl(episode.stillPath!),

@@ -40,13 +40,13 @@ Future<List<Media>> getTrendingWeekly(MediaType mediaType) async {
   }
 }
 
-// TODO: Include adult?
+// TODO: Include adult - toggle if the user is adult
 Future<MediaRes> search(String query, int page, MediaType mediaType) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
 
   String url;
   if(mediaType == MediaType.movie) {
-    url = "$apiRoot/search/movie?query=$query&page=$page";
+    url = "$apiRoot/search/movie?query=$query&page=$page&include_adult=false";
   } else {
     url = "$apiRoot/search/tv?query=$query&page=$page";
   }
