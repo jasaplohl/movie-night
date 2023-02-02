@@ -14,6 +14,7 @@ class TvShowDetails {
   final String lastAirDate;
   final String name;
   final Episode? nextEpisodeToAir;
+  final Episode? lastEpisodeToAir;
   final List<Network> networks;
   final int numberOfEpisodes;
   final int numberOfSeasons;
@@ -38,6 +39,7 @@ class TvShowDetails {
     required this.lastAirDate,
     required this.name,
     required this.nextEpisodeToAir,
+    required this.lastEpisodeToAir,
     required this.networks,
     required this.numberOfEpisodes,
     required this.numberOfSeasons,
@@ -65,6 +67,7 @@ class TvShowDetails {
       lastAirDate: json["last_air_date"],
       name: json["name"],
       nextEpisodeToAir: json["next_episode_to_air"] != null ? Episode.fromJson(json["next_episode_to_air"]) : null,
+      lastEpisodeToAir: json["last_episode_to_air"] != null ? Episode.fromJson(json["last_episode_to_air"]) : null,
       networks: (json["networks"] as List<dynamic>).map((dynamic e) => Network.fromJson(e)).toList(),
       numberOfEpisodes: json["number_of_episodes"],
       numberOfSeasons: json["number_of_seasons"],

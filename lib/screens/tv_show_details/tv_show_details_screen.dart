@@ -49,6 +49,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
         Text("Coming soon", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         const SizedBox(height: 10,),
         if(nextEpisode.airDate != null) Text("Air date: ${formatDate(DateTime.parse(nextEpisode.airDate!))}"),
+        Text("Season ${nextEpisode.seasonNumber}"),
         ListTile(
           leading: nextEpisode.stillPath != null ? FadeInImage.assetNetwork(
             image: getBackdropUrl(nextEpisode.stillPath!),
@@ -59,6 +60,31 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
           ) : null,
           title: Text("${nextEpisode.name} (episode ${nextEpisode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
           subtitle: Text(nextEpisode.overview.isNotEmpty ? nextEpisode.overview : "No description available."),
+        ),
+      ],
+    );
+  }
+
+  Widget getLastEpisodeSection() {
+    Episode lastEpisode = tvShowDetails!.lastEpisodeToAir!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const DividerMargin(),
+        Text("Last episode to air", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        const SizedBox(height: 10,),
+        if(lastEpisode.airDate != null) Text("Air date: ${formatDate(DateTime.parse(lastEpisode.airDate!))}"),
+        Text("Season ${lastEpisode.seasonNumber}"),
+        ListTile(
+          leading: lastEpisode.stillPath != null ? FadeInImage.assetNetwork(
+            image: getBackdropUrl(lastEpisode.stillPath!),
+            placeholder: "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+            width: 40,
+            height: 60,
+          ) : null,
+          title: Text("${lastEpisode.name} (episode ${lastEpisode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
+          subtitle: Text(lastEpisode.overview.isNotEmpty ? lastEpisode.overview : "No description available."),
         ),
       ],
     );
@@ -175,6 +201,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
               child: Text(tvShowDetails!.overview),
             ),
             if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
+            if(tvShowDetails!.lastEpisodeToAir != null) getLastEpisodeSection(),
             getNetworksSection(),
             getSeasonsSection(),
           ],
