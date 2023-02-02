@@ -1,1 +1,2 @@
-const apiRoot = "https://api.themoviedb.org/3";
+const int maxItemsPerPage = 20;
+const String apiRoot = "https://api.themoviedb.org/3";

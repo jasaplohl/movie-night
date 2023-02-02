@@ -93,6 +93,8 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
           ) : Image.asset(
             "lib/assets/images/default_img.webp",
             fit: BoxFit.cover,
+            width: 40,
+            height: 60,
           ),
           title: season.airDate != null ?
           Text("${season.name} (${getYear(DateTime.parse(season.airDate!))})") :
