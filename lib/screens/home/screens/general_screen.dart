@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
+import 'package:movie_night/models/person_model.dart';
 import 'package:movie_night/services/media_service.dart';
+import 'package:movie_night/services/person_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/media_row.dart';
 
@@ -32,6 +34,12 @@ class _GeneralScreenState extends State<GeneralScreen> {
       setState(() {
         popularTvShows = value;
       });
+    }).catchError((err) {
+      showErrorDialog(context, err.toString());
+    });
+
+    getPopularPeople().then((List<Person> value) {
+      print(value);
     }).catchError((err) {
       showErrorDialog(context, err.toString());
     });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/episode_model.dart';
-import 'package:movie_night/models/network.dart';
+import 'package:movie_night/models/network_model.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/models/tv_show_model.dart';
 import 'package:movie_night/screens/tv_show_details/screens/season_details_screen.dart';

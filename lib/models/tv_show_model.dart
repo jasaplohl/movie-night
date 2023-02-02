@@ -1,7 +1,7 @@
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/genre_model.dart';
-import 'package:movie_night/models/network.dart';
+import 'package:movie_night/models/network_model.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/models/video_model.dart';
 
