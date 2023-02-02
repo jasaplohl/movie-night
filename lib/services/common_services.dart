@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_night/models/video_model.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,6 +33,15 @@ String getImageUrl(String imageName) {
 String getBackdropUrl(String imageName) {
   String url = "https://image.tmdb.org/t/p/w1280$imageName";
   return url;
+}
+
+String getTrailerUrl(List<Video> videos) {
+  for(Video video in videos) {
+    if(video.type == "Trailer") {
+      return video.key;
+    }
+  }
+  return videos[0].key;
 }
 
 void goToUrl(String url, BuildContext context) async {

@@ -3,6 +3,7 @@ import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/network.dart';
 import 'package:movie_night/models/season_model.dart';
+import 'package:movie_night/models/video_model.dart';
 
 class TvShowDetails {
   final String? backdropPath;
@@ -28,6 +29,7 @@ class TvShowDetails {
   final String type;
   final num voteAverage;
   final int voteCount;
+  final List<Video>? videos;
 
   TvShowDetails({
     required this.backdropPath,
@@ -53,6 +55,7 @@ class TvShowDetails {
     required this.type,
     required this.voteAverage,
     required this.voteCount,
+    required this.videos,
   });
 
   factory TvShowDetails.fromJson(dynamic json) {
@@ -81,6 +84,7 @@ class TvShowDetails {
       type: json["type"],
       voteAverage: json["vote_average"],
       voteCount: json["vote_count"],
+      videos: json["videos"]["results"] != null ? (json["videos"]["results"] as List<dynamic>).map((dynamic e) => Video.fromJson(e),).toList() : null,
     );
   }
 }

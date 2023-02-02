@@ -1,5 +1,6 @@
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/genre_model.dart';
+import 'package:movie_night/models/video_model.dart';
 
 class MovieDetails {
   final bool adult;
@@ -26,7 +27,7 @@ class MovieDetails {
   final bool video;
   final num voteAverage;
   final int voteCount;
-  final List<dynamic>? videos;
+  final List<Video>? videos;
 
   MovieDetails({
     required this.adult,
@@ -82,7 +83,7 @@ class MovieDetails {
       video: json["video"],
       voteAverage: json["vote_average"],
       voteCount: json["vote_count"],
-      videos: json["videos"]["results"],
+      videos: json["videos"]["results"] != null ? (json["videos"]["results"] as List<dynamic>).map((dynamic e) => Video.fromJson(e),).toList() : null,
     );
   }
 }

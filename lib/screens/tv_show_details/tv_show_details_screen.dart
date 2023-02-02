@@ -11,6 +11,7 @@ import 'package:movie_night/widgets/custom_chip.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
+import 'package:movie_night/widgets/trailer.dart';
 
 class TvShowDetailsScreen extends StatefulWidget {
   final int tvShowId;
@@ -187,7 +188,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
               child: const Text("Home page"),
             ),
             GenreRow(genres: tvShowDetails!.genres),
-            // TODO: Trailer video embed
+            if(tvShowDetails!.videos != null && tvShowDetails!.videos!.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(tvShowDetails!.videos!)),
             if(tvShowDetails!.backdropPath != null) Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
               child: Image.network(getBackdropUrl(tvShowDetails!.backdropPath!)),

@@ -8,6 +8,7 @@ import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_row.dart';
+import 'package:movie_night/widgets/trailer.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
@@ -122,7 +123,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               child: const Text("Home page"),
             ),
             GenreRow(genres: movieDetails!.genres),
-            // TODO: Trailer video embed
+            if(movieDetails!.videos != null && movieDetails!.videos!.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(movieDetails!.videos!)),
             if(movieDetails!.backdropPath != null) Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
               child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
