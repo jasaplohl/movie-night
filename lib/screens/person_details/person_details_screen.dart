@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/models/credit_model.dart';
 import 'package:movie_night/models/person_details_model.dart';
+import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
+import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/person_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
+import 'package:movie_night/widgets/rating_chip.dart';
 
 class PersonDetailsScreen extends StatefulWidget {
   final int personId;
@@ -28,11 +33,35 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
   }
 
   Widget getCreditsSection() {
-    dynamic credits = personDetails!.combinedCredits;
+    List<Credit> castCredits = (personDetails!.combinedCredits["cast"] as List<dynamic>).map((e) => Credit.fromJson(e)).toList();
     return Column(
       children: [
         const DividerMargin(),
-        Text(credits["cast"][0].toString()),
+        Text("Credits", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        for(final credit in castCredits) ListTile(
+          leading: credit.posterPath != null ? FadeInImage.assetNetwork(
+            image: getBackdropUrl(credit.posterPath!),
+            placeholder: "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+            width: 40,
+            height: 60,
+          ) : Image.asset(
+            "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+            width: 40,
+            height: 60,
+          ),
+          title: Text(credit.title ?? "No title"),
+          trailing: RatingChip(rating: credit.voteAverage),
+          subtitle: Text("Character: ${credit.character != null && credit.character!.isNotEmpty ? credit.character : 'Unknown'}"),
+          onTap: () {
+            if(credit.mediaType == MediaType.movie) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: credit.mediaId),));
+            } else {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => TvShowDetailsScreen(tvShowId: credit.mediaId),));
+            }
+          },
+        ),
       ],
     );
   }

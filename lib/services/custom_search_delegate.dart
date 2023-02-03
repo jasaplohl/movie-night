@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/screens/search/search_results.dart';
 
-class CustomSearchDelegate extends SearchDelegate{
+class CustomSearchDelegate extends SearchDelegate {
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [

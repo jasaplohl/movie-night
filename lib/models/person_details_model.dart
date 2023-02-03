@@ -9,7 +9,7 @@ class PersonDetails {
   final String? placeOfBirth;
   final String? profilePath;
   final dynamic images;
-  final dynamic combinedCredits;
+  final dynamic combinedCredits; // TODO: types
 
   PersonDetails({
     required this.id,

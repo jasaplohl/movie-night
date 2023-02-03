@@ -8,7 +8,7 @@ A Flutter application to view information about your favourite movies, TV shows 
 - Show related content
 - Able to see more videos than just the trailer?
 - Sort results by available parameters
-- Search results page remains on the same tab on back button pressed
+- Search results page remains on the same tab on back button pressed (https://github.com/flutter/flutter/issues/43582)
 
 ## Authentication
 - Log in with google

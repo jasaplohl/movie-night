@@ -10,6 +10,7 @@ class SearchResults extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 3,
+        key: GlobalKey(),
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -23,11 +24,20 @@ class SearchResults extends StatelessWidget {
             ),
           ),
           body: TabBarView(
-              children: [
-                SearchResultsMedia(mediaType: MediaType.movie, query: query),
-                SearchResultsMedia(mediaType: MediaType.tv, query: query),
-                SearchResultsMedia(mediaType: MediaType.person, query: query),
-              ],
+            children: [
+              SearchResultsMedia(
+                mediaType: MediaType.movie,
+                query: query
+              ),
+              SearchResultsMedia(
+                  mediaType: MediaType.tv,
+                  query: query
+              ),
+              SearchResultsMedia(
+                  mediaType: MediaType.person,
+                  query: query
+              ),
+            ],
           ),
         )
     );
