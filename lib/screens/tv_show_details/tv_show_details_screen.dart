@@ -5,12 +5,15 @@ import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/models/tv_show_model.dart';
 import 'package:movie_night/screens/tv_show_details/screens/season_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
+import 'package:movie_night/services/constants.dart';
+import 'package:movie_night/services/pagination_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/custom_chip.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
+import 'package:movie_night/widgets/pagination.dart';
 import 'package:movie_night/widgets/trailer.dart';
 
 class TvShowDetailsScreen extends StatefulWidget {
@@ -25,11 +28,21 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
 
   TvShowDetails? tvShowDetails;
 
+  int currentSeasonPage = 1;
+  int totalSeasonPages = 1;
+  int totalSeasonItems = 0;
+  PaginationService<Season>? paginationService;
+  List<Season>? displayedSeasons;
+
   @override
   void initState() {
     getTvShowDetails(widget.tvShowId).then((TvShowDetails value) {
+      paginationService = PaginationService(items: value.seasons, maxItemsPerPage: itemsPerPageSm);
       setState(() {
         tvShowDetails = value;
+        totalSeasonPages = paginationService!.totalPages;
+        totalSeasonItems = paginationService!.itemCount;
+        displayedSeasons = paginationService!.getItemsForPage(currentSeasonPage);
       });
     }).catchError((err) {
       showErrorDialog(context, err.toString());
@@ -39,6 +52,12 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
 
   void onSeasonClick(Season season) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => SeasonDetailsScreen(tvShowId: widget.tvShowId, season: season),));
+  }
+  void onSeasonPageChange(int newPage) {
+    setState(() {
+      currentSeasonPage = newPage;
+      displayedSeasons = paginationService!.getItemsForPage(newPage);
+    });
   }
 
   Widget getNextEpisodeSection() {
@@ -112,13 +131,18 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
   }
 
   Widget getSeasonsSection() {
-    final List<Season> seasons = tvShowDetails!.seasons;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const DividerMargin(),
-        Text("Seasons (${tvShowDetails!.numberOfSeasons})", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
-        for(Season season in seasons) ListTile(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text("Seasons (${tvShowDetails!.numberOfSeasons})", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+          ],
+        ),
+        Text("Page $currentSeasonPage of $totalSeasonPages.", textAlign: TextAlign.center),
+        for(Season season in displayedSeasons!) ListTile(
           leading: season.posterPath != null ? FadeInImage.assetNetwork(
             image: getBackdropUrl(season.posterPath!),
             placeholder: "lib/assets/images/default_img.webp",
@@ -137,6 +161,11 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
           subtitle: Text("Episodes: ${season.episodeCount}"),
           onTap: () => onSeasonClick(season),
         ),
+        Pagination(
+            currentPage: currentSeasonPage,
+            totalPages: totalSeasonPages,
+            onPageChange: onSeasonPageChange
+        )
       ],
     );
   }
@@ -204,7 +233,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
             if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
             if(tvShowDetails!.lastEpisodeToAir != null) getLastEpisodeSection(),
             getNetworksSection(),
-            getSeasonsSection(),
+            if(displayedSeasons != null) getSeasonsSection(),
           ],
         ),
       );
