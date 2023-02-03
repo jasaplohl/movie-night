@@ -71,7 +71,7 @@ class _SeasonDetailsScreenState extends State<SeasonDetailsScreen> {
           controller: scrollController,
           children: [
             Text(widget.season.name, style: Theme.of(context).textTheme.headlineLarge),
-            if(widget.season.airDate != null) Text("First air date: ${formatDate(DateTime.parse(widget.season.airDate!))}"),
+            if(widget.season.airDate != null) Text("First air date: ${formatDateString(widget.season.airDate!)}"),
             Text("Episode count: ${widget.season.episodeCount}"),
             if(widget.season.overview.isNotEmpty) Container(
               margin: const EdgeInsets.symmetric(vertical: 15),

@@ -1,4 +1,3 @@
-import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 
 class Collection {

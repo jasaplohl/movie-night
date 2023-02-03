@@ -8,7 +8,6 @@ class PersonDetails {
   final List<String>? alsoKnownAs;
   final String? placeOfBirth;
   final String? profilePath;
-  final String? homePage;
   final dynamic images;
   final dynamic combinedCredits;
 
@@ -22,7 +21,6 @@ class PersonDetails {
     required this.alsoKnownAs,
     required this.placeOfBirth,
     required this.profilePath,
-    required this.homePage,
     required this.images,
     required this.combinedCredits,
   });
@@ -38,7 +36,6 @@ class PersonDetails {
       alsoKnownAs: json["also_known_as"] != null ? (json["also_known_as"] as List<dynamic>).map((dynamic e) => e.toString()).toList() : null,
       placeOfBirth: json["place_of_birth"],
       profilePath: json["profile_path"],
-      homePage: json["home_page"],
       images: json["images"],
       combinedCredits: json["combined_credits"],
     );

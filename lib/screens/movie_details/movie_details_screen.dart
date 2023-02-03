@@ -77,7 +77,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                movieDetails!.releaseDate != null ? Text("${formatDate(DateTime.parse(movieDetails!.releaseDate!))} (${movieDetails!.status})")
+                movieDetails!.releaseDate != null ? Text("${formatDateString(movieDetails!.releaseDate!)} (${movieDetails!.status})")
                 : Text(movieDetails!.status),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

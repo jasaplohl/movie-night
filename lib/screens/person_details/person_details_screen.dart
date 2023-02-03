@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/person_details_model.dart';
+import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/person_service.dart';
+import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 
 class PersonDetailsScreen extends StatefulWidget {
@@ -25,6 +27,17 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     super.initState();
   }
 
+  Widget getCreditsSection() {
+    dynamic credits = personDetails!.combinedCredits;
+    return Column(
+      children: [
+        const DividerMargin(),
+        Text(credits["cast"][0].toString()),
+      ],
+    );
+  }
+
+  // TODO: "Also known as" section
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +57,30 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
         child: ListView(
           children: [
             Text(personDetails!.name, style: Theme.of(context).textTheme.headlineLarge,),
-            // TODO: Img, birthday, deathday?
+            if(personDetails!.birthday != null) Container(
+              margin: const EdgeInsets.symmetric(vertical: 5),
+              child: Text(
+                  "Born on ${formatDateString(personDetails!.birthday!)}${personDetails!.placeOfBirth != null ? ' in ${personDetails!.placeOfBirth!}.' : '.'}"
+              ),
+            ),
+            if(personDetails!.deathday != null) Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                child: Text("Died on ${formatDateString(personDetails!.deathday!)}"),
+            ),
+            if(personDetails!.knownForDepartment != null) Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                child: Text("Known for ${personDetails!.knownForDepartment!}."),
+            ),
+            if(personDetails!.profilePath != null) Container(
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              child: Image.network(
+                getImageUrl(personDetails!.profilePath!),
+                height: 300,
+                width: 200,
+              ),
+            ),
             if(personDetails!.biography != null) Text(personDetails!.biography!),
+            if(personDetails!.combinedCredits != null) getCreditsSection(),
           ],
         ),
       ),

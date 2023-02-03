@@ -6,9 +6,17 @@ A Flutter application to view information about your favourite movies, TV shows 
 - Search suggestions
 - Show cast members and roles
 - Show related content
-- Log in with google
-- Save and users favourite movies, already watched movies and watchlist
 - Able to see more videos than just the trailer?
+- Sort results by available parameters
+- Search results page remains on the same tab on back button pressed
+
+## Authentication
+- Log in with google
+- Favourite movies, TV shows, actors
+- Already watched movies and TV shows
+- Watchlist for movies and TV shows
+
+### Before Release
 - Change app name from movie_night to MovieNight
 - Change the app icon
 - Change the splashscreen

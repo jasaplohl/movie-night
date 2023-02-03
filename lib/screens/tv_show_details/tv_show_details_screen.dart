@@ -49,7 +49,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
         const DividerMargin(),
         Text("Coming soon", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         const SizedBox(height: 10,),
-        if(nextEpisode.airDate != null) Text("Air date: ${formatDate(DateTime.parse(nextEpisode.airDate!))}"),
+        if(nextEpisode.airDate != null) Text("Air date: ${formatDateString(nextEpisode.airDate!)}"),
         Text("Season ${nextEpisode.seasonNumber}"),
         ListTile(
           leading: nextEpisode.stillPath != null ? FadeInImage.assetNetwork(
@@ -74,7 +74,7 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
         const DividerMargin(),
         Text("Last episode to air", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         const SizedBox(height: 10,),
-        if(lastEpisode.airDate != null) Text("Air date: ${formatDate(DateTime.parse(lastEpisode.airDate!))}"),
+        if(lastEpisode.airDate != null) Text("Air date: ${formatDateString(lastEpisode.airDate!)}"),
         Text("Season ${lastEpisode.seasonNumber}"),
         ListTile(
           leading: lastEpisode.stillPath != null ? FadeInImage.assetNetwork(
@@ -162,9 +162,9 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
                 Text(" (${formatNumber(tvShowDetails!.voteCount)})"),
               ],
             ),
-            Text("First air date: ${formatDate(DateTime.parse(tvShowDetails!.firstAirDate))}"),
+            Text("First air date: ${formatDateString(tvShowDetails!.firstAirDate)}"),
             const SizedBox(height: 10),
-            Text("Last air date: ${formatDate(DateTime.parse(tvShowDetails!.lastAirDate))}"),
+            Text("Last air date: ${formatDateString(tvShowDetails!.lastAirDate)}"),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

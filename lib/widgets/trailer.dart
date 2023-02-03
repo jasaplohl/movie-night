@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-// TODO: iOS permissions (video player)
-
 class Trailer extends StatefulWidget {
   final String youtubeKey;
   const Trailer({Key? key, required this.youtubeKey}) : super(key: key);

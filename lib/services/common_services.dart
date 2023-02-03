@@ -4,9 +4,10 @@ import 'package:movie_night/models/video_model.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-String formatDate(DateTime date) {
+String formatDateString(String date) {
   try {
-    return DateFormat.yMMMMd().format(date);
+    DateTime parsedDate = DateTime.parse(date);
+    return DateFormat.yMMMMd().format(parsedDate);
   } catch(err) {
     return date.toString();
   }
