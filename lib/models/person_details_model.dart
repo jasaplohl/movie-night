@@ -9,8 +9,8 @@ class PersonDetails {
   final String? placeOfBirth;
   final String? profilePath;
   final String? homePage;
-  final List<String>? images;
-  final List<dynamic>? combinedCredits;
+  final dynamic images;
+  final dynamic combinedCredits;
 
   PersonDetails({
     required this.id,

@@ -39,12 +39,15 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       ),
       body: personDetails == null ?
       const LoadingSpinner() :
-      ListView(
-        children: [
-          Text(personDetails!.name),
-          // TODO: Img, birthday, deathday?
-          if(personDetails!.biography != null) Text(personDetails!.biography!),
-        ],
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        child: ListView(
+          children: [
+            Text(personDetails!.name, style: Theme.of(context).textTheme.headlineLarge,),
+            // TODO: Img, birthday, deathday?
+            if(personDetails!.biography != null) Text(personDetails!.biography!),
+          ],
+        ),
       ),
     );
   }
