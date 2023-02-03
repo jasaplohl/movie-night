@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/screens/genre/genre_screen.dart';
+import 'package:movie_night/services/custom_search_delegate.dart';
 import 'package:movie_night/services/genre_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/genre_row.dart';
@@ -44,7 +45,20 @@ class _GenresScreenState extends State<GenresScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Genres")),
+      appBar: AppBar(
+        title: const Text("Genres"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search)
+          ),
+        ],
+      ),
       body: ListView(
         children: [
           Text("Movie Genres", style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Theme.of(context).primaryColorLight)),
