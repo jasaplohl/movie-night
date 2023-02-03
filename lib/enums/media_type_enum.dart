@@ -1,4 +1,5 @@
 enum MediaType {
   movie,
-  tv
+  tv,
+  person,
 }

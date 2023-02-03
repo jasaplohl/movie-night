@@ -25,7 +25,7 @@ class Collection {
         posterPath: json["poster_path"],
         overview: json["overview"],
         backdropPath: json["backdrop_path"],
-        parts: (json["parts"] as List<dynamic>).map((dynamic movie) => Media.fromJson(movie, MediaType.movie)).toList(),
+        parts: (json["parts"] as List<dynamic>).map((dynamic movie) => Media.fromMovieJson(movie)).toList(),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
@@ -38,8 +40,10 @@ class _GeneralScreenState extends State<GeneralScreen> {
       showErrorDialog(context, err.toString());
     });
 
-    getPopularPeople().then((List<Person> value) {
-      print(value);
+    getPopular(mediaType: MediaType.person).then((List<Media> value) {
+      setState(() {
+        popularActors = value;
+      });
     }).catchError((err) {
       showErrorDialog(context, err.toString());
     });

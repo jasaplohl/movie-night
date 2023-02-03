@@ -12,13 +12,16 @@ class MediaCard extends StatelessWidget {
   void onMediaPress(BuildContext context) {
     if(media.type == MediaType.movie) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: media.id),));
-    } else {
+    } else if(media.type == MediaType.tv) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => TvShowDetailsScreen(tvShowId: media.id),));
+    } else {
+      // TODO: Go to person details screen
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final String placeholderImage = media.type == MediaType.person ? "lib/assets/images/default_avatar.webp" : "lib/assets/images/default_img.webp";
     return Card(
       elevation: 5,
       shadowColor: Theme.of(context).primaryColorLight,
@@ -32,32 +35,35 @@ class MediaCard extends StatelessWidget {
               onTap: () => onMediaPress(context),
               child: media.posterPath != null ? FadeInImage.assetNetwork(
                 image: getImageUrl(media.posterPath!),
-                placeholder: "lib/assets/images/default_img.webp",
+                placeholder: placeholderImage,
                 fit: BoxFit.cover,
                 width: 200,
                 height: 300,
               ) : Image.asset(
-                "lib/assets/images/default_img.webp",
+                placeholderImage,
                 fit: BoxFit.cover,
                 width: 200,
                 height: 300,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: Colors.amber),
-                    Text(media.voteAverage.toString()),
-                  ],
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_border, color: Colors.red),
-                )
-              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Row(
+                mainAxisAlignment: media.voteAverage == null ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if(media.voteAverage != null) Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.amber),
+                      Text(media.voteAverage.toString()),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.favorite_border, color: Colors.red),
+                  )
+                ],
+              ),
             ),
             Text(
               media.title,

@@ -3,7 +3,7 @@ class Person {
   final String name;
   final String? birthday;
   final String? deathday;
-  final String biography;
+  final String? biography;
   final String? knownForDepartment;
   final List<String>? alsoKnownAs;
   final String? placeOfBirth;
@@ -31,7 +31,7 @@ class Person {
       deathday: json["deathday"],
       biography: json["biography"],
       knownForDepartment: json["known_for_department"],
-      alsoKnownAs: (json["also_known_as"] as List<dynamic>).map((dynamic e) => e.toString()).toList(),
+      alsoKnownAs: json["also_known_as"] != null ? (json["also_known_as"] as List<dynamic>).map((dynamic e) => e.toString()).toList() : null,
       placeOfBirth: json["place_of_birth"],
       profilePath: json["profile_path"],
       homePage: json["home_page"],

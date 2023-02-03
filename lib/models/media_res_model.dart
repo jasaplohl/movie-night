@@ -15,9 +15,17 @@ class MediaRes {
   });
 
   factory MediaRes.fromJson(dynamic json, MediaType mediaType) {
+    List<Media> mediaRes;
+    if(mediaType == MediaType.movie) {
+      mediaRes = (json["results"] as List<dynamic>).map((dynamic movie) => Media.fromMovieJson(movie)).toList();
+    } else if(mediaType == MediaType.tv) {
+      mediaRes = (json["results"] as List<dynamic>).map((dynamic tv) => Media.fromTVJson(tv)).toList();
+    } else {
+      mediaRes = (json["results"] as List<dynamic>).map((dynamic person) => Media.fromPersonJson(person)).toList();
+    }
     return MediaRes(
       page: json["page"],
-      results: (json["results"] as List<dynamic>).map((dynamic movie) => Media.fromJson(movie, mediaType)).toList(),
+      results: mediaRes,
       totalPages: json["total_pages"],
       totalResults: json["total_results"],
     );
