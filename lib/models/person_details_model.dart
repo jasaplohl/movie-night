@@ -1,4 +1,4 @@
-class Person {
+class PersonDetails {
   final int id;
   final String name;
   final String? birthday;
@@ -9,8 +9,10 @@ class Person {
   final String? placeOfBirth;
   final String? profilePath;
   final String? homePage;
+  final List<String>? images;
+  final List<dynamic>? combinedCredits;
 
-  Person({
+  PersonDetails({
     required this.id,
     required this.name,
     required this.birthday,
@@ -21,10 +23,12 @@ class Person {
     required this.placeOfBirth,
     required this.profilePath,
     required this.homePage,
+    required this.images,
+    required this.combinedCredits,
   });
 
-  factory Person.fromJson(dynamic json) {
-    return Person(
+  factory PersonDetails.fromJson(dynamic json) {
+    return PersonDetails(
       id: json["id"],
       name: json["name"],
       birthday: json["birthday"],
@@ -35,6 +39,8 @@ class Person {
       placeOfBirth: json["place_of_birth"],
       profilePath: json["profile_path"],
       homePage: json["home_page"],
+      images: json["images"],
+      combinedCredits: json["combined_credits"],
     );
   }
 }

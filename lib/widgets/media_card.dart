@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
+import 'package:movie_night/screens/person_details/person_details_screen.dart';
 import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 
@@ -15,7 +16,7 @@ class MediaCard extends StatelessWidget {
     } else if(media.type == MediaType.tv) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => TvShowDetailsScreen(tvShowId: media.id),));
     } else {
-      // TODO: Go to person details screen
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PersonDetailsScreen(personId: media.id),));
     }
   }
 
