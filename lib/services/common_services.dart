@@ -36,6 +36,7 @@ String getBackdropUrl(String imageName) {
   return url;
 }
 
+// TODO: check if type = Youtube
 String getTrailerUrl(List<Video> videos) {
   for(Video video in videos) {
     if(video.type == "Trailer") {

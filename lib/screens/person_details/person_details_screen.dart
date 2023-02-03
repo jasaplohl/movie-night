@@ -5,9 +5,12 @@ import 'package:movie_night/models/person_details_model.dart';
 import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
 import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
+import 'package:movie_night/services/constants.dart';
+import 'package:movie_night/services/pagination_service.dart';
 import 'package:movie_night/services/person_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
+import 'package:movie_night/widgets/pagination.dart';
 import 'package:movie_night/widgets/rating_chip.dart';
 
 class PersonDetailsScreen extends StatefulWidget {
@@ -22,24 +25,46 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
 
   PersonDetails? personDetails;
 
+  int currentCastPage = 1;
+  int totalCastPages = 1;
+  int totalCastItems = 0;
+  PaginationService<Credit>? castCreditsPagination;
+  List<Credit>? displayedCastCredits;
+
+  PaginationService<Credit>? crewCreditsPagination; // TODO
+
   @override
   void initState() {
     getPersonDetails(widget.personId).then((PersonDetails value) {
+      if(value.combinedCredits != null) {
+        final List<Credit> castCredits = (value.combinedCredits["cast"] as List<dynamic>).map((e) => Credit.fromJson(e)).toList();
+        castCreditsPagination = PaginationService(items: castCredits, maxItemsPerPage: itemsPerPageSm);
+      }
       setState(() {
         personDetails = value;
+        totalCastPages = castCreditsPagination!.totalPages;
+        totalCastItems = castCreditsPagination!.itemCount;
+        displayedCastCredits = castCreditsPagination!.getItemsForPage(currentCastPage);
       });
     });
     super.initState();
   }
 
+  void onCastPageChange(int newPage) {
+    setState(() {
+      currentCastPage = newPage;
+      displayedCastCredits = castCreditsPagination!.getItemsForPage(newPage);
+    });
+  }
+
   // TODO: Show crew credits as well, paginate the credits
   Widget getCreditsSection() {
-    List<Credit> castCredits = (personDetails!.combinedCredits["cast"] as List<dynamic>).map((e) => Credit.fromJson(e)).toList();
     return Column(
       children: [
         const DividerMargin(),
         Text("Cast credits", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
-        for(final credit in castCredits) ListTile(
+        Text("Page $currentCastPage of $totalCastPages ($totalCastItems results).", textAlign: TextAlign.center),
+        for(final credit in displayedCastCredits!) ListTile(
           leading: credit.posterPath != null ? FadeInImage.assetNetwork(
             image: getBackdropUrl(credit.posterPath!),
             placeholder: "lib/assets/images/default_img.webp",
@@ -62,6 +87,11 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => TvShowDetailsScreen(tvShowId: credit.mediaId),));
             }
           },
+        ),
+        Pagination(
+            currentPage: currentCastPage,
+            totalPages: totalCastPages,
+            onPageChange: onCastPageChange
         ),
       ],
     );
@@ -110,7 +140,7 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               ),
             ),
             if(personDetails!.biography != null) Text(personDetails!.biography!),
-            if(personDetails!.combinedCredits != null) getCreditsSection(),
+            if(displayedCastCredits != null) getCreditsSection(),
           ],
         ),
       ),

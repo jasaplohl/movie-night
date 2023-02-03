@@ -3,6 +3,7 @@ import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/constants.dart';
+import 'package:movie_night/services/pagination_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
@@ -21,24 +22,21 @@ class SeasonDetailsScreen extends StatefulWidget {
 
 class _SeasonDetailsScreenState extends State<SeasonDetailsScreen> {
 
-  List<Episode>? episodes;
-
   // Pagination
   int currentPage = 1;
   int totalPages = 1;
   List<Episode>? displayedEpisodes;
-
+  PaginationService<Episode>? paginationService;
   ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     getEpisodes(widget.tvShowId, widget.season.seasonNumber).then((List<Episode> value) {
-      final maxPages = (value.length / maxItemsPerPage).ceil();
+      paginationService = PaginationService(items: value, maxItemsPerPage: itemsPerPageLg);
       setState(() {
-        totalPages = maxPages > 0 ? maxPages : 1;
-        episodes = value;
+        totalPages = paginationService!.totalPages;
+        displayedEpisodes = paginationService!.getItemsForPage(1);
       });
-      setEpisodesForCurrentPage();
     }).catchError((err) {
       showErrorDialog(context, err.toString());
     });
@@ -48,17 +46,9 @@ class _SeasonDetailsScreenState extends State<SeasonDetailsScreen> {
   void onPageChange(int newPage) {
     setState(() {
       currentPage = newPage;
+      displayedEpisodes = paginationService!.getItemsForPage(newPage);
     });
     scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-    setEpisodesForCurrentPage();
-  }
-
-  void setEpisodesForCurrentPage() {
-    final lowerLimit = (currentPage - 1) * maxItemsPerPage;
-    final upperLimit = currentPage * maxItemsPerPage > episodes!.length ? episodes!.length : currentPage * maxItemsPerPage;
-    setState(() {
-      displayedEpisodes = episodes!.sublist(lowerLimit, upperLimit);
-    });
   }
 
   @override

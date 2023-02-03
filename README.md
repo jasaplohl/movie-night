@@ -6,6 +6,7 @@ A Flutter application to view information about your favourite movies, TV shows 
 - Search suggestions
 - Show cast members and roles
 - Show related content
+- Episode details?
 - Able to see more videos than just the trailer?
 - Sort results by available parameters
 - Search results page remains on the same tab on back button pressed (https://github.com/flutter/flutter/issues/43582)
