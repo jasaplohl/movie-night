@@ -32,12 +32,13 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     super.initState();
   }
 
+  // TODO: Show crew credits as well, paginate the credits
   Widget getCreditsSection() {
     List<Credit> castCredits = (personDetails!.combinedCredits["cast"] as List<dynamic>).map((e) => Credit.fromJson(e)).toList();
     return Column(
       children: [
         const DividerMargin(),
-        Text("Credits", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        Text("Cast credits", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
         for(final credit in castCredits) ListTile(
           leading: credit.posterPath != null ? FadeInImage.assetNetwork(
             image: getBackdropUrl(credit.posterPath!),
