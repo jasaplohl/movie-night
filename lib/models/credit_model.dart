@@ -7,6 +7,7 @@ class Credit {
   final int mediaId;
   final num voteAverage;
   final String? character;
+  final String? job;
 
   Credit({
     required this.title,
@@ -15,6 +16,7 @@ class Credit {
     required this.mediaId,
     required this.voteAverage,
     required this.character,
+    required this.job,
   });
 
   factory Credit.fromJson(dynamic json) {
@@ -35,6 +37,7 @@ class Credit {
       voteAverage: json["vote_average"],
       mediaType: type,
       character: json["character"],
+      job: json["job"],
     );
   }
 }

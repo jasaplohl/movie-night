@@ -31,7 +31,11 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
   PaginationService<Credit>? castCreditsPagination;
   List<Credit>? displayedCastCredits;
 
-  PaginationService<Credit>? crewCreditsPagination; // TODO
+  int currentCrewPage = 1;
+  int totalCrewPages = 1;
+  int totalCrewItems = 0;
+  PaginationService<Credit>? crewCreditsPagination;
+  List<Credit>? displayedCrewCredits;
 
   @override
   void initState() {
@@ -39,12 +43,20 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       if(value.combinedCredits != null) {
         final List<Credit> castCredits = (value.combinedCredits["cast"] as List<dynamic>).map((e) => Credit.fromJson(e)).toList();
         castCreditsPagination = PaginationService(items: castCredits, maxItemsPerPage: itemsPerPageSm);
+
+        final List<Credit> crewCredits = (value.combinedCredits["crew"] as List<dynamic>).map((e) => Credit.fromJson(e)).toList();
+        crewCreditsPagination = PaginationService(items: crewCredits, maxItemsPerPage: itemsPerPageSm);
       }
       setState(() {
         personDetails = value;
+
         totalCastPages = castCreditsPagination!.totalPages;
         totalCastItems = castCreditsPagination!.itemCount;
         displayedCastCredits = castCreditsPagination!.getItemsForPage(currentCastPage);
+
+        totalCrewPages = crewCreditsPagination!.totalPages;
+        totalCrewItems = crewCreditsPagination!.itemCount;
+        displayedCrewCredits = crewCreditsPagination!.getItemsForPage(currentCrewPage);
       });
     });
     super.initState();
@@ -57,8 +69,22 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     });
   }
 
-  // TODO: Show crew credits as well, paginate the credits
-  Widget getCreditsSection() {
+  void onCrewPageChange(int newPage) {
+    setState(() {
+      currentCrewPage = newPage;
+      displayedCrewCredits = crewCreditsPagination!.getItemsForPage(newPage);
+    });
+  }
+
+  void onCreditTap(MediaType type, int mediaId) {
+    if(type == MediaType.movie) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: mediaId),));
+    } else if(type == MediaType.tv) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TvShowDetailsScreen(tvShowId: mediaId),));
+    }
+  }
+
+  Widget getCastCreditsSection() {
     return Column(
       children: [
         const DividerMargin(),
@@ -80,18 +106,45 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
           title: Text(credit.title ?? "No title"),
           trailing: RatingChip(rating: credit.voteAverage),
           subtitle: Text("Character: ${credit.character != null && credit.character!.isNotEmpty ? credit.character : 'Unknown'}"),
-          onTap: () {
-            if(credit.mediaType == MediaType.movie) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: credit.mediaId),));
-            } else {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => TvShowDetailsScreen(tvShowId: credit.mediaId),));
-            }
-          },
+          onTap: () => onCreditTap(credit.mediaType, credit.mediaId),
         ),
         Pagination(
             currentPage: currentCastPage,
             totalPages: totalCastPages,
             onPageChange: onCastPageChange
+        ),
+      ],
+    );
+  }
+
+  Widget getCrewCreditsSection() {
+    return Column(
+      children: [
+        const DividerMargin(),
+        Text("Crew credits", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        Text("Page $currentCrewPage of $totalCrewPages ($totalCrewItems results).", textAlign: TextAlign.center),
+        for(final Credit credit in displayedCrewCredits!) ListTile(
+          leading: credit.posterPath != null ? FadeInImage.assetNetwork(
+            image: getBackdropUrl(credit.posterPath!),
+            placeholder: "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+            width: 40,
+            height: 60,
+          ) : Image.asset(
+            "lib/assets/images/default_img.webp",
+            fit: BoxFit.cover,
+            width: 40,
+            height: 60,
+          ),
+          title: Text(credit.title ?? "No title"),
+          trailing: RatingChip(rating: credit.voteAverage),
+          subtitle: credit.job != null ? Text(credit.job!) : null,
+          onTap: () => onCreditTap(credit.mediaType, credit.mediaId),
+        ),
+        Pagination(
+            currentPage: currentCrewPage,
+            totalPages: totalCrewPages,
+            onPageChange: onCrewPageChange
         ),
       ],
     );
@@ -140,7 +193,8 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
               ),
             ),
             if(personDetails!.biography != null) Text(personDetails!.biography!),
-            if(displayedCastCredits != null) getCreditsSection(),
+            if(displayedCastCredits != null && displayedCastCredits!.isNotEmpty) getCastCreditsSection(),
+            if(displayedCrewCredits != null && displayedCrewCredits!.isNotEmpty) getCrewCreditsSection(),
           ],
         ),
       ),
