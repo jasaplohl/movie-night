@@ -27,7 +27,6 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
     super.initState();
   }
 
-  // TODO: "Also known as" section
   @override
   Widget build(BuildContext context) {
     return Scaffold(

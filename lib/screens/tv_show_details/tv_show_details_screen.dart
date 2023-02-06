@@ -15,6 +15,7 @@ import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/pagination.dart';
+import 'package:movie_night/widgets/recommendations_section.dart';
 import 'package:movie_night/widgets/trailer.dart';
 
 class TvShowDetailsScreen extends StatefulWidget {
@@ -175,70 +176,68 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
     if(tvShowDetails == null) {
       return const LoadingSpinner();
     } else {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: ListView(
-          children: [
-            Text(tvShowDetails!.name, style: Theme.of(context).textTheme.headlineLarge),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  child: Icon(Icons.star_rate_rounded, color: Theme.of(context).primaryColorLight),
-                ),
-                Text(tvShowDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,),
-                Text(" (${formatNumber(tvShowDetails!.voteCount)})"),
-              ],
-            ),
-            Text("First air date: ${formatDateString(tvShowDetails!.firstAirDate)}"),
-            const SizedBox(height: 10),
-            Text("Last air date: ${formatDateString(tvShowDetails!.lastAirDate)}"),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if(tvShowDetails!.episodeRunTime != null) Text("Episode runtime: ${tvShowDetails!.episodeRunTime} min"),
-                Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      child: const Icon(Icons.speaker_notes),
-                    ),
-                    Text(tvShowDetails!.originalLanguage.toUpperCase()),
-                  ],
-                )
-              ],
-            ),
-            const SizedBox(height: 10),
-            if(tvShowDetails!.homepage != null) ElevatedButton(
-              onPressed: () => goToUrl(tvShowDetails!.homepage!, context),
-              child: const Text("Home page"),
-            ),
-            GenreRow(genres: tvShowDetails!.genres),
-            if(tvShowDetails!.videos != null && tvShowDetails!.videos!.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(tvShowDetails!.videos!)),
-            if(tvShowDetails!.backdropPath != null) Container(
-              margin: const EdgeInsets.symmetric(vertical: 15),
-              child: Image.network(getBackdropUrl(tvShowDetails!.backdropPath!)),
-            ),
-            if(tvShowDetails!.tagline != null) Text(
-                tvShowDetails!.tagline!,
-                style: Theme.of(context).textTheme.headlineSmall
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: Text(tvShowDetails!.overview),
-            ),
-            if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
-            if(tvShowDetails!.lastEpisodeToAir != null) getLastEpisodeSection(),
-            getNetworksSection(),
-            if(displayedSeasons != null) getSeasonsSection(),
-            if(tvShowDetails!.cast != null && tvShowDetails!.cast!.isNotEmpty) CreditsSection(sectionTitle: "Cast", credits: tvShowDetails!.cast!),
-            if(tvShowDetails!.crew != null && tvShowDetails!.crew!.isNotEmpty) CreditsSection(sectionTitle: "Crew", credits: tvShowDetails!.crew!),
-          ],
-        ),
+      return ListView(
+        children: [
+          Text(tvShowDetails!.name, style: Theme.of(context).textTheme.headlineLarge),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 5),
+                child: Icon(Icons.star_rate_rounded, color: Theme.of(context).primaryColorLight),
+              ),
+              Text(tvShowDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,),
+              Text(" (${formatNumber(tvShowDetails!.voteCount)})"),
+            ],
+          ),
+          Text("First air date: ${formatDateString(tvShowDetails!.firstAirDate)}"),
+          const SizedBox(height: 10),
+          Text("Last air date: ${formatDateString(tvShowDetails!.lastAirDate)}"),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if(tvShowDetails!.episodeRunTime != null) Text("Episode runtime: ${tvShowDetails!.episodeRunTime} min"),
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 5),
+                    child: const Icon(Icons.speaker_notes),
+                  ),
+                  Text(tvShowDetails!.originalLanguage.toUpperCase()),
+                ],
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          if(tvShowDetails!.homepage != null) ElevatedButton(
+            onPressed: () => goToUrl(tvShowDetails!.homepage!, context),
+            child: const Text("Home page"),
+          ),
+          GenreRow(genres: tvShowDetails!.genres),
+          if(tvShowDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(tvShowDetails!.videos)),
+          if(tvShowDetails!.backdropPath != null) Container(
+            margin: const EdgeInsets.symmetric(vertical: 15),
+            child: Image.network(getBackdropUrl(tvShowDetails!.backdropPath!)),
+          ),
+          if(tvShowDetails!.tagline != null) Text(
+              tvShowDetails!.tagline!,
+              style: Theme.of(context).textTheme.headlineSmall
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: Text(tvShowDetails!.overview),
+          ),
+          if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
+          if(tvShowDetails!.lastEpisodeToAir != null) getLastEpisodeSection(),
+          getNetworksSection(),
+          if(displayedSeasons != null) getSeasonsSection(),
+          if(tvShowDetails!.cast.isNotEmpty) CreditsSection(sectionTitle: "Cast", credits: tvShowDetails!.cast),
+          if(tvShowDetails!.crew.isNotEmpty) CreditsSection(sectionTitle: "Crew", credits: tvShowDetails!.crew),
+          if(tvShowDetails!.recommendations.isNotEmpty) RecommendationsSection(recommended: tvShowDetails!.recommendations),
+        ],
       );
     }
   }

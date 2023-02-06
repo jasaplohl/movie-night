@@ -1,6 +1,7 @@
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/credit_model.dart';
 import 'package:movie_night/models/genre_model.dart';
+import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/video_model.dart';
 
 class MovieDetails {
@@ -28,9 +29,10 @@ class MovieDetails {
   final bool video;
   final num voteAverage;
   final int voteCount;
-  final List<Video>? videos;
-  final List<Credit>? cast;
-  final List<Credit>? crew;
+  final List<Video> videos;
+  final List<Credit> cast;
+  final List<Credit> crew;
+  final List<Media> recommendations;
 
   MovieDetails({
     required this.adult,
@@ -60,6 +62,7 @@ class MovieDetails {
     required this.videos,
     required this.cast,
     required this.crew,
+    required this.recommendations,
   });
 
   factory MovieDetails.fromJson(dynamic json) {
@@ -88,9 +91,10 @@ class MovieDetails {
       video: json["video"],
       voteAverage: json["vote_average"],
       voteCount: json["vote_count"],
-      videos: json["videos"]["results"] != null ? (json["videos"]["results"] as List<dynamic>).map((dynamic e) => Video.fromJson(e),).toList() : null,
-      cast: json["credits"]["cast"] != null ? (json["credits"]["cast"] as List<dynamic>).map((dynamic e) => Credit.fromPersonJson(e),).toList() : null,
-      crew: json["credits"]["crew"] != null ? (json["credits"]["crew"] as List<dynamic>).map((dynamic e) => Credit.fromPersonJson(e),).toList() : null,
+      videos: (json["videos"]["results"] as List<dynamic>).map((dynamic e) => Video.fromJson(e),).toList(),
+      cast: (json["credits"]["cast"] as List<dynamic>).map((dynamic e) => Credit.fromPersonJson(e),).toList(),
+      crew: (json["credits"]["crew"] as List<dynamic>).map((dynamic e) => Credit.fromPersonJson(e),).toList(),
+      recommendations: (json["recommendations"]["results"] as List<dynamic>).map((dynamic e) => Media.fromMovieJson(e),).toList(),
     );
   }
 }

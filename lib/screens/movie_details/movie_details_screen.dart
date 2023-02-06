@@ -9,6 +9,7 @@ import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_row.dart';
+import 'package:movie_night/widgets/recommendations_section.dart';
 import 'package:movie_night/widgets/trailer.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -69,76 +70,74 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     if(movieDetails == null) {
       return const LoadingSpinner();
     } else {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        child: ListView(
-          children: [
-            Text(movieDetails!.title, style: Theme.of(context).textTheme.headlineLarge),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                movieDetails!.releaseDate != null ? Text("${formatDateString(movieDetails!.releaseDate!)} (${movieDetails!.status})")
-                : Text(movieDetails!.status),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      child: Icon(Icons.star_rate_rounded, color: Theme.of(context).primaryColorLight),
-                    ),
-                    Text(movieDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,)
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if(movieDetails!.runtime != null) Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      child: const Icon(Icons.timer_outlined),
-                    ),
-                    Text("${movieDetails!.runtime!.toString()} min"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 5),
-                      child: const Icon(Icons.speaker_notes),
-                    ),
-                    Text(movieDetails!.originalLanguage.toUpperCase()),
-                  ],
-                )
-              ],
-            ),
-            if(movieDetails!.homePage != null) ElevatedButton(
-              onPressed: () => goToUrl(movieDetails!.homePage!, context),
-              child: const Text("Home page"),
-            ),
-            GenreRow(genres: movieDetails!.genres),
-            if(movieDetails!.videos != null && movieDetails!.videos!.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(movieDetails!.videos!)),
-            if(movieDetails!.backdropPath != null) Container(
-              margin: const EdgeInsets.symmetric(vertical: 15),
-              child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
-            ),
-            if(movieDetails!.tagline != null) Text(movieDetails!.tagline!, style: Theme.of(context).textTheme.headlineSmall),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: Text(movieDetails!.overview ?? "No description available"),
-            ),
-            if(movieDetails!.belongsToCollection != null && collection != null) getCollectionSection(),
-            if(movieDetails!.cast != null && movieDetails!.cast!.isNotEmpty) CreditsSection(sectionTitle: "Cast", credits: movieDetails!.cast!),
-            if(movieDetails!.crew != null && movieDetails!.crew!.isNotEmpty) CreditsSection(sectionTitle: "Crew", credits: movieDetails!.crew!),
-          ],
-        ),
+      return ListView(
+        children: [
+          Text(movieDetails!.title, style: Theme.of(context).textTheme.headlineLarge),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              movieDetails!.releaseDate != null ? Text("${formatDateString(movieDetails!.releaseDate!)} (${movieDetails!.status})")
+              : Text(movieDetails!.status),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 5),
+                    child: Icon(Icons.star_rate_rounded, color: Theme.of(context).primaryColorLight),
+                  ),
+                  Text(movieDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,)
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if(movieDetails!.runtime != null) Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 5),
+                    child: const Icon(Icons.timer_outlined),
+                  ),
+                  Text("${movieDetails!.runtime!.toString()} min"),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 5),
+                    child: const Icon(Icons.speaker_notes),
+                  ),
+                  Text(movieDetails!.originalLanguage.toUpperCase()),
+                ],
+              )
+            ],
+          ),
+          if(movieDetails!.homePage != null) ElevatedButton(
+            onPressed: () => goToUrl(movieDetails!.homePage!, context),
+            child: const Text("Home page"),
+          ),
+          GenreRow(genres: movieDetails!.genres),
+          if(movieDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(movieDetails!.videos)),
+          if(movieDetails!.backdropPath != null) Container(
+            margin: const EdgeInsets.symmetric(vertical: 15),
+            child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
+          ),
+          if(movieDetails!.tagline != null) Text(movieDetails!.tagline!, style: Theme.of(context).textTheme.headlineSmall),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: Text(movieDetails!.overview ?? "No description available"),
+          ),
+          if(movieDetails!.belongsToCollection != null && collection != null) getCollectionSection(),
+          if(movieDetails!.cast.isNotEmpty) CreditsSection(sectionTitle: "Cast", credits: movieDetails!.cast),
+          if(movieDetails!.crew.isNotEmpty) CreditsSection(sectionTitle: "Crew", credits: movieDetails!.crew),
+          if(movieDetails!.recommendations.isNotEmpty) RecommendationsSection(recommended: movieDetails!.recommendations),
+        ],
       );
     }
   }

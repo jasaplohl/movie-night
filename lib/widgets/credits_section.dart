@@ -83,7 +83,7 @@ class _CreditsSectionState extends State<CreditsSection> {
             width: 40,
             height: 60,
           ) : Image.asset(
-            credit.mediaType == MediaType.person ? "lib/assets/images/default_avatar.webp" : "lib/assets/images/default_img.webp", // TODO: avatar image if type == person
+            credit.mediaType == MediaType.person ? "lib/assets/images/default_avatar.webp" : "lib/assets/images/default_img.webp",
             fit: BoxFit.cover,
             width: 40,
             height: 60,

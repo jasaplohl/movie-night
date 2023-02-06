@@ -9,7 +9,7 @@ import 'constants.dart';
 
 Future<MovieDetails> getMovieDetails(int movieId) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
-  final String url = "$apiRoot/movie/$movieId?append_to_response=videos,credits";
+  final String url = "$apiRoot/movie/$movieId?append_to_response=videos,credits,recommendations";
   final res = await http.get(Uri.parse(url), headers: {
     "Authorization": "Bearer $accessToken"
   });
