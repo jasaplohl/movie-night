@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
+import 'package:movie_night/services/credits_section.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
@@ -134,6 +135,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               child: Text(movieDetails!.overview ?? "No description available"),
             ),
             if(movieDetails!.belongsToCollection != null && collection != null) getCollectionSection(),
+            if(movieDetails!.cast != null && movieDetails!.cast!.isNotEmpty) CreditsSection(sectionTitle: "Cast", credits: movieDetails!.cast!),
+            if(movieDetails!.crew != null && movieDetails!.crew!.isNotEmpty) CreditsSection(sectionTitle: "Crew", credits: movieDetails!.crew!),
           ],
         ),
       );

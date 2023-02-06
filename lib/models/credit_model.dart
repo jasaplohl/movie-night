@@ -5,7 +5,7 @@ class Credit {
   final String? posterPath;
   final MediaType mediaType;
   final int mediaId;
-  final num voteAverage;
+  final num? voteAverage;
   final String? character;
   final String? job;
 
@@ -37,6 +37,18 @@ class Credit {
       voteAverage: json["vote_average"],
       mediaType: type,
       character: json["character"],
+      job: json["job"],
+    );
+  }
+
+  factory Credit.fromPersonJson(dynamic json) {
+    return Credit(
+      title: json["name"],
+      mediaId: json["id"],
+      mediaType: MediaType.person,
+      character: json["character"],
+      voteAverage: null,
+      posterPath: json["profile_path"],
       job: json["job"],
     );
   }

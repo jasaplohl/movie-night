@@ -1,3 +1,5 @@
+import 'package:movie_night/models/credit_model.dart';
+
 class PersonDetails {
   final int id;
   final String name;
@@ -8,8 +10,9 @@ class PersonDetails {
   final List<String>? alsoKnownAs;
   final String? placeOfBirth;
   final String? profilePath;
-  final dynamic images;
-  final dynamic combinedCredits; // TODO: types
+  final dynamic images; // TODO: horizontal pages for images? or display more images
+  final List<Credit>? cast;
+  final List<Credit>? crew;
 
   PersonDetails({
     required this.id,
@@ -22,7 +25,8 @@ class PersonDetails {
     required this.placeOfBirth,
     required this.profilePath,
     required this.images,
-    required this.combinedCredits,
+    required this.cast,
+    required this.crew,
   });
 
   factory PersonDetails.fromJson(dynamic json) {
@@ -37,7 +41,8 @@ class PersonDetails {
       placeOfBirth: json["place_of_birth"],
       profilePath: json["profile_path"],
       images: json["images"],
-      combinedCredits: json["combined_credits"],
+      cast: json["combined_credits"]["cast"] != null ? (json["combined_credits"]["cast"] as List<dynamic>).map((dynamic e) => Credit.fromJson(e),).toList() : null,
+      crew: json["combined_credits"]["crew"] != null ? (json["combined_credits"]["crew"] as List<dynamic>).map((dynamic e) => Credit.fromJson(e),).toList() : null,
     );
   }
 }

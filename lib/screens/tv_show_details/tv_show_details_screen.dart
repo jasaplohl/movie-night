@@ -6,6 +6,7 @@ import 'package:movie_night/models/tv_show_model.dart';
 import 'package:movie_night/screens/tv_show_details/screens/season_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/constants.dart';
+import 'package:movie_night/services/credits_section.dart';
 import 'package:movie_night/services/pagination_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
@@ -234,6 +235,8 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
             if(tvShowDetails!.lastEpisodeToAir != null) getLastEpisodeSection(),
             getNetworksSection(),
             if(displayedSeasons != null) getSeasonsSection(),
+            if(tvShowDetails!.cast != null && tvShowDetails!.cast!.isNotEmpty) CreditsSection(sectionTitle: "Cast", credits: tvShowDetails!.cast!),
+            if(tvShowDetails!.crew != null && tvShowDetails!.crew!.isNotEmpty) CreditsSection(sectionTitle: "Crew", credits: tvShowDetails!.crew!),
           ],
         ),
       );
