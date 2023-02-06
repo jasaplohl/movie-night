@@ -28,6 +28,7 @@ class MovieDetailsHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: Theme.of(context).textTheme.headlineLarge),
           Row(
