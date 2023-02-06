@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/person_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
-import 'package:movie_night/services/credits_section.dart';
+import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/person_service.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 

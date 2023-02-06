@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
-import 'package:movie_night/services/credits_section.dart';
+import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
 import 'package:movie_night/widgets/divider_margin.dart';

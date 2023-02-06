@@ -78,12 +78,12 @@ class _CreditsSectionState extends State<CreditsSection> {
         for(final credit in displayedCredits!) ListTile(
           leading: credit.posterPath != null ? FadeInImage.assetNetwork(
             image: getImageUrl(credit.posterPath!),
-            placeholder: "lib/assets/images/default_img.webp",
+            placeholder: credit.mediaType == MediaType.person ? "lib/assets/images/default_avatar.webp" : "lib/assets/images/default_img.webp",
             fit: BoxFit.cover,
             width: 40,
             height: 60,
           ) : Image.asset(
-            "lib/assets/images/default_img.webp", // TODO: avatar image if type == person
+            credit.mediaType == MediaType.person ? "lib/assets/images/default_avatar.webp" : "lib/assets/images/default_img.webp", // TODO: avatar image if type == person
             fit: BoxFit.cover,
             width: 40,
             height: 60,
