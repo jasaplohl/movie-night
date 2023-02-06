@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/screens/movie_details/widgets/collection_section.dart';
 import 'package:movie_night/screens/movie_details/widgets/movie_details_header.dart';
@@ -7,10 +6,8 @@ import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/services/show_error_dialog.dart';
-import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
-import 'package:movie_night/widgets/media_row.dart';
 import 'package:movie_night/widgets/recommendations_section.dart';
 import 'package:movie_night/widgets/trailer.dart';
 
@@ -38,11 +35,25 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     super.initState();
   }
 
-  Widget getBody() {
-    if(movieDetails == null) {
-      return const LoadingSpinner();
-    } else {
-      return ListView(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(movieDetails == null ? "" : movieDetails!.title),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.remove_red_eye, color: Theme.of(context).primaryColorLight,)
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_outline, color: Colors.red,)
+          )
+        ],
+      ),
+      body: movieDetails == null ?
+      const LoadingSpinner() :
+      ListView(
         children: [
           MovieDetailsHeader(
             title: movieDetails!.title,
@@ -52,6 +63,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             runtime: movieDetails!.runtime,
             originalLanguage: movieDetails!.originalLanguage,
             homePage: movieDetails!.homePage,
+            voteCount: movieDetails!.voteCount,
           ),
           GenreRow(genres: movieDetails!.genres),
           if(movieDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(movieDetails!.videos)),
@@ -77,27 +89,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           if(movieDetails!.crew.isNotEmpty) CreditsSection(sectionTitle: "Crew", credits: movieDetails!.crew),
           if(movieDetails!.recommendations.isNotEmpty) RecommendationsSection(recommended: movieDetails!.recommendations),
         ],
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(movieDetails == null ? "" : movieDetails!.title),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.remove_red_eye, color: Theme.of(context).primaryColorLight,)
-          ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_outline, color: Colors.red,)
-          )
-        ],
       ),
-      body: getBody(),
     );
   }
 }

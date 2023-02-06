@@ -6,6 +6,7 @@ class MovieDetailsHeader extends StatelessWidget {
   final String? releaseDate;
   final String status;
   final num voteAverage;
+  final int voteCount;
   final int? runtime;
   final String originalLanguage;
   final String? homePage;
@@ -16,6 +17,7 @@ class MovieDetailsHeader extends StatelessWidget {
     required this.releaseDate,
     required this.status,
     required this.voteAverage,
+    required this.voteCount,
     required this.runtime,
     required this.originalLanguage,
     required this.homePage,
@@ -50,13 +52,11 @@ class MovieDetailsHeader extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 5),
                     child: Icon(Icons.star_rate_rounded, color: Theme.of(context).primaryColorLight),
                   ),
-                  Text(voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,)
+                  Text(voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,),
+                  Text(" (${formatNumber(voteCount)})"),
                 ],
               ),
             ],
-          ),
-          const SizedBox(
-            height: 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,9 +81,6 @@ class MovieDetailsHeader extends StatelessWidget {
                 ],
               )
             ],
-          ),
-          const SizedBox(
-            height: 10,
           ),
           const SizedBox(
             height: 10,

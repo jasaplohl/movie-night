@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/network_model.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/models/tv_show_model.dart';
 import 'package:movie_night/screens/tv_show_details/screens/season_details_screen.dart';
+import 'package:movie_night/screens/tv_show_details/widgets/episode_section.dart';
+import 'package:movie_night/screens/tv_show_details/widgets/tv_show_details_header.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/services/constants.dart';
 import 'package:movie_night/widgets/credits_section.dart';
@@ -60,56 +61,6 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
       currentSeasonPage = newPage;
       displayedSeasons = paginationService!.getItemsForPage(newPage);
     });
-  }
-
-  Widget getNextEpisodeSection() {
-    Episode nextEpisode = tvShowDetails!.nextEpisodeToAir!;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const DividerMargin(),
-        Text("Coming soon", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
-        const SizedBox(height: 10,),
-        if(nextEpisode.airDate != null) Text("Air date: ${formatDateString(nextEpisode.airDate!)}"),
-        Text("Season ${nextEpisode.seasonNumber}"),
-        ListTile(
-          leading: nextEpisode.stillPath != null ? FadeInImage.assetNetwork(
-            image: getBackdropUrl(nextEpisode.stillPath!),
-            placeholder: "lib/assets/images/default_img.webp",
-            fit: BoxFit.cover,
-            width: 40,
-            height: 60,
-          ) : null,
-          title: Text("${nextEpisode.name} (episode ${nextEpisode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
-          subtitle: Text(nextEpisode.overview.isNotEmpty ? nextEpisode.overview : "No description available."),
-        ),
-      ],
-    );
-  }
-
-  Widget getLastEpisodeSection() {
-    Episode lastEpisode = tvShowDetails!.lastEpisodeToAir!;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const DividerMargin(),
-        Text("Last episode to air", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
-        const SizedBox(height: 10,),
-        if(lastEpisode.airDate != null) Text("Air date: ${formatDateString(lastEpisode.airDate!)}"),
-        Text("Season ${lastEpisode.seasonNumber}"),
-        ListTile(
-          leading: lastEpisode.stillPath != null ? FadeInImage.assetNetwork(
-            image: getBackdropUrl(lastEpisode.stillPath!),
-            placeholder: "lib/assets/images/default_img.webp",
-            fit: BoxFit.cover,
-            width: 40,
-            height: 60,
-          ) : null,
-          title: Text("${lastEpisode.name} (episode ${lastEpisode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
-          subtitle: Text(lastEpisode.overview.isNotEmpty ? lastEpisode.overview : "No description available."),
-        ),
-      ],
-    );
   }
 
   Widget getNetworksSection() {
@@ -178,43 +129,15 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
     } else {
       return ListView(
         children: [
-          Text(tvShowDetails!.name, style: Theme.of(context).textTheme.headlineLarge),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 5),
-                child: Icon(Icons.star_rate_rounded, color: Theme.of(context).primaryColorLight),
-              ),
-              Text(tvShowDetails!.voteAverage.toString(), style: Theme.of(context).textTheme.headlineSmall,),
-              Text(" (${formatNumber(tvShowDetails!.voteCount)})"),
-            ],
-          ),
-          Text("First air date: ${formatDateString(tvShowDetails!.firstAirDate)}"),
-          const SizedBox(height: 10),
-          Text("Last air date: ${formatDateString(tvShowDetails!.lastAirDate)}"),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if(tvShowDetails!.episodeRunTime != null) Text("Episode runtime: ${tvShowDetails!.episodeRunTime} min"),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 5),
-                    child: const Icon(Icons.speaker_notes),
-                  ),
-                  Text(tvShowDetails!.originalLanguage.toUpperCase()),
-                ],
-              )
-            ],
-          ),
-          const SizedBox(height: 10),
-          if(tvShowDetails!.homepage != null) ElevatedButton(
-            onPressed: () => goToUrl(tvShowDetails!.homepage!, context),
-            child: const Text("Home page"),
+          TvShowDetailsHeader(
+            name: tvShowDetails!.name,
+            voteAverage: tvShowDetails!.voteAverage,
+            voteCount: tvShowDetails!.voteCount,
+            firstAirDate: tvShowDetails!.firstAirDate,
+            lastAirDate: tvShowDetails!.lastAirDate,
+            runtime: tvShowDetails!.episodeRunTime,
+            originalLanguage: tvShowDetails!.originalLanguage,
+            homepage: tvShowDetails!.homepage,
           ),
           GenreRow(genres: tvShowDetails!.genres),
           if(tvShowDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(tvShowDetails!.videos)),
@@ -230,8 +153,8 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
             margin: const EdgeInsets.symmetric(vertical: 10),
             child: Text(tvShowDetails!.overview),
           ),
-          if(tvShowDetails!.nextEpisodeToAir != null) getNextEpisodeSection(),
-          if(tvShowDetails!.lastEpisodeToAir != null) getLastEpisodeSection(),
+          if(tvShowDetails!.nextEpisodeToAir != null) EpisodeSection(sectionTitle: "Coming soon", episode: tvShowDetails!.nextEpisodeToAir!),
+          if(tvShowDetails!.lastEpisodeToAir != null) EpisodeSection(sectionTitle: "Last episode to air", episode: tvShowDetails!.lastEpisodeToAir!),
           getNetworksSection(),
           if(displayedSeasons != null) getSeasonsSection(),
           if(tvShowDetails!.cast.isNotEmpty) CreditsSection(sectionTitle: "Cast", credits: tvShowDetails!.cast),
