@@ -7,7 +7,7 @@ import 'package:movie_night/models/video_model.dart';
 class MovieDetails {
   final bool adult;
   final String? backdropPath;
-  final dynamic belongsToCollection;
+  final int? collectionId;
   final int budget;
   final List<Genre> genres;
   final String? homePage;
@@ -37,7 +37,7 @@ class MovieDetails {
   MovieDetails({
     required this.adult,
     required this.backdropPath,
-    required this.belongsToCollection,
+    required this.collectionId,
     required this.budget,
     required this.genres,
     required this.homePage,
@@ -69,7 +69,7 @@ class MovieDetails {
     return MovieDetails(
       adult: json["adult"],
       backdropPath: json["backdrop_path"],
-      belongsToCollection: json["belongs_to_collection"],
+      collectionId: json["belongs_to_collection"] != null ? json["belongs_to_collection"]["id"] as int : null,
       budget: json["budget"],
       genres: (json["genres"] as List<dynamic>).map((dynamic genre) => Genre.fromJson(genre, MediaType.movie)).toList(),
       homePage: json["home_page"],

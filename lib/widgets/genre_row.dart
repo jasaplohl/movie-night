@@ -15,6 +15,7 @@ class GenreRow extends StatelessWidget {
       children: [
         for (final Genre element in genres!) GenreChip(genre: element),
       ],
-    ) : const LoadingSpinner();
+    ) :
+    const LoadingSpinner();
   }
 }
