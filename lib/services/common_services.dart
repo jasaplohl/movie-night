@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_night/models/video_model.dart';
@@ -55,4 +56,13 @@ void goToUrl(String url, BuildContext context) async {
       showErrorDialog(context, "Could not open the requested url.");
     }
   });
+}
+
+String? getAvatarUrl(User user) {
+  for(final UserInfo providerData in user.providerData) {
+    if(providerData.photoURL != null) {
+      return providerData.photoURL;
+    }
+  }
+  return user.photoURL;
 }

@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "310260746896-6vekoh95ve382nvuce62u29n9e48evsi.apps.googleusercontent.com",
+          "client_id": "310260746896-donidmhauecjm3tfnq4n9amv39qchgki.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.movie_night",
+            "certificate_hash": "c86f3e5be5411b549b4930bdffd98cfe4fde6e26"
+          }
+        },
+        {
+          "client_id": "310260746896-vd4u5022hcmlnudfr1bn1m22ckc63nbd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "310260746896-6vekoh95ve382nvuce62u29n9e48evsi.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "310260746896-8qnb23u1a9tpdbiqoj93iqmv0jal96ag.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.movieNight"
+              }
             }
           ]
         }

@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '310260746896',
     projectId: 'movienight-d629b',
     storageBucket: 'movienight-d629b.appspot.com',
+    androidClientId: '310260746896-donidmhauecjm3tfnq4n9amv39qchgki.apps.googleusercontent.com',
     iosClientId: '310260746896-8qnb23u1a9tpdbiqoj93iqmv0jal96ag.apps.googleusercontent.com',
     iosBundleId: 'com.example.movieNight',
   );

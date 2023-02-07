@@ -1,22 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_night/providers/auth_provider.dart';
+import 'package:movie_night/screens/user/screens/signed_in_screen.dart';
+import 'package:movie_night/screens/user/screens/signed_out_screen.dart';
+import 'package:provider/provider.dart';
 
 // showLicensePage(context: context); // TODO: Show license page
 
-class UserScreen extends StatefulWidget {
+class UserScreen extends StatelessWidget {
   const UserScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
-}
-
-class _UserScreenState extends State<UserScreen> {
-  @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserInfo? userInfo;
+    if(authProvider.user != null) {
+      userInfo = authProvider.user!.providerData[0];
+    }
+
     return Scaffold(
-      appBar: AppBar(title: Text("Your Profile", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight))),
-      body: const Center(
-        child: Text("Please log in to see your favourite and already watched movies!"),
+      appBar: AppBar(
+        title: Text(userInfo == null ? "Your Profile" : userInfo.displayName!, style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight)),
       ),
+      body: authProvider.user != null ?
+      const SignedInScreen() :
+      const SignedOutScreen(),
     );
   }
 }
