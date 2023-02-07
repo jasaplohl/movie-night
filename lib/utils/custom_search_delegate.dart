@@ -33,7 +33,9 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: use debounce to show search suggestions (or stream_transform)
-    return Column(children: const [],);
+    return const Center(
+      child: Text("Search your favourite movies, TV shows and actors."),
+    );
   }
   
 }

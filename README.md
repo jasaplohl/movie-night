@@ -3,7 +3,6 @@
 A Flutter application to view information about your favourite movies, TV shows and actors.
 
 ## TODO
-- Sort results by available parameters
 - Search suggestions
 - Use Future builder to wait for results instead of conditional widgets.
 - Able to see more videos than just the trailer and more images?
