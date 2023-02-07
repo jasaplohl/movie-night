@@ -57,13 +57,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         children: [
           MovieDetailsHeader(
             title: movieDetails!.title,
+            voteAverage: movieDetails!.voteAverage,
+            voteCount: movieDetails!.voteCount,
             releaseDate: movieDetails!.releaseDate,
             status: movieDetails!.status,
-            voteAverage: movieDetails!.voteAverage,
             runtime: movieDetails!.runtime,
             originalLanguage: movieDetails!.originalLanguage,
-            homePage: movieDetails!.homePage,
-            voteCount: movieDetails!.voteCount,
           ),
           GenreRow(genres: movieDetails!.genres),
           if(movieDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(movieDetails!.videos)),

@@ -9,7 +9,6 @@ class MovieDetailsHeader extends StatelessWidget {
   final int voteCount;
   final int? runtime;
   final String originalLanguage;
-  final String? homePage;
 
   const MovieDetailsHeader({
     Key? key,
@@ -20,7 +19,6 @@ class MovieDetailsHeader extends StatelessWidget {
     required this.voteCount,
     required this.runtime,
     required this.originalLanguage,
-    required this.homePage,
   }) : super(key: key);
 
   @override
@@ -82,13 +80,6 @@ class MovieDetailsHeader extends StatelessWidget {
                 ],
               )
             ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          if(homePage != null) ElevatedButton(
-            onPressed: () => goToUrl(homePage!, context),
-            child: const Text("Home page"),
           ),
         ],
       ),

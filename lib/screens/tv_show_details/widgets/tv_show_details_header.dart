@@ -64,10 +64,12 @@ class TvShowDetailsHeader extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 10),
-          if(homepage != null) ElevatedButton(
-            onPressed: () => goToUrl(homepage!, context),
-            child: const Text("Home page"),
+          if(homepage != null) Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: ElevatedButton(
+              onPressed: () => goToUrl(homepage!, context),
+              child: const Text("Home page"),
+            ),
           ),
         ],
       ),
