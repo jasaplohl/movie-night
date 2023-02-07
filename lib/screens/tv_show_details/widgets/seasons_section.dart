@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/screens/tv_show_details/screens/season_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
-import 'package:movie_night/services/constants.dart';
-import 'package:movie_night/services/pagination_service.dart';
+import 'package:movie_night/utils/constants.dart';
+import 'package:movie_night/utils/pagination_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/pagination.dart';
 

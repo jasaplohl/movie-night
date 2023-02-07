@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/screens/genre/genre_screen.dart';
-import 'package:movie_night/services/custom_search_delegate.dart';
+import 'package:movie_night/utils/custom_search_delegate.dart';
 import 'package:movie_night/services/genre_service.dart';
-import 'package:movie_night/services/show_error_dialog.dart';
+import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 
 class GenresScreen extends StatefulWidget {

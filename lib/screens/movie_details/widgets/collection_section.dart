@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/services/movie_service.dart';
-import 'package:movie_night/services/show_error_dialog.dart';
+import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_row.dart';

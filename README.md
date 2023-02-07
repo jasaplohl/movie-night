@@ -20,3 +20,6 @@ A Flutter application to view information about your favourite movies, TV shows 
 - Change app name from movie_night to MovieNight
 - Change the app icon
 - Change the splashscreen
+
+# Useful libraries
+1. Flutter map (https://pub.dev/packages/flutter_map)

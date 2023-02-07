@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:movie_night/models/collection_model.dart';
 import 'package:movie_night/models/movie_details_model.dart';
 
-import 'constants.dart';
+import '../utils/constants.dart';
 
 Future<MovieDetails> getMovieDetails(int movieId) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;

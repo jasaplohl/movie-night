@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/media_res_model.dart';
 import 'package:movie_night/services/genre_service.dart';
-import 'package:movie_night/services/show_error_dialog.dart';
+import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_card.dart';
 import 'package:movie_night/widgets/pagination.dart';

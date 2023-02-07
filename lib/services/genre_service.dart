@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/models/genre_model.dart';
 import 'package:movie_night/models/media_res_model.dart';
-import 'package:movie_night/services/constants.dart';
+import 'package:movie_night/utils/constants.dart';
 
 Future<List<Genre>> getMovieGenres() async {
   return await _getGenres("$apiRoot/genre/movie/list", MediaType.movie);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/services/common_services.dart';
-import 'package:movie_night/services/constants.dart';
+import 'package:movie_night/utils/constants.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 
 class EpisodeSection extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:movie_night/screens/tv_show_details/widgets/seasons_section.dart
 import 'package:movie_night/screens/tv_show_details/widgets/tv_show_details_header.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/widgets/credits_section.dart';
-import 'package:movie_night/services/show_error_dialog.dart';
+import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';

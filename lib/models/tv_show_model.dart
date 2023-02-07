@@ -1,4 +1,4 @@
-import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/models/credit_model.dart';
 import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/genre_model.dart';

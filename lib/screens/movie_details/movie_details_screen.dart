@@ -5,7 +5,7 @@ import 'package:movie_night/screens/movie_details/widgets/movie_details_header.d
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/movie_service.dart';
-import 'package:movie_night/services/show_error_dialog.dart';
+import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/recommendations_section.dart';
