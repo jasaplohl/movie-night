@@ -12,6 +12,7 @@ class WatchlistFab extends StatelessWidget {
     return FloatingActionButton(
       onPressed: addToWatchlist,
       backgroundColor: Theme.of(context).primaryColorLight,
+      elevation: 10,
       child: const Icon(Icons.bookmark_outline, color: Colors.black),
     );
   }

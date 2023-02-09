@@ -76,11 +76,11 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if(tvShowDetails!.tagline != null) Text(
+                if(tvShowDetails!.tagline != null && tvShowDetails!.tagline!.isNotEmpty) Text(
                     tvShowDetails!.tagline!,
                     style: Theme.of(context).textTheme.headlineSmall
                 ),
-                Container(
+                if(tvShowDetails!.overview.isNotEmpty) Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(tvShowDetails!.overview),
                 ),

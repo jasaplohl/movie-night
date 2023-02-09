@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
 import 'package:movie_night/screens/person_details/person_details_screen.dart';
 import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
+import 'package:provider/provider.dart';
 
 class MediaCard extends StatelessWidget {
   final Media media;
@@ -84,10 +86,21 @@ class MediaCard extends StatelessWidget {
                       Text(media.voteAverage.toString()),
                     ],
                   ),
-                  IconButton(
-                      onPressed: onFavouritesTap,
-                      icon: const Icon(Icons.favorite_outline, color: Colors.red,)
-                  ),
+                  Consumer<AuthProvider>(
+                    builder: (context, AuthProvider provider, child) {
+                      if(provider.user == null) {
+                        return child!;
+                      }
+                      return IconButton(
+                          onPressed: onFavouritesTap,
+                          icon: const Icon(Icons.favorite_outline, color: Colors.red,)
+                      );
+                    },
+                    child: const IconButton(
+                      onPressed: null,
+                      icon: Icon(Icons.favorite_outline, color: Colors.grey,)
+                    ),
+                  )
                 ],
               ),
             ),
@@ -97,9 +110,6 @@ class MediaCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelLarge,
             ),
-            const SizedBox(
-              height: 10,
-            )
           ],
         ),
       ),

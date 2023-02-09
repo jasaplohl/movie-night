@@ -1,20 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movie_night/services/auth_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 
-class SignedOutScreen extends StatelessWidget {
-  const SignedOutScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      await googleSignIn();
     } catch (err) {
       showErrorDialog(context, err.toString());
     }
