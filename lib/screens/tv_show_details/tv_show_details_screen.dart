@@ -12,6 +12,7 @@ import 'package:movie_night/widgets/genre_row.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/recommendations_section.dart';
 import 'package:movie_night/widgets/trailer.dart';
+import 'package:movie_night/widgets/watchlist_fab.dart';
 
 class TvShowDetailsScreen extends StatefulWidget {
   final int tvShowId;
@@ -45,14 +46,11 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(Icons.remove_red_eye, color: Theme.of(context).primaryColorLight,)
-          ),
-          IconButton(
-              onPressed: () {},
               icon: const Icon(Icons.favorite_outline, color: Colors.red,)
           )
         ],
       ),
+      floatingActionButton: const WatchlistFab(),
       body: tvShowDetails == null ?
       const LoadingSpinner() :
       ListView(

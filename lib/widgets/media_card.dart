@@ -20,6 +20,14 @@ class MediaCard extends StatelessWidget {
     }
   }
 
+  void onWatchListTap() {
+    print("Adding to watchlist");
+  }
+
+  void onFavouritesTap() {
+    print("Adding to favourites");
+  }
+
   @override
   Widget build(BuildContext context) {
     final String placeholderImage = media.type == MediaType.person ? "lib/assets/images/default_avatar.webp" : "lib/assets/images/default_img.webp";
@@ -34,18 +42,35 @@ class MediaCard extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => onMediaPress(context),
-              child: media.posterPath != null ? FadeInImage.assetNetwork(
-                image: getImageUrl(media.posterPath!),
-                placeholder: placeholderImage,
-                fit: BoxFit.cover,
-                width: 200,
-                height: 300,
-              ) : Image.asset(
-                placeholderImage,
-                fit: BoxFit.cover,
-                width: 200,
-                height: 300,
-              ),
+              child: Stack(
+                children: [
+                  media.posterPath != null ? FadeInImage.assetNetwork(
+                    image: getImageUrl(media.posterPath!),
+                    placeholder: placeholderImage,
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 300,
+                  ) : Image.asset(
+                    placeholderImage,
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 300,
+                  ),
+                  if(media.type != MediaType.person) Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: onWatchListTap,
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.black.withOpacity(0.5),
+                          shape: const CircleBorder(),
+                        ),
+                        child: Icon(Icons.bookmark_outline, color: Theme.of(context).primaryColorLight),
+                      )
+                    ],
+                  ),
+                ],
+              )
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5),
@@ -60,9 +85,9 @@ class MediaCard extends StatelessWidget {
                     ],
                   ),
                   IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite_border, color: Colors.red),
-                  )
+                      onPressed: onFavouritesTap,
+                      icon: const Icon(Icons.favorite_outline, color: Colors.red,)
+                  ),
                 ],
               ),
             ),

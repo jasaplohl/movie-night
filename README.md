@@ -10,7 +10,6 @@ A Flutter application to view information about your favourite movies, TV shows 
 - Episode details?
 
 ## Authentication
-- Log in with google
 - Favourite movies, TV shows, actors
 - Already watched movies and TV shows
 - Watchlist for movies and TV shows

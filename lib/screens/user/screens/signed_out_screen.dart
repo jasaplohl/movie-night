@@ -24,8 +24,9 @@ class SignedOutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text("Please log in to see your favourite and already watched movies!"),
+        const Text("Please log in to see your favourite and already watched movies!", textAlign: TextAlign.center),
         TextButton(
             onPressed: () => signInWithGoogle(context),
             child: const Text("Sign in with Google")
