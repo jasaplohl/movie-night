@@ -73,6 +73,7 @@ flutter:
     - .env
     - lib/assets/images/default_img.webp
     - lib/assets/images/default_avatar.webp
+    - lib/assets/images/google_sign_in_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

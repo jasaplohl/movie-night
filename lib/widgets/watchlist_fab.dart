@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/services/watchlist_service.dart';
+import 'package:movie_night/utils/media_type_enum.dart';
 
 class WatchlistFab extends StatelessWidget {
-  const WatchlistFab({Key? key}) : super(key: key);
+  final int id;
+  final MediaType mediaType;
 
-  void addToWatchlist() {
-    print("Adding to watchlist");
+  const WatchlistFab({
+    Key? key,
+    required this.id,
+    required this.mediaType,
+  }) : super(key: key);
+
+  void onWatchlistTap() {
+    addToWatchList(id, mediaType);
   }
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: addToWatchlist,
+      onPressed: onWatchlistTap,
       backgroundColor: Theme.of(context).primaryColorLight,
       elevation: 10,
       child: const Icon(Icons.bookmark_outline, color: Colors.black),

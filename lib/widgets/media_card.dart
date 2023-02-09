@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/providers/auth_provider.dart';
+import 'package:movie_night/services/watchlist_service.dart';
 import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
 import 'package:movie_night/screens/person_details/person_details_screen.dart';
 import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
-import 'package:provider/provider.dart';
+import 'package:movie_night/widgets/add_to_favourites_button.dart';
 
 class MediaCard extends StatelessWidget {
   final Media media;
@@ -23,11 +23,7 @@ class MediaCard extends StatelessWidget {
   }
 
   void onWatchListTap() {
-    print("Adding to watchlist");
-  }
-
-  void onFavouritesTap() {
-    print("Adding to favourites");
+    addToWatchList(media.id, media.type);
   }
 
   @override
@@ -86,21 +82,10 @@ class MediaCard extends StatelessWidget {
                       Text(media.voteAverage.toString()),
                     ],
                   ),
-                  Consumer<AuthProvider>(
-                    builder: (context, AuthProvider provider, child) {
-                      if(provider.user == null) {
-                        return child!;
-                      }
-                      return IconButton(
-                          onPressed: onFavouritesTap,
-                          icon: const Icon(Icons.favorite_outline, color: Colors.red,)
-                      );
-                    },
-                    child: const IconButton(
-                      onPressed: null,
-                      icon: Icon(Icons.favorite_outline, color: Colors.grey,)
-                    ),
-                  )
+                  AddToFavouritesButton(
+                    id: media.id,
+                    mediaType: media.type,
+                  ),
                 ],
               ),
             ),

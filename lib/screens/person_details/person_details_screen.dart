@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/person_details_model.dart';
 import 'package:movie_night/services/common_services.dart';
+import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/widgets/add_to_favourites_button.dart';
 import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/person_service.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
@@ -33,9 +35,9 @@ class _PersonDetailsScreenState extends State<PersonDetailsScreen> {
       appBar: AppBar(
         title: Text(personDetails == null ? "" : personDetails!.name),
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_outline, color: Colors.red,)
+          if(personDetails != null) AddToFavouritesButton(
+            id: personDetails!.id,
+            mediaType: MediaType.person,
           )
         ],
       ),

@@ -12,7 +12,7 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserInfo? userInfo;
     if(authProvider.user != null) {
       userInfo = authProvider.user!.providerData[0];

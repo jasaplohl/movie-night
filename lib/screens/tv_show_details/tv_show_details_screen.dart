@@ -5,6 +5,8 @@ import 'package:movie_night/screens/tv_show_details/widgets/networks_section.dar
 import 'package:movie_night/screens/tv_show_details/widgets/seasons_section.dart';
 import 'package:movie_night/screens/tv_show_details/widgets/tv_show_details_header.dart';
 import 'package:movie_night/services/common_services.dart';
+import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/widgets/add_to_favourites_button.dart';
 import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
@@ -44,13 +46,16 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
       appBar: AppBar(
         title: Text(tvShowDetails == null ? "" : tvShowDetails!.name),
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_outline, color: Colors.red,)
-          )
+          if(tvShowDetails != null) AddToFavouritesButton(
+            id: tvShowDetails!.id,
+            mediaType: MediaType.tv,
+          ),
         ],
       ),
-      floatingActionButton: const WatchlistFab(),
+      floatingActionButton: tvShowDetails != null ? WatchlistFab(
+        id: tvShowDetails!.id,
+        mediaType: MediaType.tv,
+      ) : null,
       body: tvShowDetails == null ?
       const LoadingSpinner() :
       ListView(
