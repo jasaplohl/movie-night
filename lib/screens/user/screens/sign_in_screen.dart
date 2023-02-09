@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/widgets/GoogleSignInButton.dart';
+import 'package:movie_night/widgets/google_sign_in_button.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);

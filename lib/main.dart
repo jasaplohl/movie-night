@@ -14,10 +14,10 @@ Future<void> main() async {
   );
   await dotenv.load(fileName: ".env");
   runApp(
-      ChangeNotifierProvider(
-        create: (context) => AuthProvider(),
-        child: const MyApp(),
-      )
+    ChangeNotifierProvider(
+      create: (context) => AuthProvider(),
+      child: const MyApp(),
+    )
   );
 }
 

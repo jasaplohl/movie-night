@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/widgets/GoogleSignInButton.dart';
+import 'package:movie_night/widgets/google_sign_in_button.dart';
 
 Future<void> showSignInDialog(BuildContext context) async {
   return showDialog(
