@@ -16,7 +16,6 @@ A Flutter application to view information about your favourite movies, TV shows 
 - Episode details?
 
 ## Before Release
-- Change app name from movie_night to MovieNight
 - Change the app icon
 - Change the splashscreen
 
