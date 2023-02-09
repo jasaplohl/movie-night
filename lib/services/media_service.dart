@@ -2,11 +2,50 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_night/models/favourites_model.dart';
 import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/media_res_model.dart';
 
 import '../utils/constants.dart';
+
+final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
+
+// TODO: Pagination
+Future<List<Media>> getMediaFromFavourites(List<Favourite> favourites) async {
+  List<Media> mediaItems = [];
+  for(final Favourite favourite in favourites) {
+    String url;
+    if(favourite.mediaType == MediaType.movie) {
+      url = "$apiRoot/movie/${favourite.mediaId}";
+    } else if(favourite.mediaType == MediaType.tv) {
+      url = "$apiRoot/tv/${favourite.mediaId}";
+    } else {
+      url = "$apiRoot/person/${favourite.mediaId}";
+    }
+    final Media res = await _getMediaFromDetails(url, favourite.mediaType);
+    mediaItems.add(res);
+  }
+  return mediaItems;
+}
+
+Future<Media> _getMediaFromDetails(String url, MediaType mediaType) async {
+  final res = await http.get(Uri.parse(url), headers: {
+    "Authorization": "Bearer $accessToken"
+  });
+  final dynamic body = jsonDecode(res.body);
+  if(res.statusCode == 200) {
+    if(mediaType == MediaType.movie) {
+      return Media.fromMovieJson(body);
+    } else if(mediaType == MediaType.tv) {
+      return Media.fromTVJson(body);
+    } else {
+      return Media.fromPersonJson(body);
+    }
+  } else {
+    throw Exception(body["status_message"]);
+  }
+}
 
 Future<List<Media>> getPopular({int page = 1, required MediaType mediaType}) async {
   if(mediaType == MediaType.movie) {
@@ -50,8 +89,6 @@ Future<List<Media>> getTrendingWeekly(MediaType mediaType) async {
 
 // TODO: Include adult - toggle if the user is adult
 Future<MediaRes> search(String query, int page, MediaType mediaType) async {
-  final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
-
   String url;
   if(mediaType == MediaType.movie) {
     url = "$apiRoot/search/movie?query=$query&page=$page&include_adult=false";
@@ -73,7 +110,6 @@ Future<MediaRes> search(String query, int page, MediaType mediaType) async {
 }
 
 Future<List<Media>> _getMedia(String url, MediaType mediaType) async {
-  final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
   final res = await http.get(Uri.parse(url), headers: {
     "Authorization": "Bearer $accessToken"
   });

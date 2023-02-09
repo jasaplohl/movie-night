@@ -6,7 +6,7 @@ import 'package:movie_night/utils/media_type_enum.dart';
 
 class AuthProvider extends ChangeNotifier {
   User? _user;
-  Map<MediaType, Map<int, Favourite>> _favourites = {
+  final Map<MediaType, Map<int, Favourite>> _favourites = {
     MediaType.movie: {},
     MediaType.tv: {},
     MediaType.person: {},
@@ -37,7 +37,7 @@ class AuthProvider extends ChangeNotifier {
     if(user == null) {
       _clearFavourites();
     } else {
-      _setFavourites(user.uid);
+      await _setFavourites(user.uid);
     }
     notifyListeners();
   }
@@ -61,6 +61,8 @@ class AuthProvider extends ChangeNotifier {
   }
 
   void _clearFavourites() {
-    _favourites = {};
+    _favourites[MediaType.movie] = {};
+    _favourites[MediaType.tv] = {};
+    _favourites[MediaType.person] = {};
   }
 }

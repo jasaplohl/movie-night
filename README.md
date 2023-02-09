@@ -3,16 +3,17 @@
 A Flutter application to view information about your favourite movies, TV shows and actors.
 
 ## TODO
+- Already watched movies and TV shows
+- Watchlist for movies and TV shows
+- Fix license page
+- Loading spinner overlays
+- Check for internet connection
+- Local push notifications
 - Search suggestions
 - Use Future builder to wait for results instead of conditional widgets.
 - Able to see more videos than just the trailer and more images?
 - Search results page remains on the same tab on back button pressed (https://github.com/flutter/flutter/issues/43582)
 - Episode details?
-
-## Authentication
-- Favourite movies, TV shows, actors
-- Already watched movies and TV shows
-- Watchlist for movies and TV shows
 
 ## Before Release
 - Change app name from movie_night to MovieNight
