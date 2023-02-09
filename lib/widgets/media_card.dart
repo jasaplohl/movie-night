@@ -22,8 +22,8 @@ class MediaCard extends StatelessWidget {
     }
   }
 
-  void onWatchListTap() {
-    addToWatchList(media.id, media.type);
+  void onWatchListTap(BuildContext context) {
+    addToWatchList(media.id, media.type, context);
   }
 
   @override
@@ -58,7 +58,7 @@ class MediaCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: onWatchListTap,
+                        onPressed: () => onWatchListTap(context),
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.black.withOpacity(0.5),
                           shape: const CircleBorder(),

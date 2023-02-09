@@ -12,14 +12,14 @@ class WatchlistFab extends StatelessWidget {
     required this.mediaType,
   }) : super(key: key);
 
-  void onWatchlistTap() {
-    addToWatchList(id, mediaType);
+  void onWatchlistTap(BuildContext context) {
+    addToWatchList(id, mediaType, context);
   }
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: onWatchlistTap,
+      onPressed: () => onWatchlistTap(context),
       backgroundColor: Theme.of(context).primaryColorLight,
       elevation: 10,
       child: const Icon(Icons.bookmark_outline, color: Colors.black),

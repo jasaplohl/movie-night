@@ -12,14 +12,14 @@ class AddToFavouritesButton extends StatelessWidget {
     required this.mediaType,
   }) : super(key: key);
 
-  void onFavouritesTap() {
-    toggleFavourite(id, mediaType);
+  void onFavouritesTap(BuildContext context) {
+    toggleFavourite(id, mediaType, context);
   }
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: onFavouritesTap,
+        onPressed: () => onFavouritesTap(context),
         icon: const Icon(Icons.favorite_outline, color: Colors.red,)
     );
   }
