@@ -16,10 +16,7 @@ class RecommendationsSection extends StatelessWidget {
         Wrap(
           direction: Axis.horizontal,
           children: [
-            for(final Media media in recommended) MediaCard(
-                key: ValueKey(media.id),
-                media: media,
-            )
+            for(final Media media in recommended) MediaCard(key: UniqueKey(), media: media,)
           ],
         )
       ],

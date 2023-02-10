@@ -25,7 +25,7 @@ class MediaRow extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return MediaCard(key: ValueKey(media![index].id), media: media![index]);
+              return MediaCard(key: UniqueKey(), media: media![index]);
             },
           ),
         )

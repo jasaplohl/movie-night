@@ -4,19 +4,18 @@ import 'package:movie_night/utils/media_type_enum.dart';
 
 final collection = FirebaseFirestore.instance.collection("favourites");
 
-Future<Map<int, Favourite>> getFavouriteMovies(String uid) async {
-  final QuerySnapshot<Favourite> res = await _getFavourites(uid, MediaType.movie);
-  return snapshotToMap(res);
+Future<List<Favourite>> getFavourites(String uid) async {
+  final QuerySnapshot<Favourite> res = await _getFavouritesFromFirestore(uid);
+  return res.docs.map((e) => e.data()).toList();
 }
 
-Future<Map<int, Favourite>> getFavouriteTvShows(String uid) async {
-  final QuerySnapshot<Favourite> res = await _getFavourites(uid, MediaType.tv);
-  return snapshotToMap(res);
-}
-
-Future<Map<int, Favourite>> getFavouritePeople(String uid) async {
-  final QuerySnapshot<Favourite> res = await _getFavourites(uid, MediaType.person);
-  return snapshotToMap(res);
+Map<int, Favourite> snapshotToMap(QuerySnapshot<Favourite> res) {
+  final Map<int, Favourite> favouritesMap = {};
+  for (var e in res.docs) {
+    final Favourite favourite = e.data();
+    favouritesMap[favourite.mediaId] = favourite;
+  }
+  return favouritesMap;
 }
 
 Future<Favourite> addToFavourites(String uid, int mediaId, MediaType mediaType) async {
@@ -34,28 +33,18 @@ Future<Favourite> addToFavourites(String uid, int mediaId, MediaType mediaType) 
 
 Future<void> removeFromFavourites(String documentId) async {
   await collection
-      .doc(documentId)
-      .delete();
+    .doc(documentId)
+    .delete();
 }
 
-Future<QuerySnapshot<Favourite>> _getFavourites(String uid, MediaType mediaType) async {
+Future<QuerySnapshot<Favourite>> _getFavouritesFromFirestore(String uid) async {
   final res = await collection
-      .withConverter(
-    fromFirestore: Favourite.fromFirestore,
-    toFirestore: (Favourite value, options) => value.toFirestore(),
-  )
-      .where("userId", isEqualTo: uid)
-      .where("mediaType", isEqualTo: mediaType.name)
-      .get();
+    .withConverter(
+      fromFirestore: Favourite.fromFirestore,
+      toFirestore: (Favourite value, options) => value.toFirestore(),
+    )
+    .where("userId", isEqualTo: uid)
+    .get();
 
   return res;
-}
-
-Map<int, Favourite> snapshotToMap(QuerySnapshot<Favourite> res) {
-  final Map<int, Favourite> favouritesMap = {};
-  for (var e in res.docs) {
-    final Favourite favourite = e.data();
-    favouritesMap[favourite.mediaId] = favourite;
-  }
-  return favouritesMap;
 }

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/favourites_model.dart';
@@ -6,30 +7,30 @@ import 'package:movie_night/utils/media_type_enum.dart';
 
 class AuthProvider extends ChangeNotifier {
   User? _user;
-  final Map<MediaType, Map<int, Favourite>> _favourites = {
-    MediaType.movie: {},
-    MediaType.tv: {},
-    MediaType.person: {},
-  };
+  List<Favourite> _favourites = [];
 
   User? get user {
     return _user;
   }
 
   Favourite? getFavourite(int mediaId, MediaType mediaType) {
-    return _favourites[mediaType]![mediaId];
+    return _favourites.firstWhereOrNull((Favourite e) => e.mediaId == mediaId && e.mediaType == mediaType);
   }
 
-  Map<int, Favourite> get favouriteMovies {
-    return _favourites[MediaType.movie]!;
+  List<Favourite> get favourites {
+    return _favourites;
   }
 
-  Map<int, Favourite> get favouriteTvShows {
-    return _favourites[MediaType.tv]!;
+  List<Favourite> get favouriteMovies {
+    return _favourites.where((Favourite e) => e.mediaType == MediaType.movie).toList();
   }
 
-  Map<int, Favourite> get favouritePeople {
-    return _favourites[MediaType.person]!;
+  List<Favourite> get favouriteTvShows {
+    return _favourites.where((Favourite e) => e.mediaType == MediaType.tv).toList();
+  }
+
+  List<Favourite> get favouritePeople {
+    return _favourites.where((Favourite e) => e.mediaType == MediaType.person).toList();
   }
 
   Future<void> setUser(User? user) async {
@@ -43,26 +44,22 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> toggleFavourite(int mediaId, MediaType mediaType) async {
-    final Favourite? favourite = _favourites[mediaType]?[mediaId];
+    final Favourite? favourite = getFavourite(mediaId, mediaType);
     if(favourite != null) {
       await removeFromFavourites(favourite.documentId!);
-      _favourites[mediaType]!.remove(mediaId);
+      _favourites.removeWhere((e) => e.mediaId == mediaId && e.mediaType == mediaType);
     } else {
       final Favourite res = await addToFavourites(_user!.uid, mediaId, mediaType);
-      _favourites[mediaType]![mediaId] = res;
+      _favourites.add(res);
     }
     notifyListeners();
   }
 
   Future<void> _setFavourites(String uid) async {
-    _favourites[MediaType.movie] = await getFavouriteMovies(uid);
-    _favourites[MediaType.tv] = await getFavouriteTvShows(uid);
-    _favourites[MediaType.person] = await getFavouritePeople(uid);
+    _favourites = await getFavourites(uid);
   }
 
   void _clearFavourites() {
-    _favourites[MediaType.movie] = {};
-    _favourites[MediaType.tv] = {};
-    _favourites[MediaType.person] = {};
+    _favourites = [];
   }
 }

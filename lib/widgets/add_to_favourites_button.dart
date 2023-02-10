@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/models/favourites_model.dart';
 import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
@@ -64,7 +65,8 @@ class _AddToFavouritesButtonState extends State<AddToFavouritesButton> {
             icon: Consumer<AuthProvider>(
               builder: (context, AuthProvider provider, child) {
                 if(provider.user != null) {
-                  if(provider.getFavourite(widget.id, widget.mediaType) != null) {
+                  final Favourite? fav = provider.getFavourite(widget.id, widget.mediaType);
+                  if(fav != null) {
                     return const Icon(
                       Icons.favorite,
                       color: Colors.red,

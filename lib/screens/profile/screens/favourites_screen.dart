@@ -49,11 +49,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
     List<Favourite> favourites;
     if(widget.mediaType == MediaType.movie) {
-      favourites = authProvider.favouriteMovies.values.toList();
+      favourites = authProvider.favouriteMovies;
     } else if(widget.mediaType == MediaType.tv) {
-      favourites = authProvider.favouriteTvShows.values.toList();
+      favourites = authProvider.favouriteTvShows;
     } else {
-      favourites = authProvider.favouritePeople.values.toList();
+      favourites = authProvider.favouritePeople;
     }
     try {
       final List<Media> res = await getMediaFromFavourites(favourites);
@@ -77,7 +77,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
           Wrap(
             direction: Axis.horizontal,
             children: [
-              for (final Media element in media!) MediaCard(key: ValueKey(element.id), media: element),
+              for (final Media element in media!) MediaCard(key: UniqueKey(), media: element),
             ],
           ),
         ],

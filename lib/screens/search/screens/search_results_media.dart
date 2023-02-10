@@ -73,7 +73,7 @@ class _SearchResultsMediaState extends State<SearchResultsMedia> {
         Wrap(
           direction: Axis.horizontal,
           children: [
-            for (final Media element in searchResult!) MediaCard(key: ValueKey(element.id), media: element),
+            for (final Media element in searchResult!) MediaCard(key: UniqueKey(), media: element),
           ],
         ),
         Pagination(

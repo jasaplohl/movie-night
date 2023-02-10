@@ -17,9 +17,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  List<Media>? favouriteMovies;
-  List<Media>? favouriteTvShows;
-  List<Media>? favouritePeople;
+  List<Media>? _favourites;
 
   @override
   void initState() {
@@ -29,41 +27,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void didChangeDependencies() {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    _setFavouriteMovies(authProvider.favouriteMovies.values.toList());
-    _setFavouriteTvShows(authProvider.favouriteTvShows.values.toList());
-    _setFavouritePeople(authProvider.favouritePeople.values.toList());
+    _setFavourites(authProvider.favourites);
     super.didChangeDependencies();
   }
 
-  void _setFavouriteMovies(List<Favourite> favourites) {
+  void _setFavourites(List<Favourite> favourites) {
     getMediaFromFavourites(favourites)
       .then((value) {
         setState(() {
-          favouriteMovies = value;
-        });
-      })
-      .catchError((err) {
-        showErrorDialog(context, err.toString());
-      });
-  }
-
-  void _setFavouriteTvShows(List<Favourite> favourites) {
-    getMediaFromFavourites(favourites)
-      .then((value) {
-        setState(() {
-          favouriteTvShows = value;
-        });
-      })
-      .catchError((err) {
-        showErrorDialog(context, err.toString());
-      });
-  }
-
-  void _setFavouritePeople(List<Favourite> favourites) {
-    getMediaFromFavourites(favourites)
-      .then((value) {
-        setState(() {
-          favouritePeople = value;
+          _favourites = value;
         });
       })
       .catchError((err) {
@@ -91,17 +63,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       drawer: const UserDrawer(),
       body: ListView(
         children: [
-          if(favouriteMovies != null && favouriteMovies!.isNotEmpty) MediaRow(
-            title: "Favourite Movies",
-            media: favouriteMovies,
-          ),
-          if(favouriteTvShows != null && favouriteTvShows!.isNotEmpty) MediaRow(
-            title: "Favourite TV Shows",
-            media: favouriteTvShows,
-          ),
-          if(favouritePeople != null && favouritePeople!.isNotEmpty) MediaRow(
-            title: "Favourite People",
-            media: favouritePeople,
+          if(_favourites != null) MediaRow(
+            title: "Your Favourites (${_favourites!.length})",
+            media: _favourites,
           ),
         ],
       ),

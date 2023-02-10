@@ -121,7 +121,7 @@ class _GenreScreenState extends State<GenreScreen> {
             Wrap(
               direction: Axis.horizontal,
               children: [
-                for (final Media element in media!) MediaCard(key: ValueKey(element.id), media: element),
+                for (final Media element in media!) MediaCard(key: UniqueKey(), media: element),
               ],
             ),
             Pagination(
