@@ -6,14 +6,17 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        Text("Please log in to see your favourite and already watched movies!", textAlign: TextAlign.center),
-        SizedBox(height: 15),
-        GoogleSignInButton(),
-      ],
+    return Scaffold(
+      appBar: AppBar(title: Text("Your Profile",style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight))),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          Text("Please log in to see your favourite and already watched movies!", textAlign: TextAlign.center),
+          SizedBox(height: 15),
+          GoogleSignInButton(),
+        ],
+      ),
     );
   }
 }

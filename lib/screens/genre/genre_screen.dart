@@ -45,6 +45,9 @@ class _GenreScreenState extends State<GenreScreen> {
   }
 
   void _setMedia(int page) {
+    setState(() {
+      media = null;
+    });
     if(widget.genre.type == MediaType.movie) {
       _getMovies(page);
     } else if(widget.genre.type == MediaType.tv) {

@@ -39,6 +39,9 @@ class _SearchResultsMediaState extends State<SearchResultsMedia> {
   }
 
   void _getSearchResults(int page) {
+    setState(() {
+      searchResult = null;
+    });
     search(widget.query, page, widget.mediaType).then((MediaRes value) {
       setState(() {
         currentPage = page;

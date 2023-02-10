@@ -5,6 +5,7 @@ import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/services/media_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/media_row.dart';
+import 'package:movie_night/widgets/user_drawer.dart';
 
 class ProfileScreen extends StatefulWidget {
   final AuthProvider authProvider;
@@ -22,7 +23,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _setFavouriteMovies(widget.authProvider.favouriteMovies.values.toList());
     _setFavouriteTvShows(widget.authProvider.favouriteTvShows.values.toList());
     _setFavouritePeople(widget.authProvider.favouritePeople.values.toList());
@@ -67,21 +67,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        if(favouriteMovies != null && favouriteMovies!.isNotEmpty) MediaRow(
-          title: "Favourite Movies",
-          media: favouriteMovies,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.authProvider.user!.providerData[0].displayName ?? "Your Profile",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight)
         ),
-        if(favouriteTvShows != null && favouriteTvShows!.isNotEmpty) MediaRow(
-          title: "Favourite TV Shows",
-          media: favouriteTvShows,
-        ),
-        if(favouritePeople != null && favouritePeople!.isNotEmpty) MediaRow(
-          title: "Favourite People",
-          media: favouritePeople,
-        ),
-      ],
+      ),
+      drawer: const UserDrawer(),
+      body: ListView(
+        children: [
+          if(favouriteMovies != null && favouriteMovies!.isNotEmpty) MediaRow(
+            title: "Favourite Movies",
+            media: favouriteMovies,
+          ),
+          if(favouriteTvShows != null && favouriteTvShows!.isNotEmpty) MediaRow(
+            title: "Favourite TV Shows",
+            media: favouriteTvShows,
+          ),
+          if(favouritePeople != null && favouritePeople!.isNotEmpty) MediaRow(
+            title: "Favourite People",
+            media: favouritePeople,
+          ),
+        ],
+      ),
     );
   }
 }

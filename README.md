@@ -5,8 +5,9 @@ A Flutter application to view information about your favourite movies, TV shows 
 ## TODO
 - Already watched movies and TV shows
 - Watchlist for movies and TV shows
-- Fix license page
-- Loading spinner overlays
+- Loading spinner overlays:
+  - when adding to favourites -> spinner instead of heart while it loads
+  - when waiting to sign in -> overlay
 - Check for internet connection
 - Local push notifications
 - Search suggestions

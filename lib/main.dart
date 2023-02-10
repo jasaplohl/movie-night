@@ -55,6 +55,12 @@ class MyApp extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
           )
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            // backgroundColor: ,
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+          )
         )
       ),
       home: RootScreen(),
