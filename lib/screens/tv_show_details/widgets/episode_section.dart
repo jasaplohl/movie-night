@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/episode_model.dart';
+import 'package:movie_night/screens/tv_show_details/screens/episode_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/utils/constants.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
@@ -38,6 +39,8 @@ class EpisodeSection extends StatelessWidget {
                 ) : null,
                 title: Text("${episode.name} (episode ${episode.episodeNumber})", style: Theme.of(context).textTheme.labelLarge,),
                 subtitle: Text(episode.overview.isNotEmpty ? episode.overview : "No description available."),
+                dense: false,
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => EpisodeDetailsScreen(episodeNumber: episode.episodeNumber),)),
               ),
             ],
           ),
