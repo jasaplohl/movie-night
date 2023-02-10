@@ -37,6 +37,18 @@ class UserDrawer extends StatelessWidget {
           children: [
             Column(
               children: [
+                Container(
+                  color: Theme.of(context).primaryColorLight,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: const Center(
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: AssetImage(
+                        "lib/assets/images/default_img.webp",
+                      ),
+                    ),
+                  ),
+                ),
                 const TextButton(
                   onPressed: null,
                   child: Text("Watchlist"),
@@ -45,7 +57,6 @@ class UserDrawer extends StatelessWidget {
                   onPressed: null,
                   child: Text("Already watched"),
                 ),
-                const Divider(),
                 TextButton(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(),)),
                   child: const Text("Favourites"),
