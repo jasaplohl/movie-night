@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/services/auth_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
-import 'package:movie_night/widgets/divider_margin.dart';
 
 class UserDrawer extends StatelessWidget {
   const UserDrawer({Key? key}) : super(key: key);

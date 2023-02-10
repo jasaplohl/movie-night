@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_night/firebase_options.dart';
 import 'package:movie_night/providers/auth_provider.dart';
+import 'package:movie_night/screens/no_internet_connection/no_internet_connection_screen.dart';
 import 'package:movie_night/screens/root_screen.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    print("Connection status: $result");
     setState(() {
       _connectionStatus = result;
     });
@@ -65,21 +65,13 @@ class _MyAppState extends State<MyApp> {
       });
   }
 
-  Widget getRootScreen(BuildContext context) {
+  Widget getRootScreen() {
     if(_connectionStatus == null) {
       return const Center(
         child: LoadingSpinner(),
       );
     } else if(_connectionStatus == ConnectivityResult.none) {
-      return Scaffold(
-        body: Center(
-          child: Text(
-            "No internet connection!",
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
-        ),
-      );
+      return const NoInternetConnectionScreen();
     } else {
       return const RootScreen();
     }
@@ -110,12 +102,11 @@ class _MyAppState extends State<MyApp> {
           ),
           textButtonTheme: TextButtonThemeData(
               style: ButtonStyle(
-                // backgroundColor: ,
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.amber),
               )
           )
       ),
-      home: getRootScreen(context),
+      home: getRootScreen(),
     );
   }
 }
