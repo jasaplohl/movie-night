@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void didChangeDependencies() {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    _setFavourites(authProvider.favourites);
+    _setFavourites(authProvider.latestFavourites);
     super.didChangeDependencies();
   }
 
@@ -64,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         children: [
           if(_favourites != null) MediaRow(
-            title: "Your Favourites (${_favourites!.length})",
+            title: "Your Favourites",
             media: _favourites,
           ),
         ],

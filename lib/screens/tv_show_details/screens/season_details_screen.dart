@@ -3,7 +3,7 @@ import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/season_model.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/utils/constants.dart';
-import 'package:movie_night/utils/pagination_service.dart';
+import 'package:movie_night/utils/pagination_util.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/divider_margin.dart';

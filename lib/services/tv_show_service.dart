@@ -7,6 +7,7 @@ import 'package:movie_night/models/tv_show_model.dart';
 
 import '../utils/constants.dart';
 
+// TODO: also get more images
 Future<TvShowDetails> getTvShowDetails(int tvShowId) async {
   final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
   final String url = "$apiRoot/tv/$tvShowId?append_to_response=videos,credits,recommendations";

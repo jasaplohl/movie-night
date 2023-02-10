@@ -4,8 +4,6 @@ import 'package:movie_night/screens/home/home_screen.dart';
 import 'package:movie_night/screens/user/user_screen.dart';
 import 'package:movie_night/widgets/bottom_navigation.dart';
 
-// TODO: Navigation drawer -> popular, trending, etc???
-
 class RootScreen extends StatefulWidget {
   static const List<Widget> pages = [
     HomeScreen(),

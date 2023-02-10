@@ -6,7 +6,7 @@ import 'package:movie_night/screens/person_details/person_details_screen.dart';
 import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/utils/constants.dart';
-import 'package:movie_night/utils/pagination_service.dart';
+import 'package:movie_night/utils/pagination_util.dart';
 import 'package:movie_night/widgets/divider_margin.dart';
 import 'package:movie_night/widgets/pagination.dart';
 import 'package:movie_night/widgets/rating_chip.dart';
