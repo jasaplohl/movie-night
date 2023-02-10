@@ -5,7 +5,6 @@ A Flutter application to view information about your favourite movies, TV shows 
 ## TODO
 - Already watched movies and TV shows
 - Watchlist for movies and TV shows
-- Check for internet connection
 - Local push notifications
 - Search suggestions
 - Use Future builder to wait for results instead of conditional widgets.

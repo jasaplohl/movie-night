@@ -7,13 +7,13 @@ import 'package:movie_night/widgets/bottom_navigation.dart';
 // TODO: Navigation drawer -> popular, trending, etc???
 
 class RootScreen extends StatefulWidget {
-  final List<Widget> pages = [
-    const HomeScreen(),
-    const GenresScreen(),
-    const UserScreen()
+  static const List<Widget> pages = [
+    HomeScreen(),
+    GenresScreen(),
+    UserScreen()
   ];
 
-  RootScreen({Key? key}) : super(key: key);
+  const RootScreen({Key? key}) : super(key: key);
 
   @override
   State<RootScreen> createState() => _RootScreenState();
@@ -32,7 +32,7 @@ class _RootScreenState extends State<RootScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigation(selectedIndex: currentPage, onItemSelected: pageChange),
-      body: widget.pages[currentPage],
+      body: RootScreen.pages[currentPage],
     );
   }
 }
