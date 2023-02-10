@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/screens/profile/screens/favourites_screen.dart';
 import 'package:movie_night/services/auth_service.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 
 class UserDrawer extends StatelessWidget {
@@ -48,16 +47,8 @@ class UserDrawer extends StatelessWidget {
                 ),
                 const Divider(),
                 TextButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(mediaType: MediaType.movie),)),
-                  child: const Text("Favourite Movies"),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(mediaType: MediaType.tv),)),
-                  child: const Text("Favourite TV Shows"),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(mediaType: MediaType.person),)),
-                  child: const Text("Favourite People"),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(),)),
+                  child: const Text("Favourites"),
                 ),
               ],
             ),

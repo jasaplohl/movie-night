@@ -3,15 +3,13 @@ import 'package:movie_night/models/favourites_model.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/services/media_service.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_card.dart';
 import 'package:provider/provider.dart';
 
 class FavouritesScreen extends StatefulWidget {
-  final MediaType mediaType;
-  const FavouritesScreen({Key? key, required this.mediaType}) : super(key: key);
+  const FavouritesScreen({Key? key}) : super(key: key);
 
   @override
   State<FavouritesScreen> createState() => _FavouritesScreenState();
@@ -32,29 +30,9 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     super.didChangeDependencies();
   }
 
-  String getTitle() {
-    switch(widget.mediaType) {
-      case MediaType.movie:
-        return "Favourite Movies";
-      case MediaType.tv:
-        return "Favourite TV Shows";
-      case MediaType.person:
-        return "Favourite People";
-      default:
-        return "Favourites";
-    }
-  }
-
   Future<void> setMedia() async {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    List<Favourite> favourites;
-    if(widget.mediaType == MediaType.movie) {
-      favourites = authProvider.favouriteMovies;
-    } else if(widget.mediaType == MediaType.tv) {
-      favourites = authProvider.favouriteTvShows;
-    } else {
-      favourites = authProvider.favouritePeople;
-    }
+    final List<Favourite> favourites = authProvider.favourites;
     try {
       final List<Media> res = await getMediaFromFavourites(favourites);
       setState(() {
@@ -69,7 +47,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(getTitle()),),
+      appBar: AppBar(title: Text("Favourites ${media == null ? '' : '(${media!.length})'}"),),
       body: media == null ?
       const LoadingSpinner() :
       ListView(
