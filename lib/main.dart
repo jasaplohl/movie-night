@@ -41,6 +41,14 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     final Connectivity connectivity = Connectivity();
     _connectivitySubscription = connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    // Check initial connection status
+    connectivity
+      .checkConnectivity()
+      .then((ConnectivityResult value) {
+        setState(() {
+          _connectionStatus = value;
+        });
+      });
     super.initState();
   }
 

@@ -11,9 +11,8 @@ import '../utils/constants.dart';
 
 final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
 
-// TODO: Pagination
 Future<List<Media>> getMediaFromFavourites(List<Favourite> favourites) async {
-  List<Media> mediaItems = [];
+  final List<Future<Media>> futuresArray = [];
   for(final Favourite favourite in favourites) {
     String url;
     if(favourite.mediaType == MediaType.movie) {
@@ -23,10 +22,9 @@ Future<List<Media>> getMediaFromFavourites(List<Favourite> favourites) async {
     } else {
       url = "$apiRoot/person/${favourite.mediaId}";
     }
-    final Media res = await _getMediaFromDetails(url, favourite.mediaType);
-    mediaItems.add(res);
+    futuresArray.add(_getMediaFromDetails(url, favourite.mediaType));
   }
-  return mediaItems;
+  return Future.wait(futuresArray);
 }
 
 Future<Media> _getMediaFromDetails(String url, MediaType mediaType) async {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/screens/profile/screens/favourites_screen.dart';
 import 'package:movie_night/services/auth_service.dart';
+import 'package:movie_night/utils/media_type_enum.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 
 class UserDrawer extends StatelessWidget {
@@ -36,35 +38,35 @@ class UserDrawer extends StatelessWidget {
           children: [
             Column(
               children: [
-                TextButton(
-                  onPressed: () {},
-                  child: const Text("Favourite Movies"),
+                const TextButton(
+                  onPressed: null,
+                  child: Text("Watchlist"),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text("Favourite TV Shows"),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text("Favourite People"),
+                const TextButton(
+                  onPressed: null,
+                  child: Text("Already watched"),
                 ),
                 const Divider(),
                 TextButton(
-                  onPressed: () {},
-                  child: const Text("Watchlist"),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(mediaType: MediaType.movie),)),
+                  child: const Text("Favourite Movies"),
                 ),
                 TextButton(
-                  onPressed: () {},
-                  child: const Text("Already watched"),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(mediaType: MediaType.tv),)),
+                  child: const Text("Favourite TV Shows"),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(mediaType: MediaType.person),)),
+                  child: const Text("Favourite People"),
                 ),
               ],
             ),
             Column(
               children: [
                 const Divider(),
-                TextButton(
-                  onPressed: () => _licensePage(context),
-                  child: const Text("Settings"),
+                const TextButton(
+                  onPressed: null,
+                  child: Text("Settings"),
                 ),
                 TextButton(
                   onPressed: () => _licensePage(context),

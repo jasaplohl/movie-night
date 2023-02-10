@@ -95,6 +95,7 @@ class MediaCard extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelLarge,
             ),
+            const SizedBox(height: 10,)
           ],
         ),
       ),
