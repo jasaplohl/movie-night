@@ -64,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         children: [
           if(_favourites != null) MediaRow(
-            title: "Your Favourites",
+            title: "Latest Favourites",
             media: _favourites,
           ),
         ],

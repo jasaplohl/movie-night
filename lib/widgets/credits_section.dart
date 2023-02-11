@@ -58,12 +58,12 @@ class _CreditsSectionState extends State<CreditsSection> {
   }
   
   String getRole(Credit credit) {
-    if(credit.character != null) {
+    if(credit.character != null && credit.character!.isNotEmpty) {
       return "Character: ${credit.character}";
-    } else if (credit.job != null) {
+    } else if (credit.job != null && credit.job!.isNotEmpty) {
       return "Job: ${credit.job}";
     } else {
-      return "Role: unknown";
+      return "";
     }
   }
 

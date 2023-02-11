@@ -10,6 +10,24 @@ class AuthProvider extends ChangeNotifier {
   User? _user;
   List<Favourite> _favourites = [];
 
+  Future<void> setUser(User? user) async {
+    _user = user;
+    if(user == null) {
+      _clearFavourites();
+    } else {
+      await _setFavourites(user.uid);
+    }
+    notifyListeners();
+  }
+
+  Future<void> _setFavourites(String uid) async {
+    _favourites = await getFavourites(uid);
+  }
+
+  void _clearFavourites() {
+    _favourites = [];
+  }
+
   User? get user {
     return _user;
   }
@@ -24,41 +42,34 @@ class AuthProvider extends ChangeNotifier {
 
   List<Favourite> get latestFavourites {
     final int start = _favourites.length < itemsPerPageLg ? 0 : _favourites.length - itemsPerPageLg;
-    return _favourites.sublist(start, _favourites.length);
+    return _favourites
+        .sortedBy((Favourite e) => e.timestamp)
+        .toList()
+        .sublist(start, _favourites.length);
   }
 
   List<Favourite> get favouriteMovies {
-    return _favourites.where((Favourite e) => e.mediaType == MediaType.movie).toList();
+    return _favourites
+        .where((Favourite e) => e.mediaType == MediaType.movie)
+        .sortedBy((Favourite e) => e.timestamp)
+        .reversed
+        .toList();
   }
 
   List<Favourite> get favouriteTvShows {
-    return _favourites.where((Favourite e) => e.mediaType == MediaType.tv).toList();
+    return _favourites
+        .where((Favourite e) => e.mediaType == MediaType.tv)
+        .sortedBy((Favourite e) => e.timestamp)
+        .reversed
+        .toList();
   }
 
   List<Favourite> get favouritePeople {
-    return _favourites.where((Favourite e) => e.mediaType == MediaType.person).toList();
-  }
-
-  int get favouriteMoviesLength {
-    return favouriteMovies.length;
-  }
-
-  int get favouriteTvShowsLength {
-    return favouriteTvShows.length;
-  }
-
-  int get favouritePeopleLength {
-    return favouritePeople.length;
-  }
-
-  Future<void> setUser(User? user) async {
-    _user = user;
-    if(user == null) {
-      _clearFavourites();
-    } else {
-      await _setFavourites(user.uid);
-    }
-    notifyListeners();
+    return _favourites
+        .where((Favourite e) => e.mediaType == MediaType.person)
+        .sortedBy((Favourite e) => e.timestamp)
+        .reversed
+        .toList();
   }
 
   Future<void> toggleFavourite(int mediaId, MediaType mediaType) async {
@@ -71,13 +82,5 @@ class AuthProvider extends ChangeNotifier {
       _favourites.add(res);
     }
     notifyListeners();
-  }
-
-  Future<void> _setFavourites(String uid) async {
-    _favourites = await getFavourites(uid);
-  }
-
-  void _clearFavourites() {
-    _favourites = [];
   }
 }
