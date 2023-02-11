@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/screens/profile/screens/favourites_screen.dart';
+import 'package:movie_night/screens/profile/screens/watch_history_screen.dart';
+import 'package:movie_night/screens/profile/screens/watch_list_screen.dart';
 import 'package:movie_night/services/auth_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 
@@ -49,17 +51,17 @@ class UserDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                const TextButton(
-                  onPressed: null,
-                  child: Text("Watchlist"),
-                ),
-                const TextButton(
-                  onPressed: null,
-                  child: Text("Already watched"),
-                ),
                 TextButton(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(),)),
                   child: const Text("Favourites"),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListScreen(),)),
+                  child: const Text("Watch List"),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchHistoryScreen(),)),
+                  child: const Text("Watch History"),
                 ),
               ],
             ),
