@@ -51,34 +51,39 @@ class UserDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                TextButton(
+                TextButton.icon(
+                  icon: const Icon(Icons.favorite),
+                  label: const Text("Favourites"),
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(),)),
-                  child: const Text("Favourites"),
                 ),
-                TextButton(
+                TextButton.icon(
+                  icon: const Icon(Icons.bookmark),
+                  label: const Text("Watch List"),
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListScreen(),)),
-                  child: const Text("Watch List"),
                 ),
-                TextButton(
+                TextButton.icon(
+                  icon: const Icon(Icons.history),
+                  label: const Text("Watch History"),
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchHistoryScreen(),)),
-                  child: const Text("Watch History"),
                 ),
               ],
             ),
             Column(
               children: [
                 const Divider(),
-                const TextButton(
+                TextButton.icon(
+                  icon: const Icon(Icons.settings),
+                  label: const Text("Settings"),
                   onPressed: null,
-                  child: Text("Settings"),
                 ),
                 TextButton(
                   onPressed: () => _licensePage(context),
                   child: const Text("Licenses"),
                 ),
-                TextButton(
+                TextButton.icon(
+                  icon: const Icon(Icons.logout, color: Colors.red),
+                  label: const Text("Sign out", style: TextStyle(color: Colors.red),),
                   onPressed: () => _signOut(context),
-                  child: const Text("Sign out", style: TextStyle(color: Colors.red),),
                 ),
               ],
             ),

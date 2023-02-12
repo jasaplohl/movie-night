@@ -1,10 +1,12 @@
 # MovieNight
 
-A Flutter application to view information about your favourite movies, TV shows and actors.
+A Flutter application to view information about movies, TV shows and people (actors, directors, etc.).
+You can sign in with your Google account and save your favourite movies, TV shows and actors and add them to a watchlist or watch
+history.
 
 ## TODO
-- Already watched movies and TV shows
 - Watchlist for movies and TV shows
+- Already watched movies and TV shows
 - Sort by timestamp asc and desc (save the title as well and sort by title?)
 - Local push notifications (ability to disable them in the settings)
 - Also show Popular, trending and top rated in the genres

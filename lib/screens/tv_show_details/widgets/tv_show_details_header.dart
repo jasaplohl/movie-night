@@ -66,9 +66,10 @@ class TvShowDetailsHeader extends StatelessWidget {
           ),
           if(homepage != null) Container(
             margin: const EdgeInsets.only(top: 10),
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.home),
+              label: const Text("Home page"),
               onPressed: () => goToUrl(homepage!, context),
-              child: const Text("Home page"),
             ),
           ),
         ],
