@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/models/episode_model.dart';
 import 'package:movie_night/models/season_model.dart';
+import 'package:movie_night/screens/tv_show_details/screens/episode_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/utils/constants.dart';
 import 'package:movie_night/utils/pagination_util.dart';
@@ -98,6 +99,7 @@ class _SeasonDetailsScreenState extends State<SeasonDetailsScreen> {
                   subtitle: Text(episode.name),
                   trailing: RatingChip(rating: episode.voteAverage),
                   dense: false,
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => EpisodeDetailsScreen(episode: episode),)),
                 ),
                 Pagination(
                     currentPage: currentPage,
