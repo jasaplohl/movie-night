@@ -49,7 +49,11 @@ class _AddToFavouritesButtonState extends State<AddToFavouritesButton> {
     if(loading) {
       return const IconButton(
         onPressed: null,
-        icon: LoadingSpinner(),
+        icon: SizedBox(
+          width: 12,
+          height: 12,
+          child: LoadingSpinner(),
+        ),
       );
     } else {
       return IconButton(
