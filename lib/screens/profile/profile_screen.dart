@@ -19,6 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   List<Media>? _favourites;
   List<Media>? _watchlist;
+  List<Media>? _history;
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
     _setFavourites(authProvider.latestFavourites);
     _setWatchlist(authProvider.latestWatchlist);
+    _setHistory(authProvider.history);
     super.didChangeDependencies();
   }
 
@@ -50,6 +52,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
       .then((value) {
         setState(() {
           _watchlist = value;
+        });
+      })
+      .catchError((err) {
+        showErrorDialog(context, err.toString());
+      });
+  }
+
+  void _setHistory(List<SavedMedia> history) {
+    getMediaFromSaved(history)
+      .then((value) {
+        setState(() {
+          _history = value;
         });
       })
       .catchError((err) {
@@ -84,6 +98,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if(_watchlist != null) MediaRow(
             title: "Latest items on your watchlist",
             media: _watchlist,
+          ),
+          if(_history != null) MediaRow(
+            title: "Latest items in your history",
+            media: _history,
           ),
         ],
       ),
