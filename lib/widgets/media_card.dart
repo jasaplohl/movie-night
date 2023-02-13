@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
+import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
 import 'package:movie_night/screens/person_details/person_details_screen.dart';
 import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/widgets/add_to_favourites_button.dart';
 import 'package:movie_night/widgets/watchlist_button.dart';
+import 'package:provider/provider.dart';
 
 class MediaCard extends StatelessWidget {
   final Media media;
@@ -50,14 +52,28 @@ class MediaCard extends StatelessWidget {
                     width: 200,
                     height: 300,
                   ),
-                  if(media.type != MediaType.person) Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      WatchlistButton(
-                          mediaId: media.id,
-                          mediaType: media.type
-                      ),
-                    ],
+                  if(media.type != MediaType.person) Positioned(
+                    top: 5,
+                    right: 0,
+                    child: WatchlistButton(
+                      mediaId: media.id,
+                      mediaType: media.type
+                    ),
+                  ),
+                  Consumer<AuthProvider>(
+                    builder: (context, AuthProvider provider, child) {
+                      if(provider.user != null && provider.getHistoryItem(media.id, media.type) != null) {
+                        return const Positioned(
+                          bottom: 5,
+                          right: 5,
+                          child: Badge(
+                            label: Text("Watched"),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                      return const SizedBox();
+                    },
                   ),
                 ],
               )

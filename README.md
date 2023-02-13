@@ -5,7 +5,8 @@ You can sign in with your Google account and save your favourite movies, TV show
 history.
 
 ## TODO
-- Sort by timestamp asc and desc (save the title as well and sort by title?)
+- Saved items pagination
+- Sort saved items by timestamp asc and desc (save the title as well and sort by title?)
 - Local push notifications (ability to disable them in the settings)
 - Also show Popular, trending and top rated in the genres
 - Search suggestions (with debouncing)

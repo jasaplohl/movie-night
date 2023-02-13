@@ -7,6 +7,7 @@ import 'package:movie_night/screens/tv_show_details/widgets/tv_show_details_head
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/widgets/add_to_favourites_button.dart';
+import 'package:movie_night/widgets/add_to_history_button.dart';
 import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
@@ -46,10 +47,14 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
       appBar: AppBar(
         title: Text(tvShowDetails == null ? "" : tvShowDetails!.name),
         actions: [
-          if(tvShowDetails != null) AddToFavouritesButton(
+          if(tvShowDetails != null) AddToHistoryButton(
             id: tvShowDetails!.id,
             mediaType: MediaType.tv,
           ),
+          if(tvShowDetails != null) AddToFavouritesButton(
+            id: tvShowDetails!.id,
+            mediaType: MediaType.tv,
+          )
         ],
       ),
       floatingActionButton: tvShowDetails != null ? WatchlistFab(

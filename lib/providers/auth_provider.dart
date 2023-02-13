@@ -138,6 +138,30 @@ class AuthProvider extends ChangeNotifier {
         .toList();
   }
 
+  List<SavedMedia> get latestHistory {
+    final int start = _history.length < itemsPerPageLg ? 0 : _history.length - itemsPerPageLg;
+    return _history
+        .sortedBy((SavedMedia e) => e.timestamp)
+        .toList()
+        .sublist(start, _history.length);
+  }
+
+  List<SavedMedia> get historyMovies {
+    return _history
+        .where((SavedMedia e) => e.mediaType == MediaType.movie)
+        .sortedBy((SavedMedia e) => e.timestamp)
+        .reversed
+        .toList();
+  }
+
+  List<SavedMedia> get historyTvShows {
+    return _history
+        .where((SavedMedia e) => e.mediaType == MediaType.tv)
+        .sortedBy((SavedMedia e) => e.timestamp)
+        .reversed
+        .toList();
+  }
+
   Future<void> toggleFavourite(int mediaId, MediaType mediaType) async {
     final SavedMedia? favourite = getFavouritesItem(mediaId, mediaType);
     if(favourite != null) {

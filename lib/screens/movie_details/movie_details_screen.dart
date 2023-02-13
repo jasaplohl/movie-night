@@ -5,6 +5,7 @@ import 'package:movie_night/screens/movie_details/widgets/movie_details_header.d
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/widgets/add_to_favourites_button.dart';
+import 'package:movie_night/widgets/add_to_history_button.dart';
 import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
@@ -44,10 +45,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       appBar: AppBar(
         title: Text(movieDetails == null ? "" : movieDetails!.title),
         actions: [
+          if(movieDetails != null) AddToHistoryButton(
+            id: movieDetails!.id,
+            mediaType: MediaType.movie,
+          ),
           if(movieDetails != null) AddToFavouritesButton(
             id: movieDetails!.id,
             mediaType: MediaType.movie,
-          )
+          ),
         ],
       ),
       floatingActionButton: movieDetails != null ? WatchlistFab(

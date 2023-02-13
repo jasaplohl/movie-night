@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/saved_media_model.dart';
 import 'package:movie_night/providers/auth_provider.dart';
-import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/utils/show_sign_in_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:provider/provider.dart';
 
-class AddToFavouritesButton extends StatefulWidget {
+class AddToHistoryButton extends StatefulWidget {
   final int id;
   final MediaType mediaType;
 
-  const AddToFavouritesButton({
+  const AddToHistoryButton({
     Key? key,
     required this.id,
     required this.mediaType,
   }) : super(key: key);
 
   @override
-  State<AddToFavouritesButton> createState() => _AddToFavouritesButtonState();
+  State<AddToHistoryButton> createState() => _AddToHistoryButtonState();
 }
 
-class _AddToFavouritesButtonState extends State<AddToFavouritesButton> {
+class _AddToHistoryButtonState extends State<AddToHistoryButton> {
 
   bool loading = false;
 
-  Future<void> onFavouritesTap() async {
+  Future<void> onHistoryTap() async {
     setState(() {
       loading = true;
     });
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     if(authProvider.user != null) {
       try {
-        await authProvider.toggleFavourite(widget.id, widget.mediaType);
+        await authProvider.toggleHistory(widget.id, widget.mediaType);
       } catch(err) {
         showErrorDialog(context, err.toString());
       }
@@ -57,26 +57,27 @@ class _AddToFavouritesButtonState extends State<AddToFavouritesButton> {
       );
     } else {
       return IconButton(
-        onPressed: onFavouritesTap,
-        icon: Consumer<AuthProvider>(
-          builder: (context, AuthProvider provider, child) {
-            if(provider.user != null) {
-              // TODO: Make get item an async function to not block the thread
-              final SavedMedia? fav = provider.getFavouritesItem(widget.id, widget.mediaType);
-              if(fav != null) {
-                return const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                );
+          onPressed: onHistoryTap,
+          icon: Consumer<AuthProvider>(
+            builder: (context, AuthProvider provider, child) {
+              if (provider.user != null) {
+                // TODO: Make get item an async function to not block the thread
+                final SavedMedia? historyItem = provider.getHistoryItem(
+                    widget.id, widget.mediaType);
+                if (historyItem != null) {
+                  return const Icon(
+                    Icons.remove_red_eye,
+                    color: Colors.green,
+                  );
+                }
               }
-            }
-            return child!;
-          },
-          child: const Icon(
-            Icons.favorite_outline,
-            color: Colors.red,
-          ),
-        )
+              return child!;
+            },
+            child: const Icon(
+              Icons.remove_red_eye_outlined,
+              color: Colors.green,
+            ),
+          )
       );
     }
   }
