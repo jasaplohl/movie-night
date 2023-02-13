@@ -5,8 +5,6 @@ You can sign in with your Google account and save your favourite movies, TV show
 history.
 
 ## TODO
-- Watchlist for movies and TV shows
-- Already watched movies and TV shows
 - Sort by timestamp asc and desc (save the title as well and sort by title?)
 - Local push notifications (ability to disable them in the settings)
 - Also show Popular, trending and top rated in the genres

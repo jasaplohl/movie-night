@@ -5,23 +5,23 @@ import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/utils/show_sign_in_dialog.dart';
 import 'package:provider/provider.dart';
 
-class WatchlistFab extends StatefulWidget {
+class WatchlistButton extends StatefulWidget {
   final int mediaId;
   final MediaType mediaType;
 
-  const WatchlistFab({
+  const WatchlistButton({
     Key? key,
     required this.mediaId,
     required this.mediaType,
   }) : super(key: key);
 
   @override
-  State<WatchlistFab> createState() => _WatchlistFabState();
+  State<WatchlistButton> createState() => _WatchlistButtonState();
 }
 
-class _WatchlistFabState extends State<WatchlistFab> {
+class _WatchlistButtonState extends State<WatchlistButton> {
 
-  Future<void> onWatchlistTap() async {
+  Future<void> onWatchListTap() async {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     if(authProvider.user != null) {
       try {
@@ -36,11 +36,14 @@ class _WatchlistFabState extends State<WatchlistFab> {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: onWatchlistTap,
-      backgroundColor: Theme.of(context).primaryColorLight,
-      elevation: 10,
-      child: const Icon(Icons.bookmark_outline, color: Colors.black),
+    return TextButton(
+      onPressed: onWatchListTap,
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.black.withOpacity(0.5),
+        shape: const CircleBorder(),
+      ),
+      // TODO: loading spinner
+      child: Icon(Icons.bookmark_outline, color: Theme.of(context).primaryColorLight),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 
 class Genre {
   final int id;

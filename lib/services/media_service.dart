@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_night/models/favourites_model.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/models/saved_media_model.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/models/media_res_model.dart';
 
@@ -11,9 +11,9 @@ import '../utils/constants.dart';
 
 final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
 
-Future<List<Media>> getMediaFromFavourites(List<Favourite> favourites) async {
+Future<List<Media>> getMediaFromFavourites(List<SavedMedia> favourites) async {
   final List<Future<Media>> futuresArray = [];
-  for(final Favourite favourite in favourites) {
+  for(final SavedMedia favourite in favourites) {
     String url;
     if(favourite.mediaType == MediaType.movie) {
       url = "$apiRoot/movie/${favourite.mediaId}";

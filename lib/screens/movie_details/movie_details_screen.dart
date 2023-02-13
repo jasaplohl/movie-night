@@ -3,7 +3,7 @@ import 'package:movie_night/models/movie_details_model.dart';
 import 'package:movie_night/screens/movie_details/widgets/collection_section.dart';
 import 'package:movie_night/screens/movie_details/widgets/movie_details_header.dart';
 import 'package:movie_night/services/common_services.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/widgets/add_to_favourites_button.dart';
 import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/movie_service.dart';
@@ -51,7 +51,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ],
       ),
       floatingActionButton: movieDetails != null ? WatchlistFab(
-        id: movieDetails!.id,
+        mediaId: movieDetails!.id,
         mediaType: MediaType.movie,
       ) : null,
       body: movieDetails == null ?

@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 
-class Favourite {
+class SavedMedia {
   String? documentId;
   final int mediaId;
   final MediaType mediaType;
   final DateTime timestamp;
   final String uid;
 
-  Favourite({
+  SavedMedia({
     this.documentId,
     required this.mediaId,
     required this.mediaType,
@@ -16,12 +16,12 @@ class Favourite {
     required this.uid,
   });
 
-  factory Favourite.fromFirestore(
+  factory SavedMedia.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options
   ) {
     final data = snapshot.data();
-    return Favourite(
+    return SavedMedia(
       documentId: snapshot.id,
       mediaId: data?["mediaId"],
       mediaType: MediaType.values.byName(data?["mediaType"]),

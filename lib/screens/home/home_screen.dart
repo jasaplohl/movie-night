@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/screens/home/screens/general_screen.dart';
 import 'package:movie_night/screens/home/screens/media_screen.dart';
 import 'package:movie_night/utils/custom_search_delegate.dart';

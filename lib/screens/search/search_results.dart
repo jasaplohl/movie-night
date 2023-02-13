@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/screens/search/screens/search_results_media.dart';
 
 class SearchResults extends StatelessWidget {

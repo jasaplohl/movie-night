@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/services/watchlist_service.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/screens/movie_details/movie_details_screen.dart';
 import 'package:movie_night/screens/person_details/person_details_screen.dart';
 import 'package:movie_night/screens/tv_show_details/tv_show_details_screen.dart';
 import 'package:movie_night/services/common_services.dart';
 import 'package:movie_night/widgets/add_to_favourites_button.dart';
+import 'package:movie_night/widgets/watchlist_button.dart';
 
 class MediaCard extends StatelessWidget {
   final Media media;
@@ -20,10 +20,6 @@ class MediaCard extends StatelessWidget {
     } else {
       Navigator.push(context, MaterialPageRoute(builder: (context) => PersonDetailsScreen(personId: media.id),));
     }
-  }
-
-  void onWatchListTap(BuildContext context) {
-    addToWatchList(media.id, media.type, context);
   }
 
   @override
@@ -57,14 +53,10 @@ class MediaCard extends StatelessWidget {
                   if(media.type != MediaType.person) Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextButton(
-                        onPressed: () => onWatchListTap(context),
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.black.withOpacity(0.5),
-                          shape: const CircleBorder(),
-                        ),
-                        child: Icon(Icons.bookmark_outline, color: Theme.of(context).primaryColorLight),
-                      )
+                      WatchlistButton(
+                          mediaId: media.id,
+                          mediaType: media.type
+                      ),
                     ],
                   ),
                 ],

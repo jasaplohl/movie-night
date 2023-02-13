@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/favourites_model.dart';
+import 'package:movie_night/models/saved_media_model.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/services/media_service.dart';
@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.didChangeDependencies();
   }
 
-  void _setFavourites(List<Favourite> favourites) {
+  void _setFavourites(List<SavedMedia> favourites) {
     getMediaFromFavourites(favourites)
       .then((value) {
         setState(() {

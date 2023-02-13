@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/favourites_model.dart';
+import 'package:movie_night/models/saved_media_model.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/services/media_service.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_card.dart';
@@ -36,7 +36,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     String newTitle;
-    final List<Favourite> favourites;
+    final List<SavedMedia> favourites;
     if(mediaType == null) {
       newTitle = "Favourites";
       favourites = authProvider.favourites;

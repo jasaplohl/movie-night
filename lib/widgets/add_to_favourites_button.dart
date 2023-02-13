@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_night/models/favourites_model.dart';
+import 'package:movie_night/models/saved_media_model.dart';
 import 'package:movie_night/providers/auth_provider.dart';
-import 'package:movie_night/utils/media_type_enum.dart';
+import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/utils/show_sign_in_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
@@ -31,25 +31,17 @@ class _AddToFavouritesButtonState extends State<AddToFavouritesButton> {
     });
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     if(authProvider.user != null) {
-      await _toggleFavourite(context, authProvider);
+      try {
+        await authProvider.toggleFavourite(widget.id, widget.mediaType);
+      } catch(err) {
+        showErrorDialog(context, err.toString());
+      }
     } else {
-      _signInPrompt(context);
+      showSignInDialog(context);
     }
     setState(() {
       loading = false;
     });
-  }
-
-  Future<void> _toggleFavourite(BuildContext context, AuthProvider authProvider) async {
-    try {
-      await authProvider.toggleFavourite(widget.id, widget.mediaType);
-    } catch(err) {
-      showErrorDialog(context, err.toString());
-    }
-  }
-
-  void _signInPrompt(BuildContext context) {
-    showSignInDialog(context);
   }
 
   @override
@@ -61,26 +53,27 @@ class _AddToFavouritesButtonState extends State<AddToFavouritesButton> {
       );
     } else {
       return IconButton(
-            onPressed: () => onFavouritesTap(context),
-            icon: Consumer<AuthProvider>(
-              builder: (context, AuthProvider provider, child) {
-                if(provider.user != null) {
-                  final Favourite? fav = provider.getFavourite(widget.id, widget.mediaType);
-                  if(fav != null) {
-                    return const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    );
-                  }
-                }
-                return child!;
-              },
-              child: const Icon(
-                Icons.favorite_outline,
-                color: Colors.red,
-              ),
-            )
-        );
+        onPressed: () => onFavouritesTap(context),
+        icon: Consumer<AuthProvider>(
+          builder: (context, AuthProvider provider, child) {
+            if(provider.user != null) {
+              // TODO: Make get item an async function to not block the thread
+              final SavedMedia? fav = provider.getFavouritesItem(widget.id, widget.mediaType);
+              if(fav != null) {
+                return const Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                );
+              }
+            }
+            return child!;
+          },
+          child: const Icon(
+            Icons.favorite_outline,
+            color: Colors.red,
+          ),
+        )
+      );
     }
   }
 }
