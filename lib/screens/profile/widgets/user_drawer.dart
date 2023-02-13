@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/screens/profile/screens/favourites_screen.dart';
 import 'package:movie_night/screens/profile/screens/watch_history_screen.dart';
 import 'package:movie_night/screens/profile/screens/watch_list_screen.dart';
+import 'package:movie_night/screens/settings/settings_screen.dart';
 import 'package:movie_night/services/auth_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 
 class UserDrawer extends StatelessWidget {
-  const UserDrawer({Key? key}) : super(key: key);
+  final bool restricted;
+  const UserDrawer({Key? key, this.restricted = false}) : super(key: key);
 
   void _signOut(BuildContext context) async {
     try {
@@ -35,9 +37,9 @@ class UserDrawer extends StatelessWidget {
     return Drawer(
       child: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: restricted ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
           children: [
-            Column(
+            if(!restricted) Column(
               children: [
                 Container(
                   color: Theme.of(context).primaryColorLight,
@@ -74,13 +76,13 @@ class UserDrawer extends StatelessWidget {
                 TextButton.icon(
                   icon: const Icon(Icons.settings),
                   label: const Text("Settings"),
-                  onPressed: null,
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen(),)),
                 ),
                 TextButton(
                   onPressed: () => _licensePage(context),
                   child: const Text("Licenses"),
                 ),
-                TextButton.icon(
+                if(!restricted) TextButton.icon(
                   icon: const Icon(Icons.logout, color: Colors.red),
                   label: const Text("Sign out", style: TextStyle(color: Colors.red),),
                   onPressed: () => _signOut(context),

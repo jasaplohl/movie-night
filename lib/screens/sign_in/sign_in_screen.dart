@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/screens/profile/widgets/user_drawer.dart';
 import 'package:movie_night/utils/custom_search_delegate.dart';
 import 'package:movie_night/widgets/google_sign_in_button.dart';
 
@@ -22,6 +23,7 @@ class SignInScreen extends StatelessWidget {
           ),
         ],
       ),
+      drawer: const UserDrawer(restricted: true),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(

@@ -9,6 +9,7 @@ import 'package:movie_night/firebase_options.dart';
 import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/screens/no_internet_connection/no_internet_connection_screen.dart';
 import 'package:movie_night/screens/root_screen.dart';
+import 'package:movie_night/services/notification_service.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform
   );
   await dotenv.load(fileName: ".env");
+  NotificationService.askForPermission();
   runApp(
     ChangeNotifierProvider(
       create: (context) => AuthProvider(),
@@ -90,6 +92,7 @@ class _MyAppState extends State<MyApp> {
     subscribeToAuthStateChanges(context);
     return MaterialApp(
       title: 'MovieWatch',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
           primaryColorLight: Colors.amber,
           textTheme: const TextTheme(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/services/media_service.dart';
+import 'package:movie_night/services/notification_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/media_row.dart';
 
@@ -51,16 +52,16 @@ class _GeneralScreenState extends State<GeneralScreen> {
     return ListView(
         children: [
           MediaRow(
-              title: "Movies",
-              media: popularMovies
+            title: "Movies",
+            media: popularMovies
           ),
           MediaRow(
-              title: "TV Shows",
-              media: popularTvShows
+            title: "TV Shows",
+            media: popularTvShows
           ),
           MediaRow(
-              title: "People",
-              media: popularActors
+            title: "People",
+            media: popularActors
           ),
         ],
     );
