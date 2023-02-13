@@ -18,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   List<Media>? _favourites;
+  List<Media>? _watchlist;
 
   @override
   void initState() {
@@ -28,14 +29,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void didChangeDependencies() {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context);
     _setFavourites(authProvider.latestFavourites);
+    _setWatchlist(authProvider.latestWatchlist);
     super.didChangeDependencies();
   }
 
   void _setFavourites(List<SavedMedia> favourites) {
-    getMediaFromFavourites(favourites)
+    getMediaFromSaved(favourites)
       .then((value) {
         setState(() {
           _favourites = value;
+        });
+      })
+      .catchError((err) {
+        showErrorDialog(context, err.toString());
+      });
+  }
+
+  void _setWatchlist(List<SavedMedia> watchlist) {
+    getMediaFromSaved(watchlist)
+      .then((value) {
+        setState(() {
+          _watchlist = value;
         });
       })
       .catchError((err) {
@@ -66,6 +80,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if(_favourites != null) MediaRow(
             title: "Latest Favourites",
             media: _favourites,
+          ),
+          if(_watchlist != null) MediaRow(
+            title: "Latest items on your watchlist",
+            media: _watchlist,
           ),
         ],
       ),

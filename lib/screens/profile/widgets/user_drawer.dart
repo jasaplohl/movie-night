@@ -58,7 +58,7 @@ class UserDrawer extends StatelessWidget {
                 ),
                 TextButton.icon(
                   icon: const Icon(Icons.bookmark),
-                  label: const Text("Watch List"),
+                  label: const Text("Watchlist"),
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListScreen(),)),
                 ),
                 TextButton.icon(

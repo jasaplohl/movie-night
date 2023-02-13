@@ -22,11 +22,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
   List<Media>? media;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     setMedia();
     super.didChangeDependencies();
@@ -52,7 +47,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     }
 
     try {
-      final List<Media> res = await getMediaFromFavourites(favourites);
+      final List<Media> res = await getMediaFromSaved(favourites);
       setState(() {
         title = newTitle;
         media = res;

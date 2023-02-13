@@ -11,7 +11,7 @@ import '../utils/constants.dart';
 
 final String accessToken = dotenv.env["API_ACCESS_TOKEN"]!;
 
-Future<List<Media>> getMediaFromFavourites(List<SavedMedia> favourites) async {
+Future<List<Media>> getMediaFromSaved(List<SavedMedia> favourites) async {
   final List<Future<Media>> futuresArray = [];
   for(final SavedMedia favourite in favourites) {
     String url;
