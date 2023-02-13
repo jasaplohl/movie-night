@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_night/utils/custom_search_delegate.dart';
 import 'package:movie_night/widgets/google_sign_in_button.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -7,7 +8,20 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Your Profile",style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight))),
+      appBar: AppBar(
+        title: Text("Your Profile",style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search)
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(

@@ -3,6 +3,7 @@ import 'package:movie_night/models/saved_media_model.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/services/media_service.dart';
+import 'package:movie_night/utils/custom_search_delegate.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/media_row.dart';
 import 'package:movie_night/screens/profile/widgets/user_drawer.dart';
@@ -79,14 +80,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
           builder: (context, value, child) {
             if(value.user != null) {
               return Text(
-                  value.user!.providerData[0].displayName ?? "Your Profile",
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight)
+                value.user!.providerData[0].displayName ?? "Your Profile",
+                style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight)
               );
             }
             return child!;
           },
           child: Text("Your Profile", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight)),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search)
+          ),
+        ],
       ),
       drawer: const UserDrawer(),
       body: ListView(
