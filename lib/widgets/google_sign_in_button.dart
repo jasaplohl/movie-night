@@ -7,15 +7,15 @@ class GoogleSignInButton extends StatelessWidget {
   const GoogleSignInButton({Key? key, this.popContext = false}) : super(key: key);
 
   Future<void> signInWithGoogle(BuildContext context) async {
-    try {
-      await googleSignIn().then((_) {
-        if(popContext) {
-            Navigator.of(context).pop();
-        }
-      });
-    } catch (err) {
+    // TODO: Loading spinner
+    await googleSignIn().then((_) {
+      if(popContext) {
+          Navigator.of(context).pop();
+      }
+    })
+    .catchError((err) {
       showErrorDialog(context, err.toString());
-    }
+    });
   }
 
   @override
