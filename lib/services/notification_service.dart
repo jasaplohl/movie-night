@@ -15,7 +15,7 @@ class NotificationService {
     );
 
     tz.initializeTimeZones();
-    // tz.setLocalLocation(tz.getLocation("Europe/Belgrade"));
+    tz.setLocalLocation(tz.getLocation("Europe/Belgrade"));
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -26,12 +26,14 @@ class NotificationService {
   }
 
   Future<void> askForPermission() async {
-    await Permission.notification.request();
+    // await Permission.notification.request();
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestPermission();
   }
 
   Future<void> _scheduleNotification() async {
     AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails(
-      '1',
+      '2',
       'movie-night',
       channelDescription: "This is the channel, responsible for local notifications",
       importance: Importance.high,
@@ -51,9 +53,9 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       UniqueKey().hashCode,
-      'MovieNight',
-      'You have movies in your watchlist. You better get started.',
-      tz.TZDateTime.from(DateTime(2023, 2, 16, 9, 00), tz.local),
+      'Movie night',
+      'Browse your favourite movies and TV shows and find something to watch tonight.',
+      tz.TZDateTime.from(DateTime(2023, 2, 16, 20, 00), tz.getLocation("Europe/Belgrade")),
       notificationDetails,
       payload: 'Redirect to watchlist',
       androidAllowWhileIdle: true,
