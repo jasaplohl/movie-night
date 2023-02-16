@@ -1,49 +1,70 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class NotificationService {
 
-  static Future<void> askForPermission() async {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  Future<void> init() async {
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/launcher_icon');
+    const InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
+
+    tz.initializeTimeZones();
+    // tz.setLocalLocation(tz.getLocation("Europe/Belgrade"));
+
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: _onDidReceiveNotificationResponse,
+    );
+
+    await _scheduleNotification();
+  }
+
+  Future<void> askForPermission() async {
     await Permission.notification.request();
   }
 
-  static Future<void> sendNotification() async {
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/launcher_icon');
-    const InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid,);
-    await flutterLocalNotificationsPlugin.initialize(
-        initializationSettings,
-        onDidReceiveNotificationResponse: _onDidReceiveNotificationResponse
-    );
-
-    const AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
-      'notification',
-      'Notification',
-      channelDescription: 'The notification channel.',
-      importance: Importance.defaultImportance,
-      priority: Priority.defaultPriority,
-      ticker: 'Some ticker text.',
+  Future<void> _scheduleNotification() async {
+    AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails(
+      '1',
+      'movie-night',
+      channelDescription: "This is the channel, responsible for local notifications",
+      importance: Importance.high,
+      priority: Priority.high,
+      color: Colors.amber,
+      colorized: true,
+      playSound: true,
+      groupKey: "1",
+      subText: "Browse your favourite movies.",
       actions: [
-        AndroidNotificationAction("1", "Click")
+        AndroidNotificationAction("favourites", "Favourites"),
+        AndroidNotificationAction("watchlist", "Watchlist"),
+        AndroidNotificationAction("history", "History"),
       ]
     );
-    const NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
-    await flutterLocalNotificationsPlugin.show(
-        UniqueKey().hashCode,
-        'Watchlist',
-        'You have items in your watchlist bro.',
-        notificationDetails,
-        payload: 'Redirect to watchlist'
+    NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      UniqueKey().hashCode,
+      'MovieNight',
+      'You have movies in your watchlist. You better get started.',
+      tz.TZDateTime.from(DateTime(2023, 2, 16, 9, 00), tz.local),
+      notificationDetails,
+      payload: 'Redirect to watchlist',
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time
     );
-    print("Notifications done ...");
   }
 
   static Future<void> _onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async {
-    final String? payload = notificationResponse.payload;
-    if (notificationResponse.payload != null) {
-      print('notification payload: $payload');
-    }
+    // final String? payload = notificationResponse.payload;
+    // await navigatorKey.currentState?.push(MaterialPageRoute(builder: (_) => DetailsPage(payload: payload)));
     // await Navigator.push(
     //   context,
     //   MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),

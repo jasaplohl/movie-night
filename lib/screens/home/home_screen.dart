@@ -29,9 +29,9 @@ class HomeScreen extends StatelessWidget {
 
             indicatorColor: Theme.of(context).primaryColorLight,
             tabs: const [
-              Tab(icon: Icon(Icons.home),),
-              Tab(icon: Icon(Icons.movie),),
-              Tab(icon: Icon(Icons.tv),),
+              Tab(icon: Icon(Icons.home), text: "Home"),
+              Tab(icon: Icon(Icons.movie), text: "Movies"),
+              Tab(icon: Icon(Icons.tv), text: "TV Shows"),
             ]
           ),
         ),

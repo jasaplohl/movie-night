@@ -15,11 +15,17 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // FireBase
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
   );
+  // Environment variables
   await dotenv.load(fileName: ".env");
-  NotificationService.askForPermission();
+  // Notifications
+  NotificationService notificationService = NotificationService();
+  notificationService.init();
+  notificationService.askForPermission();
+  // Run app
   runApp(
     ChangeNotifierProvider(
       create: (context) => AuthProvider(),
@@ -92,7 +98,6 @@ class _MyAppState extends State<MyApp> {
     subscribeToAuthStateChanges(context);
     return MaterialApp(
       title: 'MovieWatch',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
           primaryColorLight: Colors.amber,
           textTheme: const TextTheme(
