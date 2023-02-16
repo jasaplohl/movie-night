@@ -9,15 +9,23 @@ import 'package:movie_night/firebase_options.dart';
 import 'package:movie_night/providers/auth_provider.dart';
 import 'package:movie_night/screens/no_internet_connection/no_internet_connection_screen.dart';
 import 'package:movie_night/screens/root_screen.dart';
+import 'package:movie_night/services/notification_service.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // FireBase
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform
   );
+  // Environment variables
   await dotenv.load(fileName: ".env");
+  // Notifications
+  NotificationService notificationService = NotificationService();
+  notificationService.init();
+  notificationService.askForPermission();
+  // Run app
   runApp(
     ChangeNotifierProvider(
       create: (context) => AuthProvider(),

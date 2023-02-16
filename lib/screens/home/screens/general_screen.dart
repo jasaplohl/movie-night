@@ -51,16 +51,16 @@ class _GeneralScreenState extends State<GeneralScreen> {
     return ListView(
         children: [
           MediaRow(
-              title: "Movies",
-              media: popularMovies
+            title: "Movies",
+            media: popularMovies
           ),
           MediaRow(
-              title: "TV Shows",
-              media: popularTvShows
+            title: "TV Shows",
+            media: popularTvShows
           ),
           MediaRow(
-              title: "People",
-              media: popularActors
+            title: "People",
+            media: popularActors
           ),
         ],
     );

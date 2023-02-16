@@ -6,8 +6,9 @@ history.
 
 ## TODO
 - Saved items pagination
+- Add toasts
 - Sort saved items by timestamp asc and desc (save the title as well and sort by title?)
-- Local push notifications (ability to disable them in the settings)
+- Scheduled push notifications (https://pub.dev/packages/flutter_local_notifications#-android-setup)
 - Also show Popular, trending and top rated in the genres
 - Search:
   - Suggestions with debouncing.
