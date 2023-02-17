@@ -51,7 +51,7 @@ class NotificationService {
       UniqueKey().hashCode,
       'Movie night',
       'Browse your favourite movies and TV shows and find something to watch tonight.',
-      tz.TZDateTime.from(DateTime(2023, 2, 17, 09, 00), tz.getLocation("Europe/Belgrade")),
+      tz.TZDateTime.from(DateTime(2023, 2, 17, 20, 00), tz.getLocation("Europe/Belgrade")),
       _notificationDetails,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,

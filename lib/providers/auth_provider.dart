@@ -167,9 +167,11 @@ class AuthProvider extends ChangeNotifier {
     if(favourite != null) {
       await removeFromSaved(favourite.documentId!, Collection.favourites);
       _favourites.removeWhere((e) => e.mediaId == mediaId && e.mediaType == mediaType);
+      // TODO: Removed Snackbar
     } else {
       final SavedMedia res = await addToSaved(_user!.uid, Collection.favourites, mediaId, mediaType);
       _favourites.add(res);
+      // TODO: Snackbar
     }
     notifyListeners();
   }
@@ -179,9 +181,11 @@ class AuthProvider extends ChangeNotifier {
     if(watchlistItem != null) {
       await removeFromSaved(watchlistItem.documentId!, Collection.watchlist);
       _watchlist.removeWhere((e) => e.mediaId == mediaId && e.mediaType == mediaType);
+      // TODO: Removed Snackbar
     } else {
       final SavedMedia res = await addToSaved(_user!.uid, Collection.watchlist, mediaId, mediaType);
       _watchlist.add(res);
+      // TODO: Snackbar
     }
     notifyListeners();
   }
@@ -191,9 +195,11 @@ class AuthProvider extends ChangeNotifier {
     if(historyItem != null) {
       await removeFromSaved(historyItem.documentId!, Collection.history);
       _history.removeWhere((e) => e.mediaId == mediaId && e.mediaType == mediaType);
+      // TODO: Removed Snackbar
     } else {
       final SavedMedia res = await addToSaved(_user!.uid, Collection.history, mediaId, mediaType);
       _history.add(res);
+      // TODO: Snackbar
     }
     notifyListeners();
   }
