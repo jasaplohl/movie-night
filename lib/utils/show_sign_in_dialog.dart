@@ -13,11 +13,11 @@ Future<void> showSignInDialog(BuildContext context) async {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              Icon(Icons.login_outlined),
-              SizedBox(height: 10,),
-              Text("Please sign in"),
-              SizedBox(height: 10,),
+            children: [
+              const Icon(Icons.login_outlined),
+              const SizedBox(height: 10,),
+              const Text("Please sign in"),
+              const SizedBox(height: 10,),
               GoogleSignInButton(popContext: true),
             ],
           ),

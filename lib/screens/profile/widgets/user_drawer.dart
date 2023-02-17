@@ -37,9 +37,9 @@ class UserDrawer extends StatelessWidget {
     return Drawer(
       child: SafeArea(
         child: Column(
-          mainAxisAlignment: restricted ? MainAxisAlignment.end : MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            if(!restricted) Column(
+            Column(
               children: [
                 Container(
                   color: Theme.of(context).primaryColorLight,
@@ -53,20 +53,24 @@ class UserDrawer extends StatelessWidget {
                     ),
                   ),
                 ),
-                TextButton.icon(
-                  icon: const Icon(Icons.favorite),
-                  label: const Text("Favourites"),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(),)),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.bookmark),
-                  label: const Text("Watchlist"),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListScreen(),)),
-                ),
-                TextButton.icon(
-                  icon: const Icon(Icons.history),
-                  label: const Text("Watch History"),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchHistoryScreen(),)),
+                if(!restricted) Column(
+                  children: [
+                    TextButton.icon(
+                      icon: const Icon(Icons.favorite),
+                      label: const Text("Favourites"),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavouritesScreen(),)),
+                    ),
+                    TextButton.icon(
+                      icon: const Icon(Icons.bookmark),
+                      label: const Text("Watchlist"),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchListScreen(),)),
+                    ),
+                    TextButton.icon(
+                      icon: const Icon(Icons.history),
+                      label: const Text("Watch History"),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WatchHistoryScreen(),)),
+                    ),
+                  ],
                 ),
               ],
             ),

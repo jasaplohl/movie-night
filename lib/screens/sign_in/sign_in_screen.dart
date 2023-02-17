@@ -36,7 +36,7 @@ class SignInScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 15),
-            const GoogleSignInButton(),
+            GoogleSignInButton(),
           ],
         ),
       ),
