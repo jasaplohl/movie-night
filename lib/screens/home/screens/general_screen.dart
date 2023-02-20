@@ -43,6 +43,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
   Widget build(BuildContext context) {
     return ListView(
         children: [
+          // TODO: Show watchlist
           Text("Movies", style: Theme.of(context).textTheme.headlineSmall),
           // TODO: Create a mediaWrap widget
           popularMovies == null ? const LoadingSpinner() : Wrap(
