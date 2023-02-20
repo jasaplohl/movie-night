@@ -5,7 +5,6 @@ import 'package:movie_night/services/media_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/media_card.dart';
-import 'package:provider/provider.dart';
 
 class GeneralScreen extends StatefulWidget {
   const GeneralScreen({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
   void initState() {
     getPopular(mediaType: MediaType.movie).then((List<Media> value) {
       setState(() {
-        popularMovies = value;
+        popularMovies = value.length > 10 ? value.sublist(0, 10) : value;
       });
     }).catchError((err) {
       showErrorDialog(context, err.toString());
@@ -31,7 +30,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
 
     getPopular(mediaType: MediaType.tv).then((List<Media> value) {
       setState(() {
-        popularTvShows = value;
+        popularTvShows = value.length > 10 ? value.sublist(0, 10) : value;
       });
     }).catchError((err) {
       showErrorDialog(context, err.toString());
@@ -44,7 +43,11 @@ class _GeneralScreenState extends State<GeneralScreen> {
     return ListView(
         children: [
           // TODO: Show watchlist
-          Text("Movies", style: Theme.of(context).textTheme.headlineSmall),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            color: Theme.of(context).primaryColorLight,
+            child: Text("Movies", style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: Colors.black)),
+          ),
           // TODO: Create a mediaWrap widget
           popularMovies == null ? const LoadingSpinner() : Wrap(
             direction: Axis.horizontal,
@@ -52,7 +55,11 @@ class _GeneralScreenState extends State<GeneralScreen> {
               for(final Media media in popularMovies!) MediaCard(key: UniqueKey(), media: media,)
             ],
           ),
-          Text("TV Shows", style: Theme.of(context).textTheme.headlineSmall),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            color: Theme.of(context).primaryColorLight,
+            child: Text("TV Shows", style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: Colors.black)),
+          ),
           // TODO: Create a mediaWrap widget
           popularTvShows == null ? const LoadingSpinner() : Wrap(
             direction: Axis.horizontal,
