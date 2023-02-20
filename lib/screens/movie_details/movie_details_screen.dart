@@ -75,7 +75,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           ),
           GenreRow(genres: movieDetails!.genres),
           if(movieDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(movieDetails!.videos)),
-          if(movieDetails!.backdropImages != null && movieDetails!.backdropImages!.isNotEmpty) ...[
+          if(movieDetails!.backdropImages != null && movieDetails!.backdropImages!.length > 1) ...[
             Container(
               margin: const EdgeInsets.symmetric(vertical: 15),
               child: ImageCarousel(images: movieDetails!.backdropImages!),

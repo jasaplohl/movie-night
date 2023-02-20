@@ -12,6 +12,7 @@ import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/services/tv_show_service.dart';
 import 'package:movie_night/widgets/genre_row.dart';
+import 'package:movie_night/widgets/image_carousel.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/recommendations_section.dart';
 import 'package:movie_night/widgets/trailer.dart';
@@ -77,10 +78,19 @@ class _TvShowDetailsScreenState extends State<TvShowDetailsScreen> {
           ),
           GenreRow(genres: tvShowDetails!.genres),
           if(tvShowDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(tvShowDetails!.videos)),
-          if(tvShowDetails!.backdropPath != null) Container(
-            margin: const EdgeInsets.symmetric(vertical: 15),
-            child: Image.network(getBackdropUrl(tvShowDetails!.backdropPath!)),
-          ),
+
+          if(tvShowDetails!.backdropImages != null && tvShowDetails!.backdropImages!.length > 1) ...[
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              child: ImageCarousel(images: tvShowDetails!.backdropImages!),
+            ),
+          ]
+          else if (tvShowDetails!.backdropPath != null) ...[
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              child: Image.network(getBackdropUrl(tvShowDetails!.backdropPath!)),
+            ),
+          ],
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(

@@ -32,7 +32,7 @@ class TvShowDetails {
   final num voteAverage;
   final int voteCount;
   final List<Video> videos;
-  final List<String> backdropImages;
+  final List<String>? backdropImages;
   final List<Credit> cast;
   final List<Credit> crew;
   final List<Media> recommendations;
