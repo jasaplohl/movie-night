@@ -32,7 +32,7 @@ class _AddToHistoryButtonState extends State<AddToHistoryButton> {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     if(authProvider.user != null) {
       try {
-        await authProvider.toggleHistory(widget.id, widget.mediaType);
+        await authProvider.toggleHistory(widget.id, widget.mediaType, context);
       } catch(err) {
         showErrorDialog(context, err.toString());
       }

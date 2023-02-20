@@ -6,6 +6,7 @@ import 'package:movie_night/models/saved_media_model.dart';
 import 'package:movie_night/services/saved_media_service.dart';
 import 'package:movie_night/utils/constants.dart';
 import 'package:movie_night/enums/media_type_enum.dart';
+import 'package:movie_night/utils/snackbar_service.dart';
 
 class AuthProvider extends ChangeNotifier {
   User? _user;
@@ -162,44 +163,44 @@ class AuthProvider extends ChangeNotifier {
         .toList();
   }
 
-  Future<void> toggleFavourite(int mediaId, MediaType mediaType) async {
+  Future<void> toggleFavourite(int mediaId, MediaType mediaType, BuildContext context) async {
     final SavedMedia? favourite = getFavouritesItem(mediaId, mediaType);
     if(favourite != null) {
+      showSnackbar(context, Collection.favourites, false);
       await removeFromSaved(favourite.documentId!, Collection.favourites);
       _favourites.removeWhere((e) => e.mediaId == mediaId && e.mediaType == mediaType);
-      // TODO: Removed Snackbar
     } else {
+      showSnackbar(context, Collection.favourites, true);
       final SavedMedia res = await addToSaved(_user!.uid, Collection.favourites, mediaId, mediaType);
       _favourites.add(res);
-      // TODO: Snackbar
     }
     notifyListeners();
   }
 
-  Future<void> toggleWatchlist(int mediaId, MediaType mediaType) async {
+  Future<void> toggleWatchlist(int mediaId, MediaType mediaType, BuildContext context) async {
     final SavedMedia? watchlistItem = getWatchlistItem(mediaId, mediaType);
     if(watchlistItem != null) {
+      showSnackbar(context, Collection.watchlist, false);
       await removeFromSaved(watchlistItem.documentId!, Collection.watchlist);
       _watchlist.removeWhere((e) => e.mediaId == mediaId && e.mediaType == mediaType);
-      // TODO: Removed Snackbar
     } else {
+      showSnackbar(context, Collection.watchlist, true);
       final SavedMedia res = await addToSaved(_user!.uid, Collection.watchlist, mediaId, mediaType);
       _watchlist.add(res);
-      // TODO: Snackbar
     }
     notifyListeners();
   }
 
-  Future<void> toggleHistory(int mediaId, MediaType mediaType) async {
+  Future<void> toggleHistory(int mediaId, MediaType mediaType, BuildContext context) async {
     final SavedMedia? historyItem = getHistoryItem(mediaId, mediaType);
     if(historyItem != null) {
+      showSnackbar(context, Collection.history, false);
       await removeFromSaved(historyItem.documentId!, Collection.history);
       _history.removeWhere((e) => e.mediaId == mediaId && e.mediaType == mediaType);
-      // TODO: Removed Snackbar
     } else {
+      showSnackbar(context, Collection.history, true);
       final SavedMedia res = await addToSaved(_user!.uid, Collection.history, mediaId, mediaType);
       _history.add(res);
-      // TODO: Snackbar
     }
     notifyListeners();
   }

@@ -7,7 +7,6 @@ history.
 ## TODO
 - Saved items pagination (infinite scroll)
 - Infinite scroll on search and genre page?
-- Add toasts (or snackbar)
 - New font
 - Sort saved items by timestamp asc and desc
 - Also show popular and top rated movies and TV Shows

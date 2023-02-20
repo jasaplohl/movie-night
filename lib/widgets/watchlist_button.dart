@@ -32,7 +32,7 @@ class _WatchlistButtonState extends State<WatchlistButton> {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     if(authProvider.user != null) {
       try {
-        await authProvider.toggleWatchlist(widget.mediaId, widget.mediaType);
+        await authProvider.toggleWatchlist(widget.mediaId, widget.mediaType, context);
       } catch(err) {
         showErrorDialog(context, err.toString());
       }

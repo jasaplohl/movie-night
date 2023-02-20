@@ -32,7 +32,7 @@ class _AddToFavouritesButtonState extends State<AddToFavouritesButton> {
     final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     if(authProvider.user != null) {
       try {
-        await authProvider.toggleFavourite(widget.id, widget.mediaType);
+        await authProvider.toggleFavourite(widget.id, widget.mediaType, context);
       } catch(err) {
         showErrorDialog(context, err.toString());
       }
