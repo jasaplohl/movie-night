@@ -10,6 +10,7 @@ import 'package:movie_night/widgets/credits_section.dart';
 import 'package:movie_night/services/movie_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
 import 'package:movie_night/widgets/genre_row.dart';
+import 'package:movie_night/widgets/image_carousel.dart';
 import 'package:movie_night/widgets/loading_spinner.dart';
 import 'package:movie_night/widgets/recommendations_section.dart';
 import 'package:movie_night/widgets/trailer.dart';
@@ -74,10 +75,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           ),
           GenreRow(genres: movieDetails!.genres),
           if(movieDetails!.videos.isNotEmpty) Trailer(youtubeKey: getTrailerUrl(movieDetails!.videos)),
-          if(movieDetails!.backdropPath != null) Container(
-            margin: const EdgeInsets.symmetric(vertical: 15),
-            child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
-          ),
+          if(movieDetails!.backdropImages != null && movieDetails!.backdropImages!.isNotEmpty) ...[
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              child: ImageCarousel(images: movieDetails!.backdropImages!),
+            ),
+          ]
+          else if (movieDetails!.backdropPath != null) ...[
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 15),
+              child: Image.network(getBackdropUrl(movieDetails!.backdropPath!)),
+            ),
+          ],
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(

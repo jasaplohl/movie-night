@@ -30,6 +30,7 @@ class MovieDetails {
   final num voteAverage;
   final int voteCount;
   final List<Video> videos;
+  final List<String>? backdropImages;
   final List<Credit> cast;
   final List<Credit> crew;
   final List<Media> recommendations;
@@ -60,6 +61,7 @@ class MovieDetails {
     required this.voteAverage,
     required this.voteCount,
     required this.videos,
+    required this.backdropImages,
     required this.cast,
     required this.crew,
     required this.recommendations,
@@ -92,6 +94,7 @@ class MovieDetails {
       voteAverage: json["vote_average"],
       voteCount: json["vote_count"],
       videos: (json["videos"]["results"] as List<dynamic>).map((dynamic e) => Video.fromJson(e),).toList(),
+      backdropImages: (json["images"]["backdrops"] as List<dynamic>).map((dynamic e) => e["file_path"].toString(),).toList(),
       cast: (json["credits"]["cast"] as List<dynamic>).map((dynamic e) => Credit.fromPersonJson(e),).toList(),
       crew: (json["credits"]["crew"] as List<dynamic>).map((dynamic e) => Credit.fromPersonJson(e),).toList(),
       recommendations: (json["recommendations"]["results"] as List<dynamic>).map((dynamic e) => Media.fromMovieJson(e),).toList(),
