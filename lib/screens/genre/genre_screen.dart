@@ -118,6 +118,7 @@ class _GenreScreenState extends State<GenreScreen> {
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: Text("Page $currentPage of $totalPages ($totalResults results).", textAlign: TextAlign.center),
             ),
+            // TODO: Create a mediaWrap widget
             Wrap(
               direction: Axis.horizontal,
               children: [

@@ -3,7 +3,9 @@ import 'package:movie_night/enums/media_type_enum.dart';
 import 'package:movie_night/models/media_model.dart';
 import 'package:movie_night/services/media_service.dart';
 import 'package:movie_night/utils/show_error_dialog.dart';
-import 'package:movie_night/widgets/media_row.dart';
+import 'package:movie_night/widgets/loading_spinner.dart';
+import 'package:movie_night/widgets/media_card.dart';
+import 'package:provider/provider.dart';
 
 class GeneralScreen extends StatefulWidget {
   const GeneralScreen({Key? key}) : super(key: key);
@@ -16,7 +18,6 @@ class _GeneralScreenState extends State<GeneralScreen> {
 
   List<Media>? popularMovies;
   List<Media>? popularTvShows;
-  List<Media>? popularActors;
 
   @override
   void initState() {
@@ -35,14 +36,6 @@ class _GeneralScreenState extends State<GeneralScreen> {
     }).catchError((err) {
       showErrorDialog(context, err.toString());
     });
-
-    getPopular(mediaType: MediaType.person).then((List<Media> value) {
-      setState(() {
-        popularActors = value;
-      });
-    }).catchError((err) {
-      showErrorDialog(context, err.toString());
-    });
     super.initState();
   }
 
@@ -50,18 +43,22 @@ class _GeneralScreenState extends State<GeneralScreen> {
   Widget build(BuildContext context) {
     return ListView(
         children: [
-          MediaRow(
-            title: "Movies",
-            media: popularMovies
+          Text("Movies", style: Theme.of(context).textTheme.headlineSmall),
+          // TODO: Create a mediaWrap widget
+          popularMovies == null ? const LoadingSpinner() : Wrap(
+            direction: Axis.horizontal,
+            children: [
+              for(final Media media in popularMovies!) MediaCard(key: UniqueKey(), media: media,)
+            ],
           ),
-          MediaRow(
-            title: "TV Shows",
-            media: popularTvShows
-          ),
-          MediaRow(
-            title: "People",
-            media: popularActors
-          ),
+          Text("TV Shows", style: Theme.of(context).textTheme.headlineSmall),
+          // TODO: Create a mediaWrap widget
+          popularTvShows == null ? const LoadingSpinner() : Wrap(
+            direction: Axis.horizontal,
+            children: [
+              for(final Media media in popularTvShows!) MediaCard(key: UniqueKey(), media: media,)
+            ],
+          )
         ],
     );
   }

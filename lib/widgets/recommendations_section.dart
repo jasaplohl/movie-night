@@ -13,6 +13,7 @@ class RecommendationsSection extends StatelessWidget {
       children: [
         const DividerMargin(),
         Text("Recommended", style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).primaryColorLight)),
+        // TODO: Create a mediaWrap widget
         Wrap(
           direction: Axis.horizontal,
           children: [
